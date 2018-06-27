@@ -32,6 +32,10 @@ public class MemberController {
 	public void setService(Service service) {
 		this.service= service;
 	}
+	@RequestMapping(value="verifyForm.do")
+	public String verifyForm() {
+		return "member/verify";
+	}	
 	@RequestMapping(value="home.do")
 	public String home() {
 		return "template/home";
@@ -119,27 +123,30 @@ public class MemberController {
 		return mav;
 	}
 	@RequestMapping(value="emailauth.do")
-	public String emailAuth(Member m) throws MessagingException, UnsupportedEncodingException{
+	public String emailAuth(HttpServletRequest req, Member m) throws MessagingException, UnsupportedEncodingException{
+		HttpSession session = req.getSession(false);
+		int id =  (int)session.getAttribute("id");
 		MailHandler sendMail = new MailHandler(mailSender);
 		Random ran = new Random();
 		int ran2 = 0;
 		while (ran2<=100000) {
 			ran2 =ran.nextInt(1000000);
 		}
-		sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verify.do?user_email="+m.getEmail())
+		sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verifyForm.do")
 						.append("'target='_blenk'>이메일 인증 확인</a>").append(ran2).toString());
 		sendMail.setFrom("gusdn4973@gmail.com", "jixx");
 		sendMail.setTo(m.getEmail());
 		sendMail.send();
-		return "member/login";
+		service.setTempkey(ran2, id);
+		return "member/verify";
 	}
-	@RequestMapping(value="verify.do", method=RequestMethod.GET)
-	public String verify(@RequestParam String user_email) {
+	@RequestMapping(value="verify.do")
+	public String verify(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		String  email = (String) session.getAttribute("email");
 		Member m = new Member();
-		m.setEmail(user_email);
+		m.setEmail(email);
 		service.verifyMember(m);
-		return "member/login";
+		return "workspace/createworkspace2";
 	}
-	
-
 }

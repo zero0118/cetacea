@@ -1,5 +1,7 @@
 package com.kitri.project.member;
 
+import java.util.Map;
+
 import vo.Member;
 
 public interface Mapper {
@@ -11,9 +13,11 @@ public interface Mapper {
 
 	void delete(int id);
 
-	Member selectemail(String email);
+	Member selecteMail(String email);
 	
-	void verify(Member m);	
+	void verify(Member m);
+
+	void setTempkey(Map map);	
 
 
 }

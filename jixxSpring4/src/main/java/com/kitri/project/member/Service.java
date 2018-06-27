@@ -14,7 +14,8 @@ public interface Service {
 	void delMember(int id);	
 	
 	void verifyMember(Member m);
-	
+
+	void setTempkey(int ran2, int id);	
 	
 
 }

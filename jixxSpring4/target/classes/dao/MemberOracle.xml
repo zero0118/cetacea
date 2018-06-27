@@ -9,7 +9,7 @@
 		<result property="email" column="user_email" />
 		<result property="pwd" column="user_pass" />
 		<result property="name" column="user_name" />
-		<result property="authkey" column="user_authkey" />
+		<result property="tempkey" column="user_tempkey" />
 		<result property="auth" column="user_auth" />
 	</resultMap>
 
@@ -18,7 +18,7 @@
 		SELECT * FROM member where id=#{id}
 	</select>
 
-	<select id="selectemail" resultMap="MemberResultMap"
+	<select id="selecteMail" resultMap="MemberResultMap"
 		parameterType="String">
 		SELECT * FROM member where user_email=#{email}
 	</select>
@@ -26,7 +26,7 @@
 	<insert id="insert" parameterType="vo.Member">
 		insert into member
 		values((select max(user_id)+1 from
-		member),#{email},#{pwd},#{name},default)
+		member),#{email},#{pwd},#{name},'',default)
 	</insert>
 
 	<update id="update" parameterType="vo.Member">
@@ -40,12 +40,11 @@
 		delete member where
 		id=#{id}
 	</delete>
-
-<!-- 	<insert id="createAuthKey" parameterType="vo.Member">
-		update member set user_authkey=#{authkey} where user_email=#{email}
-	</insert> -->
-
 	<update id="verify" parameterType="vo.Member">
 		update member set user_auth = 1 where user_email = #{email}
 	</update>
+	<update id="setTempkey" parameterType="hashmap">
+		update member set user_tempkey=#{tempkey}  where user_id = #{id}
+	</update>
+	
 </mapper>
