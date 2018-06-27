@@ -9,6 +9,7 @@
 		<result property="email" column="user_email" />
 		<result property="pwd" column="user_pass" />
 		<result property="name" column="user_name" />
+		<result property="authkey" column="user_authkey" />
 		<result property="auth" column="user_auth" />
 	</resultMap>
 
@@ -23,7 +24,8 @@
 	</select>
 
 	<insert id="insert" parameterType="vo.Member">
-		insert into member values((select max(user_id)+1 from
+		insert into member
+		values((select max(user_id)+1 from
 		member),#{email},#{pwd},#{name},default)
 	</insert>
 
@@ -39,7 +41,11 @@
 		id=#{id}
 	</delete>
 
-	<update id="userAuth" parameterType="vo.Member">
-	update member set user_auth = 1 where user_email = #{email}
+<!-- 	<insert id="createAuthKey" parameterType="vo.Member">
+		update member set user_authkey=#{authkey} where user_email=#{email}
+	</insert> -->
+
+	<update id="verify" parameterType="vo.Member">
+		update member set user_auth = 1 where user_email = #{email}
 	</update>
 </mapper>

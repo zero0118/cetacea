@@ -13,8 +13,7 @@ public interface Mapper {
 
 	Member selectemail(String email);
 	
-	void userAuth(String email);
-	
+	void verify(Member m);	
 
 
 }
