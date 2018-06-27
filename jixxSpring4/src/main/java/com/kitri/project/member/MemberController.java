@@ -1,6 +1,7 @@
 package com.kitri.project.member;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Random;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.project.repository.MailHandler;
+import com.kitri.project.repository.TempKey;
 
 import vo.Member;
 
@@ -119,9 +121,13 @@ public class MemberController {
 	@RequestMapping(value="emailauth.do")
 	public String emailAuth(Member m) throws MessagingException, UnsupportedEncodingException{
 		MailHandler sendMail = new MailHandler(mailSender);
-		sendMail.setSubject("[이메일인증]");
+		Random ran = new Random();
+		int ran2 = 0;
+		while (ran2<=100000) {
+			ran2 =ran.nextInt(1000000);
+		}
 		sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verify.do?user_email="+m.getEmail())
-				.append("'target='_blenk'>이메일 인증 확인</a>").toString());
+						.append("'target='_blenk'>이메일 인증 확인</a>").append(ran2).toString());
 		sendMail.setFrom("gusdn4973@gmail.com", "jixx");
 		sendMail.setTo(m.getEmail());
 		sendMail.send();
