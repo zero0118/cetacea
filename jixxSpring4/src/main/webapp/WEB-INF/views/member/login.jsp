@@ -72,7 +72,7 @@
         </div>
       </form>
       <a href="#">I forgot my password</a><p>&nbsp;&nbsp;</p>
-      <a href="register.html" class="text-center">Register a new membership</a>
+      <a href="signup.do" class="text-center">Register a new membership</a>
 
     </div>
     <!-- /.login-box-body -->

@@ -61,7 +61,8 @@ public class MemberController {
 			return "member/login";
 		} else {
 			HttpSession session = req.getSession();
-			session.setAttribute("id", m.getId());		
+			session.setAttribute("id", m.getId());	
+			session.setAttribute("email", m.getEmail());
 			return "template/index";
 		}
 	}
@@ -94,6 +95,16 @@ public class MemberController {
 		session.removeAttribute("id");
 		session.invalidate();
 		return "member/login";
+	}
+	
+	@RequestMapping(value="crw1.do")
+	public ModelAndView crw1(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView("workspace/createworkspace1");
+		HttpSession session = req.getSession(false);
+		String  email = (String) session.getAttribute("email");
+		Member m = service.getMemberEmail(email);
+		mav.addObject("m", m);
+		return mav;
 	}
 	
 

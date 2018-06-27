@@ -17,8 +17,8 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl" />
-		<property name="username" value="zero" />
-		<property name="password" value="zero" />
+		<property name="username" value="kitri" />
+		<property name="password" value="kitri" />
 	</bean>
 
 	<!-- 트랜잭션 -->

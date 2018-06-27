@@ -3,7 +3,7 @@
 	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.kitri.jixx.member.Mapper">
+<mapper namespace="com.kitri.project.member.Mapper">
 	<resultMap type="vo.Member" id="MemberResultMap">
 		<result property="id" column="user_id" />
 		<result property="email" column="user_email" />
@@ -12,7 +12,7 @@
 	</resultMap>
 
 	<select id="select" resultMap="MemberResultMap"
-		parameterType="String">
+		parameterType="int">
 		SELECT * FROM member where id=#{id}
 	</select>
 	
@@ -37,5 +37,4 @@
 		delete member where
 		id=#{id}
 	</delete>
-
 </mapper>

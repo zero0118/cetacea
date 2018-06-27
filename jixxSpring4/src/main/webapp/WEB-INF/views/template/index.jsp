@@ -100,7 +100,7 @@
 							<li>
 								<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle" data-toggle="dropdown"
 								aria-expanded="true"> <!-- The user image in the navbar--> <!-- hidden-xs hides the username on small devices so only the image appears. -->
-									<span class="hidden-xs">Create Workspace</span>
+									<span class="hidden-xs"><a href="crw1.do">Create Workspace</a></span>
 							</a>
 
 							</li>

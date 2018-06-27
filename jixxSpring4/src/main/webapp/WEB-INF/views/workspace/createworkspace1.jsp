@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
   <meta charset="utf-8">
@@ -160,7 +161,9 @@
                 <form action="" method="post" class="form-horizontal">
                   <div class="row form-group">
                     <div class="col-6">
-                      <input type="text" name="address" placeholder="" class="form-control">
+                    <c:set var="m" value="${m}"/>
+                      <input type="text" name="address" placeholder="" class="form-control"
+                      value="${m.email}">
                     </div>
                   </div>
                 </form>
