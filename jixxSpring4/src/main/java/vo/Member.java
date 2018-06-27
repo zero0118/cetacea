@@ -5,15 +5,18 @@ public class Member {
 	private String email;
 	private String pwd;
 	private String name;
-	
-	public Member() {}
+	private int auth;
 
-	public Member(int id, String email, String pwd, String name) {
+	public Member() {
+	}
+
+	public Member(int id, String email, String pwd, String name, int auth) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.pwd = pwd;
 		this.name = name;
+		this.auth = auth;
 	}
 
 	public int getId() {
@@ -48,11 +51,17 @@ public class Member {
 		this.name = name;
 	}
 
+	public int getAuth() {
+		return auth;
+	}
+
+	public void setAuth(int auth) {
+		this.auth = auth;
+	}
+
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", email=" + email + ", pwd=" + pwd + ", name=" + name + "]";
+		return "Member [id=" + id + ", email=" + email + ", pwd=" + pwd + ", name=" + name + ", auth=" + auth + "]";
 	}
-	
-	
 
 }

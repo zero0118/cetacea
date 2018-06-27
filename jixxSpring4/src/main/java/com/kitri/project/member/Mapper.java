@@ -12,5 +12,9 @@ public interface Mapper {
 	void delete(int id);
 
 	Member selectemail(String email);
+	
+	void userAuth(String email);
+	
+
 
 }

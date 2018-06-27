@@ -95,7 +95,8 @@ CREATE TABLE MEMBER (
 	user_id NUMBER(8) NOT NULL, /* 회원고유Key */
 	user_email VARCHAR2(25) NOT NULL, /* 회원아이디(이메일) */
 	user_pass VARCHAR2(15) NOT NULL, /* 회원비밀번호 */
-	user_name VARCHAR2(15) NOT NULL /* 회원이름 */
+	user_name VARCHAR2(15) NOT NULL, /* 회원이름 */
+    user_auth NUMBER(1)  DEFAULT 0 NOT NULL
 );
 
 COMMENT ON TABLE MEMBER IS '회원';
@@ -263,3 +264,6 @@ ALTER TABLE MESSAGE
 		REFERENCES CHANNEL (
 			channel_id
 		);
+       
+insert into member values(1,'asdf@asdf.com','asdf','asdf', default);
+commit;
