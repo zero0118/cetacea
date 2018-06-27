@@ -471,7 +471,7 @@ desired effect
     <!-- Main Footer -->
     <footer class="main-footer">
       <!-- To the right -->
-      <form class="form-horizontal">
+      <form class="form-horizontal" action="<%= request.getContextPath() %>/post/write.do">
         <div class="row form-group">
           <div class="col col-md-12">
             <div class="input-group">
@@ -585,7 +585,7 @@ desired effect
   <!-- Bootstrap 3.3.7 -->
   <script src="<%= request.getContextPath() %>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <!-- AdminLTE App -->
-  <script src="dist/js/adminlte.min.js"></script>
+  <script src="<%= request.getContextPath() %>dist/js/adminlte.min.js"></script>
 
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
