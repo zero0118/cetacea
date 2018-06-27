@@ -1,6 +1,10 @@
 
 # Created by https://www.gitignore.io/api/java,maven,windows,eclipse
 
+#spring_meta_inf
+*/pom.properties
+
+
 ### Eclipse ###
 
 .metadata
@@ -133,3 +137,9 @@ $RECYCLE.BIN/
 
 
 # End of https://www.gitignore.io/api/java,maven,windows,eclipse
+Servers/Tomcat v8.5 Server at localhost-config/catalina.policy
+Servers/Tomcat v8.5 Server at localhost-config/catalina.properties
+Servers/Tomcat v8.5 Server at localhost-config/context.xml
+Servers/Tomcat v8.5 Server at localhost-config/tomcat-users.xml
+Servers/Tomcat v8.5 Server at localhost-config/server.xml
+Servers/Tomcat v8.5 Server at localhost-config/web.xml
