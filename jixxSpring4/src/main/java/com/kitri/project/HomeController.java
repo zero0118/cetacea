@@ -35,5 +35,8 @@ public class HomeController {
 
 		return "home";
 	}
-
+	@RequestMapping(value = "main.do")
+	public String index() {
+		return "template/main";
+	}
 }
