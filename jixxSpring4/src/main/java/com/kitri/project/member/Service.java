@@ -12,5 +12,7 @@ public interface Service {
 	void editMember(Member m);
 
 	void delMember(int id);	
+	
+	void authMember(String email);
 
 }

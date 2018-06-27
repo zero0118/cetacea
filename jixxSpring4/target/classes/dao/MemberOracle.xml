@@ -8,33 +8,38 @@
 		<result property="id" column="user_id" />
 		<result property="email" column="user_email" />
 		<result property="pwd" column="user_pass" />
-		<result property="name" column="user_name" />		
+		<result property="name" column="user_name" />
+		<result property="auth" column="user_auth" />
 	</resultMap>
 
 	<select id="select" resultMap="MemberResultMap"
 		parameterType="int">
 		SELECT * FROM member where id=#{id}
 	</select>
-	
+
 	<select id="selectemail" resultMap="MemberResultMap"
 		parameterType="String">
 		SELECT * FROM member where user_email=#{email}
 	</select>
 
-	<insert id="insert"
-		parameterType="vo.Member">		
-		 insert into member values((select max(user_id)+1 from member),#{email},#{pwd},#{name})
+	<insert id="insert" parameterType="vo.Member">
+		insert into member values((select max(user_id)+1 from
+		member),#{email},#{pwd},#{name},default)
 	</insert>
 
-	<update id="update"
-		parameterType="vo.Member">
+	<update id="update" parameterType="vo.Member">
 		update member
 		set
-		pwd=#{pwd}, name=#{name}, email=#{email} where id=#{id}
+		pwd=#{pwd},
+		name=#{name}, email=#{email} where id=#{id}
 	</update>
 
 	<delete id="delete" parameterType="String">
 		delete member where
 		id=#{id}
 	</delete>
+
+	<update id="userAuth" parameterType="vo.Member">
+	update member set user_auth = 1 where user_email = #{email}
+	</update>
 </mapper>
