@@ -17,7 +17,9 @@ public interface Mapper {
 	
 	void verify(Member m);
 
-	void setTempkey(Map map);	
+	void setTempkey(Map<String, Object> map);
+
+	int selectTempKey(String email);	
 
 
 }

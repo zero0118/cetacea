@@ -59,10 +59,18 @@ public class ServiceImpl implements Service{
 	@Override
 	public void setTempkey(int ran2,int id) {
 		memberMapper = sqlSession.getMapper(Mapper.class);
-		Map<String, Integer> map = new HashMap<String, Integer>(); 
+		Map<String, Object> map = new HashMap<String, Object>(); 
 		map.put("tempkey", ran2);
-		map.put("id", id);		
+		map.put("id", id);
+		System.out.println(ran2 +""+ id);
 		memberMapper.setTempkey(map);		
+		
+	}
+	@Override
+	public int selectTempKey(String email) {
+		memberMapper = sqlSession.getMapper(Mapper.class);
+		int t = memberMapper.selectTempKey(email);
+		return t;
 		
 	}
 	
