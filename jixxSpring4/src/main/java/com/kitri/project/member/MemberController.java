@@ -33,7 +33,7 @@ public class MemberController {
 	@RequestMapping(value="home.do")
 	public String home() {
 		return "template/home";
-	}	
+	}
 	@RequestMapping(value="member/loginForm.do")
 	public String loginForm() {
 		return "member/login";
