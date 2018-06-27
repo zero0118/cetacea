@@ -13,6 +13,8 @@ public interface Service {
 
 	void delMember(int id);	
 	
-	void authMember(String email);
+	void verifyMember(Member m);
+	
+	
 
 }

@@ -158,18 +158,19 @@
                 <h3>Create a new workspace</h3>
                 <br>
                 <label class="control-label mb-1">Your email address</label>
-                <form action="" method="post" class="form-horizontal">
+                <form action="${pageContext.request.contextPath }/emailauth.do" method="post" class="form-horizontal">
                   <div class="row form-group">
                     <div class="col-6">
                     <c:set var="m" value="${m}"/>
-                      <input type="text" name="address" placeholder="" class="form-control"
+                      <input type="text" name="email" placeholder="" class="form-control"
                       value="${m.email}">
                     </div>
                   </div>
+                    <button type="submit" class="btn btn-block btn-primary btn-lg">next â</button>
                 </form>
                 <br>
 
-                <button type="submit" class="btn btn-block btn-primary btn-lg">next â</button>
+              
               </div>
             </div>
           </div>

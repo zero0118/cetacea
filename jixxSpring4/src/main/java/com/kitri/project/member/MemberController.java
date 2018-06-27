@@ -1,14 +1,22 @@
 package com.kitri.project.member;
 
+import java.io.UnsupportedEncodingException;
+
 import javax.annotation.Resource;
+import javax.inject.Inject;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.kitri.project.repository.MailHandler;
 
 import vo.Member;
 
@@ -16,6 +24,8 @@ import vo.Member;
 public class MemberController {
 	@Resource(name="memService")
 	private Service service;
+	@Inject
+	private JavaMailSender mailSender;
 	
 	public void setService(Service service) {
 		this.service= service;
@@ -105,6 +115,24 @@ public class MemberController {
 		Member m = service.getMemberEmail(email);
 		mav.addObject("m", m);
 		return mav;
+	}
+	@RequestMapping(value="emailauth.do")
+	public String emailAuth(Member m) throws MessagingException, UnsupportedEncodingException{
+		MailHandler sendMail = new MailHandler(mailSender);
+		sendMail.setSubject("[이메일인증]");
+		sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verify.do?user_email="+m.getEmail())
+				.append("'target='_blenk'>이메일 인증 확인</a>").toString());
+		sendMail.setFrom("gusdn4973@gmail.com", "jixx");
+		sendMail.setTo(m.getEmail());
+		sendMail.send();
+		return "member/login";
+	}
+	@RequestMapping(value="verify.do", method=RequestMethod.GET)
+	public String verify(@RequestParam String user_email) {
+		Member m = new Member();
+		m.setEmail(user_email);
+		service.verifyMember(m);
+		return "member/login";
 	}
 	
 
