@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kitri.jixx.post.Mapper">
+	<resultMap type="vo.Post" id="PostResultMap">
+		<result property="post_id" column="post_id" />
+		<result property="repost_id" column="repost_id" />
+		<result property="nickname" column="nickname" />
+		<result property="content" column="content" />	
+		<result property="user_id" column="user_id" />	
+		<result property="logdate" column="logdate" />	
+		<result property="update" column="update" />	
+		<result property="file_thumbnail" column="file_thumbnail" />	
+		<result property="file_original" column="file_original" />	
+		<result property="post_status" column="post_status" />	
+		<collection property="channel" column="channel_id" javaType="java.util.ArrayList" ofType="net.krespo.mybatis.Comment" select="getchannelid"/>
+	</resultMap>
+</mapper>
