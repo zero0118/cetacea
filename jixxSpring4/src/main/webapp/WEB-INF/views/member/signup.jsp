@@ -40,9 +40,7 @@
 	}
 
 	function check() {
-		sendRequest("<%=request.getContextPath()%>
-	/idCheck.do?email="
-				+ f.email.value, null, check_res, "GET");
+		sendRequest("<%=request.getContextPath()%>/idCheck.do?email="+ f.email.value, null, check_res, "GET");
 	}
 
 	function check_res() {
