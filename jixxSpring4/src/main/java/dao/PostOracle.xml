@@ -8,13 +8,18 @@
 		<result property="post_id" column="post_id" />
 		<result property="repost_id" column="repost_id" />
 		<result property="nickname" column="nickname" />
-		<result property="content" column="content" />	
-		<result property="user_id" column="user_id" />	
-		<result property="logdate" column="logdate" />	
-		<result property="update" column="update" />	
-		<result property="file_thumbnail" column="file_thumbnail" />	
-		<result property="file_original" column="file_original" />	
-		<result property="post_status" column="post_status" />	
-		<collection property="channel" column="channel_id" javaType="java.util.ArrayList" ofType="net.krespo.mybatis.Comment" select="getchannelid"/>
+		<result property="content" column="content" />
+		<result property="user_id" column="user_id" />
+		<result property="logdate" column="logdate" />
+		<result property="update" column="update" />
+		<result property="file_thumbnail" column="file_thumbnail" />
+		<result property="file_original" column="file_original" />
+		<result property="post_status" column="post_status" />
 	</resultMap>
+
+	<insert id="insert" parameterType="vo.Post">
+		Insert into post
+		values ((select max(post_id) from post)+1,#{repost_id}, #{nickname}, #{content},#{user_id},#{logdate},null,#{file_thumbnail},#{file_original},1,#{channel.ch_id})
+	</insert>
+
 </mapper>

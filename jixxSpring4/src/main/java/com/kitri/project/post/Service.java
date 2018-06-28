@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import vo.Post;
 
 public interface Service {
-	public Post write(Post post);
+	public void write(Post post);
 	public ArrayList<Post> show(int page);
 	public Post change(Post post);
 	public void delete(int Post_id);

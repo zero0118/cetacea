@@ -2,13 +2,22 @@ package com.kitri.project.post;
 
 import java.util.ArrayList;
 
+import javax.annotation.Resource;
+
+import org.apache.ibatis.session.SqlSession;
+
+
 import vo.Post;
 
 public class ServiceImpl implements Service {
-
+	@Resource(name="sqlSession")
+	private SqlSession sqlSession;
+	private Mapper mapper;
+	
 	@Override
 	public void write(Post post) {
-		
+		mapper = sqlSession.getMapper(Mapper.class);
+		mapper.insert(post);
 	}
 
 	@Override

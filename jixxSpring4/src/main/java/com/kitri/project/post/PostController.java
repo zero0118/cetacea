@@ -13,13 +13,11 @@ import vo.Post;
 public class PostController {
 	private Service service;
 	@RequestMapping(value = "/post/write.do")
-	public ModelAndView write(HttpServletRequest req, Post post) {
-		ModelAndView mav = new ModelAndView();
+	public String write(HttpServletRequest req, Post post) {
 		HttpSession session = req.getSession(false);
 		post.setUser_id(Integer.parseInt((String) session.getAttribute("id")));
-		Post post1 = new Post();
-		post1 = service.write(post);
-		mav.addObject("post", post1);
-		return mav;
+		service.write(post);
+		System.out.println(post);
+		return "template/main";
 	}
 }
