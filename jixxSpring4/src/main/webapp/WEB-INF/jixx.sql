@@ -268,4 +268,7 @@ ALTER TABLE MESSAGE
        
 insert into member values(1,'leyh5@naver.com','asdf','asdf','', default);
 insert into repository values(1, 'jixx', 'jixx');
+Insert into KITRI.REPOSITORY (REP_ID,REP_NAME,REP_URI) values (2,'더미데이터','dumi');
+Insert into KITRI.CHANNEL (CHANNEL_ID,CHANNEL_NAME,CHANNEL_TYPE,CHANNEL_STATUS,REP_ID) values (1,'gnr',1,1,1);
+Insert into post values (1,1, '닉네임', '글',1,sysdate,null,null,null,1,1);
 commit;

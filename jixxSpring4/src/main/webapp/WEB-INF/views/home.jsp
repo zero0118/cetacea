@@ -3,4 +3,4 @@
 <jsp:include page="./template/header.jsp" flush="false"/>
 
 
-<a href="<%=request.getContextPath()%>/index.do">index</a>
+<a href="<%=request.getContextPath()%>/main.do">index</a>
