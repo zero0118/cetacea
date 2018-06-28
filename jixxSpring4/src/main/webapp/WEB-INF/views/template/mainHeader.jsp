@@ -43,14 +43,38 @@
 
 
 	<style type="text/css">
-
-	.card-block{
-	  background: #ffff;
-	  padding: 50px;
-	  margin-left: 20%;
-	  margin-right: 20%;
-	  margin-top: 8%;
+	
+	/* .main-sidebar{
+	 position: fixed;
+	 } */
+	 .btnlist{
+	  border-top-left-radius: 4px;
+	  border-top-right-radius: 4px;
+	  border-bottom-right-radius: 0;
+	  border-bottom-left-radius: 0;
+	  background-color: #ffffff;
+	  padding: 7px 10px;
+	  border-bottom: 1px solid #f4f4f4;
+	  color: #444444;
+	  font-size: 14px;
+	
 	}
+	.timelinebtn{
+	  display: inline;
+	  float: right;
+	}
+	.content-header{    
+	  background: #fff;
+	  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.15);
+	  clear: both;
+	  display: inline-block;
+	  padding: 15px 20px 13px 20px;
+	  width: 100%;
+	  }
+	.skin-blue .content-header {
+	    background: #ffffff;
+	  }
+	
 	</style>
 </head>
 
