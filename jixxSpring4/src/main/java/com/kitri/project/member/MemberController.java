@@ -24,74 +24,94 @@ import vo.Member;
 
 @Controller
 public class MemberController {
-	@Resource(name="memService")
+	@Resource(name = "memService")
 	private Service service;
 	@Inject
 	private JavaMailSender mailSender;
-	
-	public void setService(Service service) {
-		this.service= service;
+
+	public static boolean isNumber(String str) {
+		boolean result = false;
+
+		try {
+			Double.parseDouble(str);
+			result = true;
+		} catch (Exception e) {
+		}
+
+		return result;
 	}
-	@RequestMapping(value="verifyForm.do")
+
+	public void setService(Service service) {
+		this.service = service;
+	}
+
+	@RequestMapping(value = "verifyForm.do")
 	public String verifyForm() {
 		return "member/verify";
-	}	
-	@RequestMapping(value="index.do")
+	}
+
+	@RequestMapping(value = "index.do")
 	public String index() {
 		return "template/index";
 	}
-	@RequestMapping(value="home.do")
+
+	@RequestMapping(value = "home.do")
 	public String home() {
 		return "home";
 	}
-	@RequestMapping(value="member/loginForm.do")
+
+	@RequestMapping(value = "member/loginForm.do")
 	public String loginForm() {
 		return "member/login";
 	}
-	@RequestMapping(value="member/signup.do")
+
+	@RequestMapping(value = "member/signup.do")
 	public String signupForm() {
 		return "member/signup";
-	}	
+	}
+
 	@RequestMapping(value = "/member/insert.do")
-	public String add(@ModelAttribute("xxx") Member m,HttpServletResponse res)throws Exception { 
-		service.addMember(m);		
+	public String add(@ModelAttribute("xxx") Member m, HttpServletResponse res) throws Exception {
+		service.addMember(m);
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
-        out.println("<script>alert('회원가입을 축하합니다'); </script>");
-        out.flush();
+		out.println("<script>alert('회원가입을 축하합니다'); </script>");
+		out.flush();
 		return "member/login";
 	}
+
 	@RequestMapping(value = "/idCheck.do")
 	public ModelAndView idCheck(@RequestParam(value = "email") String email) {
 		ModelAndView mav = new ModelAndView("member/idCheck");
 		String str = "";
-		Member m = service.getMemberEmail(email);		
+		Member m = service.getMemberEmail(email);
 		if (m == null) {
 			str = "사용가능한아이디";
 		} else {
 			str = "사용불가능한 아이디";
 		}
 		mav.addObject("str", str);
-		return mav;		
+		return mav;
 	}
-	
+
 	@RequestMapping(value = "/login.do")
-	public String login(HttpServletRequest req, Member m,HttpServletResponse res)throws Exception {		
+	public String login(HttpServletRequest req, Member m, HttpServletResponse res) throws Exception {
 		Member m2 = service.getMemberEmail(m.getEmail());
 		if (m2 == null || !m2.getPwd().equals(m.getPwd())) {
 			System.out.println("로그인 실패");
 			res.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = res.getWriter();
-	        out.println("<script>alert('로그인 실패'); </script>");
-	        out.flush();
+			out.println("<script>alert('로그인 실패'); </script>");
+			out.flush();
 			return "member/login";
 		} else {
-			HttpSession session = req.getSession();			
-			session.setAttribute("id", m2.getId());	
+			HttpSession session = req.getSession();
+			session.setAttribute("id", m2.getId());
 			session.setAttribute("email", m.getEmail());
 			return "template/index";
 		}
 	}
+
 	@RequestMapping(value = "/member/editForm.do")
 	public ModelAndView editForm(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("member/editForm");
@@ -101,11 +121,13 @@ public class MemberController {
 		mav.addObject("m", m);
 		return mav;
 	}
+
 	@RequestMapping(value = "/member/edit.do")
 	public String edit(Member m) {
 		service.editMember(m);
 		return "member/main";
-	}	
+	}
+
 	@RequestMapping(value = "/member/logout.do")
 	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
@@ -113,6 +135,7 @@ public class MemberController {
 		session.invalidate();
 		return "member/login";
 	}
+
 	@RequestMapping(value = "/member/out.do")
 	public String out(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
@@ -122,48 +145,63 @@ public class MemberController {
 		session.invalidate();
 		return "member/login";
 	}
-	
-	@RequestMapping(value="crw1.do")
+
+	@RequestMapping(value = "crw1.do")
 	public ModelAndView crw1(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("workspace/createworkspace1");
 		HttpSession session = req.getSession(false);
-		String  email = (String) session.getAttribute("email");
+		String email = (String) session.getAttribute("email");
 		Member m = service.getMemberEmail(email);
 		mav.addObject("m", m);
 		return mav;
 	}
-	@RequestMapping(value="emailauth.do")
-	public String emailAuth(HttpServletRequest req) throws MessagingException, UnsupportedEncodingException{
+
+	@RequestMapping(value = "emailauth.do")
+	public String emailAuth(HttpServletRequest req) throws MessagingException, UnsupportedEncodingException {
 		HttpSession session = req.getSession(false);
-		int id = (int) session.getAttribute("id");	
+		int id = (int) session.getAttribute("id");
 		String email = (String) session.getAttribute("email");
 		MailHandler sendMail = new MailHandler(mailSender);
 		Random ran = new Random();
 		int ran2 = 0;
-		while (ran2<=100000) {
-			ran2 =ran.nextInt(1000000);
+		while (ran2 <= 100000) {
+			ran2 = ran.nextInt(1000000);
 		}
 		sendMail.setSubject("JIXX 이메일인증");
-		sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verifyForm.do")
+		sendMail.setText(
+				new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verifyForm.do")
 						.append("'target='_blenk'>이메일 인증 확인</a>").append(ran2).toString());
 		sendMail.setFrom("gusdn4973@gmail.com", "jixx");
 		sendMail.setTo(email);
-		sendMail.send();			
+		sendMail.send();
 		service.setTempkey(ran2, id);
 		return "member/verify";
 	}
-	@RequestMapping(value="verify.do")
-	public String verify(HttpServletRequest req, @RequestParam(value = "verify") int tempKey) {
+
+	@RequestMapping(value = "verify.do")
+	public String verify(HttpServletRequest req, @RequestParam(value = "verify") int tempKey, HttpServletResponse res)
+			throws Exception {
 		HttpSession session = req.getSession(false);
-		String  email = (String) session.getAttribute("email");
+		String email = (String) session.getAttribute("email");
+
 		Member m = new Member();
 		m.setEmail(email);
 		int tempKeydb = service.selectTempKey(email);
-		if(tempKey == tempKeydb ) {
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+
+		if (tempKey == tempKeydb) {
 			service.verifyMember(m);
 			return "workspace/createworkspace2";
 		} else {
-			return "member/verify";
-		}				
+			if (isNumber(String.valueOf(tempKey))) {
+				out.println("<script>alert('인증번호가 일치하지 않습니다'); </script>");
+				out.flush();
+			} else {
+				out.println("<script>alert('숫자를 입력하세요'); </script>");
+				out.flush();
+			}
+		}
+		return "member/verify";
 	}
 }
