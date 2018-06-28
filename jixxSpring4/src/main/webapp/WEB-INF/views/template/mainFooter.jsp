@@ -4,7 +4,7 @@
     <!-- Main Footer -->
     <footer class="main-footer">
       <!-- To the right -->
-      <form class="form-horizontal" action="<%= request.getContextPath() %>/post/write.do" method="post">
+      <form class="form-horizontal" action="<%= request.getContextPath() %>/post/write.do" method="post" enctype="multipart/form-data">
         <div class="row form-group">
           <div class="col col-md-12">
             <div class="input-group">
