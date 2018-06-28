@@ -111,8 +111,7 @@
               <form action="${pageContext.request.contextPath }/verify.do" method="post">
                 <div class="row form-group">
                   <div class="col-5">
-                  <input type="text" name="verify" placeholder="받은 인증번호를 입력해주세요" class="form-control">
-                    <input type="text" name="code" placeholder="" class="form-control">
+                  <input type="text" name="verify" placeholder="받은 인증번호를 입력해주세요" class="form-control">                   
                   </div>
                 </div>
               </form>
