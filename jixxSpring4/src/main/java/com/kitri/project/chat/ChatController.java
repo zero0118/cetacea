@@ -9,8 +9,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import vo.Post;
 
-//@Controller
-//public class ChatController {
+@Controller
+public class ChatController {
 //	private Service service;
 //	@RequestMapping(value = "/post/write.do")
 //	public String write(HttpServletRequest req, Post post) {
@@ -20,4 +20,4 @@ import vo.Post;
 //		System.out.println(post);
 //		return "template/main";
 //	}
-//}
+}
