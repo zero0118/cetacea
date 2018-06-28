@@ -13,12 +13,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kitri.project.repository.MailHandler;
-import com.kitri.project.repository.TempKey;
 
 import vo.Member;
 
@@ -76,8 +74,8 @@ public class MemberController {
 			System.out.println("로그인 실패");
 			return "member/login";
 		} else {
-			HttpSession session = req.getSession();
-			session.setAttribute("id", m.getId());	
+			HttpSession session = req.getSession();			
+			session.setAttribute("id", m2.getId());	
 			session.setAttribute("email", m.getEmail());
 			return "template/index";
 		}
@@ -123,9 +121,10 @@ public class MemberController {
 		return mav;
 	}
 	@RequestMapping(value="emailauth.do")
-	public String emailAuth(HttpServletRequest req, Member m) throws MessagingException, UnsupportedEncodingException{
+	public String emailAuth(HttpServletRequest req) throws MessagingException, UnsupportedEncodingException{
 		HttpSession session = req.getSession(false);
-		int id =  (int)session.getAttribute("id");
+		int id = (int) session.getAttribute("id");	
+		String email = (String) session.getAttribute("email");
 		MailHandler sendMail = new MailHandler(mailSender);
 		Random ran = new Random();
 		int ran2 = 0;
@@ -135,18 +134,24 @@ public class MemberController {
 		sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verifyForm.do")
 						.append("'target='_blenk'>이메일 인증 확인</a>").append(ran2).toString());
 		sendMail.setFrom("gusdn4973@gmail.com", "jixx");
-		sendMail.setTo(m.getEmail());
-		sendMail.send();
+		sendMail.setTo(email);
+		sendMail.send();			
 		service.setTempkey(ran2, id);
 		return "member/verify";
 	}
 	@RequestMapping(value="verify.do")
-	public String verify(HttpServletRequest req) {
+	public String verify(HttpServletRequest req, @RequestParam(value = "verify") int tempKey) {
 		HttpSession session = req.getSession(false);
 		String  email = (String) session.getAttribute("email");
 		Member m = new Member();
 		m.setEmail(email);
-		service.verifyMember(m);
-		return "workspace/createworkspace2";
+		int tempKeydb = service.selectTempKey(email);
+		if(tempKey == tempKeydb ) {
+			service.verifyMember(m);
+			return "workspace/createworkspace2";
+		} else {
+			return "member/verify";
+		}		
+		
 	}
 }

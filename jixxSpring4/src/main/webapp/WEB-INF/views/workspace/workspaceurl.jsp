@@ -1,69 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Dashboard</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
-  <!-- AdminLTE Skins. Choose a skin from the css/skins
-   folder instead of downloading all of them to reduce the load. -->
-   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
-   <!-- Morris chart -->
-   <link rel="stylesheet" href="bower_components/morris.js/morris.css">
-   <!-- jvectormap -->
-   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
-   <!-- Date Picker -->
-   <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-   <!-- Daterange picker -->
-   <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
-   <!-- bootstrap wysihtml5 - text editor -->
-   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
-
-   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-
-
-
-<!-- Google Font -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-<style type="text/css">
-.card-block{
-  background: #ffff;
-  padding: 50px;
-  margin-left: 20%;
-  margin-right: 20%;
-  margin-top: 15%;
-}
-
-</style>
-</head>
+<jsp:include page="../template/header.jsp" flush="false"/>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="skin-blue layout-top-nav" style="height: auto; min-height: 100%;">
   <div class="wrapper" style="height: auto; min-height: 100%;">
@@ -156,19 +93,19 @@
           <div class="col-lg-16">
            <div class="card">
             <div class="card-body card-block">
-              <h3>What's your grop called?</h3>
+              <h3>What's URL do you want for your Slack workspace?</h3>
               <br>
-              <label class="control-label mb-1">Grop name</label>
+              <label class="form-text text-muted">Choose the address you'll use to sign in to Slack</label>
+
+              <label class="control-label mb-1">Your workspace URL</label>
               <form action="" method="post" class="form-horizontal">
                 <div class="row form-group">
-                  <div class="col-5">
+                  <div class="col-3">
                     <input type="text" name="Gropname" placeholder="" class="form-control">
-                  </div>
+                  </div><label class="control-label mb-1">.jixx.com</label>
                 </div>
               </form>
-              <label class="form-text text-muted">We'll use this to name your Slack workspace, which you can always change later.</label>
-              <br>
-              <button type="submit" class="btn btn-primary btn-sm">Continue to Workspace URL â</button>
+              <button type="submit" class="btn btn-primary btn-sm">Create Workspace â</button>
             </div>
           </div>
         </section>

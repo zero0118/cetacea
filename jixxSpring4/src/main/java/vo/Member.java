@@ -5,17 +5,19 @@ public class Member {
 	private String email;
 	private String pwd;
 	private String name;
+	private int tempkey;
 	private int auth;
 
 	public Member() {
 	}
 
-	public Member(int id, String email, String pwd, String name, int auth) {
+	public Member(int id, String email, String pwd, String name, int tempkey, int auth) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.pwd = pwd;
 		this.name = name;
+		this.tempkey = tempkey;
 		this.auth = auth;
 	}
 
@@ -51,6 +53,14 @@ public class Member {
 		this.name = name;
 	}
 
+	public int getTempkey() {
+		return tempkey;
+	}
+
+	public void setTempkey(int tempkey) {
+		this.tempkey = tempkey;
+	}
+
 	public int getAuth() {
 		return auth;
 	}
@@ -61,7 +71,9 @@ public class Member {
 
 	@Override
 	public String toString() {
-		return "Member [id=" + id + ", email=" + email + ", pwd=" + pwd + ", name=" + name + ", auth=" + auth + "]";
+		return "Member [id=" + id + ", email=" + email + ", pwd=" + pwd + ", name=" + name + ", tempkey=" + tempkey
+				+ ", auth=" + auth + "]";
 	}
 
+	
 }

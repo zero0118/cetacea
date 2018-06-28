@@ -15,7 +15,9 @@ public interface Service {
 	
 	void verifyMember(Member m);
 
-	void setTempkey(int ran2, int id);	
+	void setTempkey(int ran2, int id);
+
+	int selectTempKey(String email);	
 	
 
 }
