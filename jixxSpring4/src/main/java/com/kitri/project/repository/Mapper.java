@@ -4,10 +4,12 @@ import vo.Repository;
 
 public interface Mapper {
 	
-	Repository getRepository(String url);
+	Repository getRepositoryByUrl(String url);
 	void insertRep(Repository r);
+	Repository getRepositoryByName(Repository r);	
 	
 	void update(Repository r);
-	void delete(int rep_id);	
+	void delete(int rep_id);
+
 
 }

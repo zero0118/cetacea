@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../template/header.jsp" flush="false"/>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="skin-blue layout-top-nav" style="height: auto; min-height: 100%;">
@@ -93,6 +94,8 @@
           <div class="col-lg-16">
             <div class="card">
               <div class="card-body card-block">
+              <c:set var="r" value="${r }"/>
+              <h4> ${r.rep_name}저장소 생성완료</h4>
                <h3>Send Invitations</h3>
                 <br>
                 <label class="form-text text-muted">All set! You'Anybody else you'd like to invate?</label>
