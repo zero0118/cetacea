@@ -26,7 +26,7 @@ DROP TABLE MESSAGE
 CREATE TABLE REPOSITORY (
 	rep_id NUMBER(6) NOT NULL, /* 저장소고유Key */
 	rep_name VARCHAR2(30) NOT NULL, /* 저장소 이름 */
-	rep_uri VARCHAR2(20) NOT NULL /* 저장소URI */
+	rep_url VARCHAR2(20) NOT NULL /* 저장소URI */
 );
 
 COMMENT ON TABLE REPOSITORY IS '저장소';
@@ -96,6 +96,7 @@ CREATE TABLE MEMBER (
 	user_email VARCHAR2(25) NOT NULL, /* 회원아이디(이메일) */
 	user_pass VARCHAR2(15) NOT NULL, /* 회원비밀번호 */
 	user_name VARCHAR2(15) NOT NULL, /* 회원이름 */
+    user_tempkey number(6),
     user_auth NUMBER(1)  DEFAULT 0 NOT NULL
 );
 
@@ -265,5 +266,6 @@ ALTER TABLE MESSAGE
 			channel_id
 		);
        
-insert into member values(1,'asdf@asdf.com','asdf','asdf', default);
+insert into member values(1,'leyh5@naver.com','asdf','asdf','', default);
+insert into repository values(1, 'jixx', 'jixx');
 commit;

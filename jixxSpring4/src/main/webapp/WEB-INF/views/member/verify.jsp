@@ -114,9 +114,10 @@
                   <input type="text" name="verify" placeholder="받은 인증번호를 입력해주세요" class="form-control">                   
                   </div>
                 </div>
+                <button type="submit" class="btn btn-primary btn-sm">Submit</button>
               </form>
               <br>
-              <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+              
             </div>
           </div>
         </div>

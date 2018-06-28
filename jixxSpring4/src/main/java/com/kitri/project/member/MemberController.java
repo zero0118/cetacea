@@ -34,9 +34,13 @@ public class MemberController {
 	public String verifyForm() {
 		return "member/verify";
 	}	
+	@RequestMapping(value="index.do")
+	public String index() {
+		return "template/index";
+	}
 	@RequestMapping(value="home.do")
 	public String home() {
-		return "template/home";
+		return "home";
 	}
 	@RequestMapping(value="member/loginForm.do")
 	public String loginForm() {
@@ -151,7 +155,6 @@ public class MemberController {
 			return "workspace/createworkspace2";
 		} else {
 			return "member/verify";
-		}		
-		
+		}				
 	}
 }

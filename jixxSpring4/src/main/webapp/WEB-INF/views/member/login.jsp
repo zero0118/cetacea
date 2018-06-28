@@ -32,7 +32,7 @@
         </div>
       </form>
       <a href="#">I forgot my password</a><p>&nbsp;&nbsp;</p>
-      <a href="member/signup.do" class="text-center">Register a new membership</a>
+      <a href="${pageContext.request.contextPath }/member/signup.do" class="text-center">Register a new membership</a>
 
     </div>
     <!-- /.login-box-body -->
