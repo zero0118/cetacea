@@ -9,7 +9,7 @@
 			<nav class="navbar navbar-static-top">
 				<div class="container">
 					<div class="navbar-header">
-						<a href="../../index2.html" class="navbar-brand">Spring<b>JIXX</b></a>
+						<a href="${pageContext.request.contextPath }/index.do" class="navbar-brand">Spring<b>JIXX</b></a>
 						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
 							data-target="#navbar-collapse">
 							<i class="fa fa-bars"></i>
@@ -32,9 +32,8 @@
 
 							<!-- User Account Menu -->
 							<li>
-								<!-- Menu Toggle Button --> <a  href="crw1.do" class="dropdown-toggle" data-toggle="dropdown"
-								aria-expanded="true"> Create Workspace</span>
-							</a>
+								<!-- Menu Toggle Button --> <a  href="${pageContext.request.contextPath }/crw1.do" class="dropdown-toggle" 
+								aria-expanded="true"> Create Workspace	</a>
 
 							</li>
 						</ul>

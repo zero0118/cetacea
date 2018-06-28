@@ -93,7 +93,7 @@
           <div class="col-lg-16">
             <div class="card">
               <div class="card-body card-block">
-                <h3>Invitations your teammates</h3>
+               <h3>Send Invitations</h3>
                 <br>
                 <label class="form-text text-muted">All set! You'Anybody else you'd like to invate?</label>
 

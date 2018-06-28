@@ -5,8 +5,6 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-import com.kitri.project.repository.Mapper;
-
 import vo.Repository;
 
 @Component("repService")
@@ -18,11 +16,18 @@ public class ServiceImpl implements Service{
 	public void setSqlSession(SqlSession sqlSession){
 		this.sqlSession=sqlSession;
 	}
+	
+	@Override
+	public Repository selectUrl(String url) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		Repository m = repMapper.getRepository(url);
+		return m;
+	}
 
 	@Override
 	public void addRep(Repository r) {
 		repMapper = sqlSession.getMapper(Mapper.class);
-		repMapper.insert(r);
+		repMapper.insertRep(r);
 	}
 
 	@Override
@@ -36,5 +41,7 @@ public class ServiceImpl implements Service{
 		repMapper = sqlSession.getMapper(Mapper.class);
 		repMapper.delete(rep_id);
 	}
+
+	
 
 }

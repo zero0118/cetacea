@@ -4,12 +4,17 @@
 	 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.kitri.project.repository.Mapper">
-	<resultMap type="vo.Repository" id="MemberResultMap">
+	<resultMap type="vo.Repository" id="RepResultMap">
 		<result property="rep_id" column="rep_id" />
 		<result property="rep_name" column="rep_name" />
-		<result property="rep_uri" column="rep_uri" />				
+		<result property="rep_url" column="rep_url" />				
 	</resultMap>
-		
+	<select id="getRepository" parameterType="vo.Repository" resultMap="RepResultMap">
+	select * from repository where rep_url=#{rep_url}
+	</select>
+	<insert id="insertRep" parameterType="vo.Repository">
+	insert into repository values((select max(rep_id)+1 from repository), #{rep_name}, #{rep_url}
+	</insert>
 	
 
 	<insert id="insert"
