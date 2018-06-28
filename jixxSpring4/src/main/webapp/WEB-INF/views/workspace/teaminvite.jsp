@@ -3,6 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../template/header.jsp" flush="false"/>
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$("#addemail").click(function() {
+			 $("#emailinput").append("<b>Appended text</b>");
+		  });
+		});
+		
+	});
+</script>
 <body class="skin-blue layout-top-nav" style="height: auto; min-height: 100%;">
   <div class="wrapper" style="height: auto; min-height: 100%;">
 
@@ -103,7 +113,8 @@
                 <label class="control-label mb-1">Email address</label>
                 <form action="" method="post" class="form-horizontal">
                   <div class="row form-group">
-                    <div class="col-5">
+                  <button type="button" id="addemail">more invitation</button>
+                    <div id="emailinput" class="col-5">
                       <input type="email" name="address1" placeholder="name@example.com" class="form-control">
 
                       <input type="email" name="address2" placeholder="name@example.com" class="form-control">
@@ -115,7 +126,8 @@
                 </form>
                 <br>
 
-                <button type="submit" class="btn btn-primary btn-sm">Skip For Now</button>
+                <button id="skip" class="btn btn-primary btn-sm" 
+                onclick="location.href='${pageContext.request.contextPath }/gomain.do'">Skip For Now</button>
                 <button type="submit" class="btn btn-primary btn-sm">Send Invitations/button>
                 </div>
               </div>

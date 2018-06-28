@@ -1,5 +1,7 @@
 package com.kitri.project.repository;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import vo.Member;
+import vo.Channel;
 import vo.Repository;
 
 
@@ -40,13 +42,35 @@ public class RepController {
 		return mav;
 	}
 	@RequestMapping(value="createrep.do")
-	public ModelAndView createRep(@RequestParam(value = "nickname") String nickname,Repository r) {
+	public ModelAndView createRep(HttpServletRequest req,@RequestParam(value = "nickname") String nickname,
+			Repository r) {
+		HttpSession session = req.getSession(false);
+		int id = (int) session.getAttribute("id");		
 		ModelAndView mav = new ModelAndView("workspace/teaminvite");
-		service.addRep(r);			
-		Repository r2 = service.selectRepByName(r);
+		
+		service.addRep(r);
+		Repository rep_id = service.getRepId(r);		
+		service.createCh(rep_id);
+		int rep_id1 = rep_id.getRep_id();		
+		Channel chid = service.getChId(rep_id);
+		int chid1 = chid.getCh_id();	
+		service.createUserMeta(id,rep_id1,chid1);
+		service.addBoard(nickname,id,chid1);		
+		Repository r2 = service.selectRepByName(r);		
 		mav.addObject("r",r2);
 		return mav;
 	}
+	@RequestMapping(value="gomain.do")
+	public ModelAndView goMain(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		int id = (int) session.getAttribute("id");
+		ModelAndView mav = new ModelAndView("template/main");
+		mav.addObject("id",id);
+		return mav;
+	}
+	
+	
+	
 	@RequestMapping(value="joinws.do")
 	public String joinws() {
 		return "workspace/joinworkspace";
