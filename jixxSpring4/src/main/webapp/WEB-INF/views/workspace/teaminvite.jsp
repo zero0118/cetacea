@@ -111,8 +111,8 @@
 								<form action="${pageContext.request.contextPath}/sendinvite.do" id="emailinput" method="post" class="form-horizontal">
 									<div class="row form-group">
 									<input type="hidden" name="rep_name" value="${r.rep_name}">
-										<button type="button" id="addemail">more invitation</button>
-										<button type="button" id="deleteemail">cancel invitation</button>
+										<button type="button" id="addemail" class="btn btn-primary btn-sm">more invitation</button>
+										<button type="button" id="deleteemail" class="btn btn-primary btn-sm">cancel invitation</button>
 										<div id="emailinput" class="col-5">
 											<ul id="input">
 												<li><input type="email" name="address"

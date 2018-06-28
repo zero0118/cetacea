@@ -1,7 +1,5 @@
 package com.kitri.project.repository;
 
-import java.util.ArrayList;
-
 import vo.Channel;
 import vo.Member;
 import vo.Repository;
@@ -28,6 +26,8 @@ public interface Service {
 	void editRep(Repository r);
 
 	void delRep(int rep_id);
+
+	
 
 	
 

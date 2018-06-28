@@ -1,6 +1,5 @@
 package com.kitri.project.repository;
 
-import java.util.ArrayList;
 import java.util.Map;
 
 import vo.Channel;

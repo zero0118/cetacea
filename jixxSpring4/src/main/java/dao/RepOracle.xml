@@ -59,5 +59,6 @@
 	<select id="getNameById" parameterType="Integer" resultMap="MemberResultMap">
 	select user_name from member where user_id=#{id}
 	</select>
+	
 
 </mapper>

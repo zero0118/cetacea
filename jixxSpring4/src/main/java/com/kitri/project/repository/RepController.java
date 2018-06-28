@@ -1,11 +1,13 @@
 package com.kitri.project.repository;
 
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -50,11 +52,10 @@ public class RepController {
 
 	@RequestMapping(value = "createrep.do")
 	public ModelAndView createRep(HttpServletRequest req, @RequestParam(value = "nickname") String nickname,
-			Repository r) {
+			Repository r)throws Exception {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
-		ModelAndView mav = new ModelAndView("workspace/teaminvite");
-
+		ModelAndView mav = new ModelAndView("workspace/teaminvite");		
 		service.addRep(r);
 		Repository rep_id = service.getRepId(r);
 		service.createCh(rep_id);
@@ -75,14 +76,15 @@ public class RepController {
 		ModelAndView mav = new ModelAndView("template/main");
 		mav.addObject("id", id);
 		return mav;
-	}
+	}	
 
 	@RequestMapping(value = "sendinvite.do")
-	public String emailAuth(HttpServletRequest req, String[] address, 
+	public ModelAndView emailAuth(HttpServletRequest req, String[] address, HttpServletResponse res,
 			@RequestParam(value="rep_name") String rep_name,Repository r)
-			throws MessagingException, UnsupportedEncodingException {
+			throws MessagingException, UnsupportedEncodingException,Exception {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
+		ModelAndView mav = new ModelAndView("template/main");
 		Member user = service.getMember(id);
 		String user_name = user.getName();
 		
@@ -90,14 +92,18 @@ public class RepController {
 		for (String str : address) {
 			sendMail.setSubject(user_name+"님의 JIXX저장소 초대");
 			sendMail.setText(
-					new StringBuffer().append("<h1>jixx저장소 초대</h1>").append("<a href='localhost:8080/project/member/signup.do?")
+					new StringBuffer().append("<h1>"+user_name+"님의 jixx저장소 초대</h1>").append("<a href='localhost:8080/project/member/signup.do")
 							.append("'target='_blenk'>초대 수락</a>").toString());
 			sendMail.setFrom("gusdn4973@gmail.com", "jixx");
 			sendMail.setTo(str);
 			sendMail.send();
 		}
-		
-		return "template/main";
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+        out.println("<script>alert('친구초대완료'); </script>");
+        out.flush();
+		mav.addObject("id", id);
+		return mav;
 	}
 	@RequestMapping(value = "moreteam.do")
 	public ModelAndView moreTeam(HttpServletRequest req) {

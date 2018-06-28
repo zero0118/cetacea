@@ -1,5 +1,6 @@
 package com.kitri.project.member;
 
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.Random;
 
@@ -7,6 +8,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
@@ -51,14 +53,16 @@ public class MemberController {
 		return "member/signup";
 	}	
 	@RequestMapping(value = "/member/insert.do")
-	public String add(@ModelAttribute("xxx") Member m) { 
+	public String add(@ModelAttribute("xxx") Member m,HttpServletResponse res)throws Exception { 
 		service.addMember(m);		
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+        out.println("<script>alert('회원가입을 축하합니다'); </script>");
+        out.flush();
 		return "member/login";
 	}
 	@RequestMapping(value = "/idCheck.do")
-	public ModelAndView idCheck(HttpServletRequest req, @RequestParam(value = "email") String email) {
-	
-		HttpSession session = req.getSession(false);
+	public ModelAndView idCheck(@RequestParam(value = "email") String email) {
 		ModelAndView mav = new ModelAndView("member/idCheck");
 		String str = "";
 		Member m = service.getMemberEmail(email);		
@@ -72,10 +76,14 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/login.do")
-	public String login(HttpServletRequest req, Member m) {		
+	public String login(HttpServletRequest req, Member m,HttpServletResponse res)throws Exception {		
 		Member m2 = service.getMemberEmail(m.getEmail());
 		if (m2 == null || !m2.getPwd().equals(m.getPwd())) {
 			System.out.println("로그인 실패");
+			res.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = res.getWriter();
+	        out.println("<script>alert('로그인 실패'); </script>");
+	        out.flush();
 			return "member/login";
 		} else {
 			HttpSession session = req.getSession();			
