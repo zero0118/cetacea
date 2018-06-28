@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="../template/header.jsp" flush="false"/>
-
 <!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="skin-blue layout-top-nav" style="height: auto; min-height: 100%;">
   <div class="wrapper" style="height: auto; min-height: 100%;">
@@ -18,8 +17,8 @@
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-
-
+            
+            
           </div>
           <!-- /.navbar-collapse -->
           <!-- Navbar Right Menu -->
@@ -45,7 +44,7 @@
                 <ul class="dropdown-menu">
                   <!-- The user image in the menu -->
                   <li class="user-header">
-
+                    
 
                     <p>ë¡ê·¸ì¸ëìí¬ì¤íì´ì¤<small>Member since Nov. 2012</small>
                     </p>
@@ -84,49 +83,66 @@
       <div class="container">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-
-
+          
+          
         </section>
 
 
         <!-- Main content -->
         <section class="content">
           <div class="col-lg-16">
-           <div class="card">
-            <div class="card-body card-block">
-              <h3>What's your grop called?</h3>
-              <br>
-              <label class="control-label mb-1">Grop name</label>
-              <form action="" method="post" class="form-horizontal">
-                <div class="row form-group">
-                  <div class="col-5">
-                    <input type="text" name="Gropname" placeholder="" class="form-control">
-                  </div>
-                </div>
-              </form>
-              <label class="form-text text-muted">We'll use this to name your Slack workspace, which you can always change later.</label>
-              <br>
-              <button type="submit" class="btn btn-primary btn-sm">Continue to Workspace URL â</button>
-            </div>
-          </div>
-        </section>
-        <!-- /.content -->
+            <div class="card">
+              <div class="card-body card-block">
+                <h3>Create a private channel your teammates</h3>
+                <br>
+                <label class="form-text text-muted">Channels are where your members communicate. They're best when organized around a topic-#leads,for example</label>
+
+                <label class="switch switch-3d switch-warning mr-3"><input type="checkbox" class="switch-input" checked="true"> <span class="switch-label"></span><span class="switch-handle"></span></label>
+
+                <label class="text-muted">private</label>
+                <br>
+                <br>
+                <form action="" method="post" class="form-horizontal">
+                  <div class="row form-group">
+                    <div class="col-5">
+                     <label class="control-label mb-1">name</label>
+                     <input type="text" name="name" placeholder="e.g.leads" class="form-control">
+                     <br>
+                     <label class="control-label mb-1">Purpose</label>
+                     <input type="text" name="Purpose" class="form-control">
+                     <br>
+                     <label class="control-label mb-1">Send invates to:(optional)</label>
+                     <br>
+                     <input type="text" name="invate" placeholder="Search by name" class="form-control">
+
+                   </div>
+                 </div>
+               </form>
+               <br>
+
+               <button type="reset" class="btn btn-primary btn-sm">Cancle</button>
+               <button type="submit" class="btn btn-primary btn-sm">Create Channel</button>
+             </div>
+           </div>
+         </div>
+       </section>
+       <!-- /.content -->
+     </div>
+     <!-- /.container -->
+   </div>
+   <!-- /.content-wrapper -->
+   <footer class="main-footer">
+    <div class="container">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 2.4.0
       </div>
-      <!-- /.container -->
+      <strong>Copyright Â© 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+      reserved.
     </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-      <div class="container">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.4.0
-        </div>
-        <strong>Copyright Â© 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-        reserved.
-      </div>
-      <!-- /.container -->
-    </footer>
-  </div>
-  <!-- ./wrapper -->
+    <!-- /.container -->
+  </footer>
+</div>
+<!-- ./wrapper -->
 
 
 </body>

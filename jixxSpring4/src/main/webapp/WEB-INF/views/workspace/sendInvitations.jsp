@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="../template/header.jsp" flush="false"/>
-
-<!-- ADD THE CLASS layout-top-nav TO REMOVE THE SIDEBAR. -->
 <body class="skin-blue layout-top-nav" style="height: auto; min-height: 100%;">
   <div class="wrapper" style="height: auto; min-height: 100%;">
 
@@ -92,42 +90,50 @@
         <!-- Main content -->
         <section class="content">
           <div class="col-lg-16">
-           <div class="card">
-            <div class="card-body card-block">
-              <h3>What's your grop called?</h3>
-              <br>
-              <label class="control-label mb-1">Grop name</label>
-              <form action="" method="post" class="form-horizontal">
-                <div class="row form-group">
-                  <div class="col-5">
-                    <input type="text" name="Gropname" placeholder="" class="form-control">
+            <div class="card">
+              <div class="card-body card-block">
+                <h3>Send Invitations</h3>
+                <br>
+                <label class="form-text text-muted">Your Jixx workspace is ready to go. Know a few friends or cowokers who'd like to ecplore Jixx with you?</label>
+
+                <label class="control-label mb-1">Email address</label>
+                <form action="" method="post" class="form-horizontal">
+                  <div class="row form-group">
+                    <div class="col-5">
+                      <input type="email" name="address1" placeholder="name@example.com" class="form-control">
+
+                      <input type="email" name="address2" placeholder="name@example.com" class="form-control">
+
+                      <input type="email" name="address3" placeholder="name@example.com" class="form-control">
+
+                    </div>
                   </div>
+                </form>
+                <br>
+
+                <button type="submit" class="btn btn-primary btn-sm">Skip For Now</button>
+                <button type="submit" class="btn btn-primary btn-sm">Send Invitations</button>
                 </div>
-              </form>
-              <label class="form-text text-muted">We'll use this to name your Slack workspace, which you can always change later.</label>
-              <br>
-              <button type="submit" class="btn btn-primary btn-sm">Continue to Workspace URL â</button>
-            </div>
+              </div>
+            </section>
+            <!-- /.content -->
           </div>
-        </section>
-        <!-- /.content -->
-      </div>
-      <!-- /.container -->
-    </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-      <div class="container">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.4.0
+          <!-- /.container -->
         </div>
-        <strong>Copyright Â© 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-        reserved.
+        <!-- /.content-wrapper -->
+        <footer class="main-footer">
+          <div class="container">
+            <div class="pull-right hidden-xs">
+              <b>Version</b> 2.4.0
+            </div>
+            <strong>Copyright Â© 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+            reserved.
+          </div>
+          <!-- /.container -->
+        </footer>
       </div>
-      <!-- /.container -->
-    </footer>
-  </div>
-  <!-- ./wrapper -->
+      <!-- ./wrapper -->
 
 
-</body>
-</html>
+    </body>
+    </html>

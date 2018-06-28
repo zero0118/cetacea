@@ -94,39 +94,39 @@
           <div class="col-lg-16">
            <div class="card">
             <div class="card-body card-block">
-              <h3>What's your grop called?</h3>
+
+              <h3>Set your password</h3>
               <br>
-              <label class="control-label mb-1">Grop name</label>
-              <form action="" method="post" class="form-horizontal">
-                <div class="row form-group">
-                  <div class="col-5">
-                    <input type="text" name="Gropname" placeholder="" class="form-control">
-                  </div>
+              <label class="control-label mb-1">Choose a password for signing in to Jixx</label>
+              <form action="" method="post" class="">
+               <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon">Password</div>
+                  <input type="password" id="password" name="password" class="form-control">
                 </div>
-              </form>
-              <label class="form-text text-muted">We'll use this to name your Slack workspace, which you can always change later.</label>
-              <br>
-              <button type="submit" class="btn btn-primary btn-sm">Continue to Workspace URL â</button>
-            </div>
+              </div>
+            </form>
+            <button type="submit" class="btn btn-primary btn-sm">Continue to Workspace Info â</button>
           </div>
-        </section>
-        <!-- /.content -->
-      </div>
-      <!-- /.container -->
-    </div>
-    <!-- /.content-wrapper -->
-    <footer class="main-footer">
-      <div class="container">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.4.0
         </div>
-        <strong>Copyright Â© 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-        reserved.
-      </div>
-      <!-- /.container -->
-    </footer>
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.container -->
   </div>
-  <!-- ./wrapper -->
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="pull-right hidden-xs">
+        <b>Version</b> 2.4.0
+      </div>
+      <strong>Copyright Â© 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+      reserved.
+    </div>
+    <!-- /.container -->
+  </footer>
+</div>
+<!-- ./wrapper -->
 
 
 </body>
