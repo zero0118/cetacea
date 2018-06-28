@@ -45,9 +45,9 @@
   <!-- FastClick -->
   <script src="<%= request.getContextPath() %>/resources/bower_components/fastclick/lib/fastclick.js"></script>
   <!-- AdminLTE App -->
-  <script src="dist/js/adminlte.min.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
-  <script src="dist/js/demo.js"></script>
+  <script src="<%= request.getContextPath() %>/resources/dist/js/demo.js"></script>
 
   
 
@@ -176,7 +176,7 @@
                     </div>
                   </div>
                 </form>
-                <button type="submit" class="btn btn-primary btn-sm">Continue to Password â</button>
+                <button type="submit" class="btn btn-primary btn-sm">Continue</button>
               </div>
             </div>
           </section>

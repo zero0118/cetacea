@@ -43,8 +43,8 @@
 	<update id="verify" parameterType="vo.Member">
 		update member set user_auth = 1 where user_email = #{email}
 	</update>
-	<select id="selectTempKey" parameterType="String">
-		select user_tempkey from member where user_id = #{email}
+	<select id="selectTempKey" parameterType="String" resultType="int">
+		select user_tempkey from member where user_email = #{email}
 	</select>
 	<update id="setTempkey" parameterType="map">
 		update member set user_tempkey=#{tempkey}  where user_id = #{id}

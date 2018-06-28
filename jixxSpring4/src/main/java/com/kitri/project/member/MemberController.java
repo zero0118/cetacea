@@ -151,8 +151,7 @@ public class MemberController {
 			service.verifyMember(m);
 			return "workspace/createworkspace2";
 		} else {
-			alert("");
-			return "member/verify.jsp";
+			return "member/verify";
 		}		
 		
 	}

@@ -9,26 +9,26 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
    folder instead of downloading all of them to reduce the load. -->
-   <link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+   <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/dist/css/skins/_all-skins.min.css">
    <!-- Morris chart -->
-   <link rel="stylesheet" href="bower_components/morris.js/morris.css">
+   <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/bower_components/morris.js/morris.css">
    <!-- jvectormap -->
-   <link rel="stylesheet" href="bower_components/jvectormap/jquery-jvectormap.css">
+   <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/bower_components/jvectormap/jquery-jvectormap.css">
    <!-- Date Picker -->
-   <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+   <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
    <!-- Daterange picker -->
-   <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css">
+   <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/bower_components/bootstrap-daterangepicker/daterangepicker.css">
    <!-- bootstrap wysihtml5 - text editor -->
-   <link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+   <link rel="stylesheet" href="<%= request.getContextPath() %>/resources/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,17 +37,17 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 <!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="<%= request.getContextPath() %>/resources/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<%= request.getContextPath() %>/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- SlimScroll -->
-<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="<%= request.getContextPath() %>/resources/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
-<script src="bower_components/fastclick/lib/fastclick.js"></script>
+<script src="<%= request.getContextPath() %>/resources/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="<%= request.getContextPath() %>/resources/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="<%= request.getContextPath() %>/resources/dist/js/demo.js"></script>
 
 
 
@@ -156,39 +156,39 @@
           <div class="col-lg-16">
            <div class="card">
             <div class="card-body card-block">
-
-              <h3>Set your password</h3>
+              <h3>What's your grop called?</h3>
               <br>
-              <label class="control-label mb-1">Choose a password for signing in to Jixx</label>
-              <form action="" method="post" class="">
-               <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon">Password</div>
-                  <input type="password" id="password" name="password" class="form-control">
+              <label class="control-label mb-1">Grop name</label>
+              <form action="" method="post" class="form-horizontal">
+                <div class="row form-group">
+                  <div class="col-5">
+                    <input type="text" name="Gropname" placeholder="" class="form-control">
+                  </div>
                 </div>
-              </div>
-            </form>
-            <button type="submit" class="btn btn-primary btn-sm">Continue to Workspace Info â</button>
+              </form>
+              <label class="form-text text-muted">We'll use this to name your Slack workspace, which you can always change later.</label>
+              <br>
+              <button type="submit" class="btn btn-primary btn-sm">Continue to Workspace URL â</button>
+            </div>
           </div>
-        </div>
-      </section>
-      <!-- /.content -->
-    </div>
-    <!-- /.container -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="container">
-      <div class="pull-right hidden-xs">
-        <b>Version</b> 2.4.0
+        </section>
+        <!-- /.content -->
       </div>
-      <strong>Copyright Â© 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
-      reserved.
+      <!-- /.container -->
     </div>
-    <!-- /.container -->
-  </footer>
-</div>
-<!-- ./wrapper -->
+    <!-- /.content-wrapper -->
+    <footer class="main-footer">
+      <div class="container">
+        <div class="pull-right hidden-xs">
+          <b>Version</b> 2.4.0
+        </div>
+        <strong>Copyright Â© 2014-2016 <a href="https://adminlte.io">Almsaeed Studio</a>.</strong> All rights
+        reserved.
+      </div>
+      <!-- /.container -->
+    </footer>
+  </div>
+  <!-- ./wrapper -->
 
 
 </body>
