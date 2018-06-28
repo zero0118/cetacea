@@ -148,8 +148,8 @@
 										</div>
 										<input type="button"	id="urlCheck" value="url 중복체크"> 
 										<span id="urlResult"></span>
-									</div>
-									<button type="submit" class="btn btn-primary btn-sm" id="createws">Create Workspace â</button>
+										<button type="submit" class="btn btn-primary btn-sm" id="createws">Create Workspace</button>
+									</div>
 								</form>
 							</div>
 				</section>

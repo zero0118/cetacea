@@ -26,7 +26,7 @@ DROP TABLE MESSAGE
 CREATE TABLE REPOSITORY (
 	rep_id NUMBER(6) NOT NULL, /* 저장소고유Key */
 	rep_name VARCHAR2(30) NOT NULL, /* 저장소 이름 */
-	rep_url VARCHAR2(20) NOT NULL /* 저장소URI */
+	rep_url VARCHAR2(20) NOT NULL /* 저장소URL */
 );
 
 COMMENT ON TABLE REPOSITORY IS '저장소';
@@ -35,7 +35,7 @@ COMMENT ON COLUMN REPOSITORY.rep_id IS '저장소고유Key';
 
 COMMENT ON COLUMN REPOSITORY.rep_name IS '저장소 이름';
 
-COMMENT ON COLUMN REPOSITORY.rep_uri IS '저장소URI';
+COMMENT ON COLUMN REPOSITORY.rep_url IS '저장소URL';
 
 ALTER TABLE REPOSITORY
 	ADD
@@ -268,7 +268,7 @@ ALTER TABLE MESSAGE
        
 insert into member values(1,'leyh5@naver.com','asdf','asdf','', default);
 insert into repository values(1, 'jixx', 'jixx');
-Insert into KITRI.REPOSITORY (REP_ID,REP_NAME,REP_URl) values (2,'더미데이터','dumi');
-Insert into KITRI.CHANNEL (CHANNEL_ID,CHANNEL_NAME,CHANNEL_TYPE,CHANNEL_STATUS,REP_ID) values (1,'general',1,1,1);
+Insert into REPOSITORY (REP_ID,REP_NAME,REP_URl) values (2,'더미데이터','dumi');
+Insert into CHANNEL (CHANNEL_ID,CHANNEL_NAME,CHANNEL_TYPE,CHANNEL_STATUS,REP_ID) values (1,'general',1,1,1);
 Insert into post values (1,1, '닉네임', '글',1,sysdate,null,null,null,1,1);
 commit;

@@ -3,6 +3,7 @@ package com.kitri.project.repository;
 import java.util.ArrayList;
 
 import vo.Channel;
+import vo.Member;
 import vo.Repository;
 
 public interface Service {
@@ -21,10 +22,14 @@ public interface Service {
 	void createUserMeta(int id, int rep_id1, int chid1);
 	
 	void addBoard(String nickname, int id, int chid1);
+	
+	Member getMember(int id);
 		
 	void editRep(Repository r);
 
 	void delRep(int rep_id);
+
+	
 
 	
 

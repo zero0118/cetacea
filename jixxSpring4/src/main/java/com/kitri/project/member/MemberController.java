@@ -72,7 +72,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value = "/login.do")
-	public String login(HttpServletRequest req, Member m) {
+	public String login(HttpServletRequest req, Member m) {		
 		Member m2 = service.getMemberEmail(m.getEmail());
 		if (m2 == null || !m2.getPwd().equals(m.getPwd())) {
 			System.out.println("로그인 실패");
@@ -135,6 +135,7 @@ public class MemberController {
 		while (ran2<=100000) {
 			ran2 =ran.nextInt(1000000);
 		}
+		sendMail.setSubject("JIXX 이메일인증");
 		sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verifyForm.do")
 						.append("'target='_blenk'>이메일 인증 확인</a>").append(ran2).toString());
 		sendMail.setFrom("gusdn4973@gmail.com", "jixx");

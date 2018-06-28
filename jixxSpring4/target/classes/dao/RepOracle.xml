@@ -14,6 +14,14 @@
 		<result property="ch_name" column="ch_name" />
 		<result property="ch_type" column="ch_type" />
 		<result property="ch_status" column="ch_status" />
+	</resultMap>
+	<resultMap type="vo.Member" id="MemberResultMap">
+		<result property="id" column="user_id" />
+		<result property="email" column="user_email" />
+		<result property="pwd" column="user_pass" />
+		<result property="name" column="user_name" />
+		<result property="tempkey" column="user_tempkey" />
+		<result property="auth" column="user_auth" />
 	</resultMap>	
 
 	<select id="getRepositoryByUrl" parameterType="vo.Repository"
@@ -48,5 +56,8 @@
 	insert into post values((select max(post_id)+1 from post),null,#{nickname}, 
 	'jixx 저장소에 오신것을 환영합니다', #{user_id}, sysdate,null,null,null,1,#{ch_id})
 	</insert>
+	<select id="getNameById" parameterType="Integer" resultMap="MemberResultMap">
+	select user_name from member where user_id=#{id}
+	</select>
 
 </mapper>

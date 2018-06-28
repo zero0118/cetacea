@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import vo.Channel;
+import vo.Member;
 import vo.Repository;
 
 public interface Mapper {
@@ -16,8 +17,10 @@ public interface Mapper {
 	Channel getChByRepId(Repository rep_id);
 	void insertUserMeta(Map<String, Integer> map);
 	void insertBoard(Map<String, Object> map);
+	Member getNameById(int id);
 	
 	void update(Repository r);
 	void delete(int rep_id);
+	
 	
 }

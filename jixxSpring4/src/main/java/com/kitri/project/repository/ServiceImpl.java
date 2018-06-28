@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
 import vo.Channel;
+import vo.Member;
 import vo.Repository;
 
 @Component("repService")
@@ -79,6 +80,13 @@ public class ServiceImpl implements Service{
 		repMapper.insertBoard(map);
 		
 	}
+	
+	@Override
+	public Member getMember(int id) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		Member m = repMapper.getNameById(id);
+		return m;
+	}
 
 
 	
@@ -94,6 +102,8 @@ public class ServiceImpl implements Service{
 		repMapper = sqlSession.getMapper(Mapper.class);
 		repMapper.delete(rep_id);
 	}
+
+
 
 	
 

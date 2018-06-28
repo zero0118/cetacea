@@ -104,7 +104,7 @@
                       value="${m.email}">
                     </div>
                   </div>
-                    <button type="submit" class="btn btn-block btn-primary btn-lg">next â</button>
+                    <button type="submit" class="btn btn-block btn-primary btn-lg">인증번호전송</button>
                 </form>
                 <br>
 
