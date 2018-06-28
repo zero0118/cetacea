@@ -19,7 +19,7 @@
 
 	<insert id="insert" parameterType="vo.Post">
 		Insert into post
-		values ((select max(post_id) from post)+1,#{repost_id}, #{nickname}, #{content},#{user_id},#{logdate},null,#{file_thumbnail},#{file_original},1,#{channel.ch_id})
+		values ((select max(post_id) from post)+1,#{repost_id}, '요를레이호', #{content},#{user_id}, sysdate,null,#{file_thumbnail},#{file_original},1,1)
 	</insert>
 
 </mapper>

@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.session.SqlSession;
-
+import org.springframework.stereotype.Component;
 
 import vo.Post;
 
+@Component("postService")
 public class ServiceImpl implements Service {
 	@Resource(name="sqlSession")
 	private SqlSession sqlSession;
@@ -17,6 +18,9 @@ public class ServiceImpl implements Service {
 	@Override
 	public void write(Post post) {
 		mapper = sqlSession.getMapper(Mapper.class);
+		if (post.getFile_thumbnail() == null) {
+			post.setFile_thumbnail("no");
+		}
 		mapper.insert(post);
 	}
 

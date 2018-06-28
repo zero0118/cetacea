@@ -30,12 +30,12 @@ public class Repository {
 		this.rep_name = rep_name;
 	}
 
-	public String getRep_uri() {
+	public String getRep_url() {
 		return rep_url;
 	}
 
-	public void setRep_uri(String rep_uri) {
-		this.rep_url = rep_uri;
+	public void setRep_url(String rep_url) {
+		this.rep_url = rep_url;
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class RepController {
 		HttpSession session = req.getSession(false);
 		ModelAndView mav = new ModelAndView("workspace/urlcheck");
 		String result = "";
-		Repository r = service.selectUrl(url);
+		Repository r = service.selectRepByUrl(url);
 		if (r == null) {
 			result = "사용가능";
 			session.setAttribute("urlCheck", true);
@@ -40,9 +40,12 @@ public class RepController {
 		return mav;
 	}
 	@RequestMapping(value="createrep.do")
-	public String createRep(@RequestParam(value = "nickname") String nickname,Repository r) {
-	service.addRep(r);			
-		return "workspace/teaminvite";
+	public ModelAndView createRep(@RequestParam(value = "nickname") String nickname,Repository r) {
+		ModelAndView mav = new ModelAndView("workspace/teaminvite");
+		service.addRep(r);			
+		Repository r2 = service.selectRepByName(r);
+		mav.addObject("r",r2);
+		return mav;
 	}
 	@RequestMapping(value="joinws.do")
 	public String joinws() {

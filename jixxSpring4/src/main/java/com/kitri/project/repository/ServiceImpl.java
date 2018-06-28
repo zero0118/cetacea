@@ -18,16 +18,22 @@ public class ServiceImpl implements Service{
 	}
 	
 	@Override
-	public Repository selectUrl(String url) {
+	public Repository selectRepByUrl(String url) {
 		repMapper = sqlSession.getMapper(Mapper.class);
-		Repository m = repMapper.getRepository(url);
-		return m;
+		Repository r = repMapper.getRepositoryByUrl(url);
+		return r;
 	}
 
 	@Override
 	public void addRep(Repository r) {
 		repMapper = sqlSession.getMapper(Mapper.class);
 		repMapper.insertRep(r);
+	}
+	@Override
+	public Repository selectRepByName(Repository r) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		Repository r2 = repMapper.getRepositoryByName(r);
+		return r2;
 	}
 
 	@Override
@@ -41,6 +47,8 @@ public class ServiceImpl implements Service{
 		repMapper = sqlSession.getMapper(Mapper.class);
 		repMapper.delete(rep_id);
 	}
+
+	
 
 	
 
