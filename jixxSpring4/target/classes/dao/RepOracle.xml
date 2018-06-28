@@ -9,12 +9,15 @@
 		<result property="rep_name" column="rep_name" />
 		<result property="rep_url" column="rep_url" />				
 	</resultMap>
-	<select id="getRepository" parameterType="vo.Repository" resultMap="RepResultMap">
+	<select id="getRepositoryByUrl" parameterType="vo.Repository" resultMap="RepResultMap">
 	select * from repository where rep_url=#{rep_url}
 	</select>
 	<insert id="insertRep" parameterType="vo.Repository">
-	insert into repository values((select max(rep_id)+1 from repository), #{rep_name}, #{rep_url}
+	insert into repository values((select max(rep_id)+1 from repository), #{rep_name}, #{rep_url})
 	</insert>
+	<select id="getRepositoryByName" parameterType="vo.Repository" resultMap="RepResultMap">
+	select * from repository where rep_name=#{rep_name}
+	</select>
 	
 
 	<insert id="insert"
