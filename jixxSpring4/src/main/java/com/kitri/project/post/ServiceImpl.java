@@ -21,20 +21,21 @@ public class ServiceImpl implements Service {
 	public void write(Post post) {
 		mapper = sqlSession.getMapper(Mapper.class);
 		if (post.getFile_thumbnail() == null) {
-			post.setFile_thumbnail("no");
+			post.setFile_thumbnail("x");
+			post.setFile_original("x");
 		}
 		mapper.insert(post);
 	}
 
 	@Override
 	public ArrayList<Post> show(int page, int cn) {
-		cn = 1;
 		int endpage = 0;
-		if (page == 0) {
+		if (page == 1) {
 			page = 1;
+			endpage = 5; 
 		} else {
-			page += 5;
-			endpage = page + 5; 
+			page *= 5;
+			endpage = page + 4; 
 		}
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startpage", page);

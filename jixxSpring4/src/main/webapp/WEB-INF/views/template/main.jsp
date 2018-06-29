@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="mainHeader.jsp" flush="false" />
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
@@ -199,7 +200,7 @@
 					<li class="header"><a href="index.html"> Channels &nbsp;
 							&nbsp;<i class="fa fa-plus-circle"></i>
 					</a>
-					<li><a href="#"> <i class="fa fa-asterisk"></i>Channel 1
+					<li><a href="<%= request.getContextPath() %>/post/list.do?page=1&cn=2"> <i class="fa fa-asterisk"></i>Channel 1
 					</a></li>
 					<li><a href="#"><i id="icon2" class="fa fa-lock"></i>Channel
 							2</a></li>
@@ -298,23 +299,23 @@
 									</div></li>
 								<!-- END timeline item -->
 								<!-- timeline item -->
+								<c:forEach items="${list}" var="post">
 								<li><i class="fa fa-comments bg-yellow"></i>
 
 									<div class="timeline-item">
-										<span class="time"><i class="fa fa-clock-o"></i> 27
-											mins ago</span>
+										<span class="time"><i class="fa fa-clock-o"></i>${post.logdate}</span>
 
 										<h3 class="timeline-header">
-											<a href="#">Jay White</a>
+											<a href="#">${post.nickname}</a>
 											<div class="timelinebtn">
 												<a class="btn btn-danger btn-xs">Delete</a>
 											</div>
 										</h3>
 
-										<div class="timeline-body">Take me to your leader!
-											Switzerland is small and neutral! We are more like Germany,
-											ambitious and misunderstood!</div>
+										<div class="timeline-body">${post.content}</div>
+										<a href="<%= request.getContextPath() %>/psot/download.do?filename=${ post.file_original}">${ post.fileName}</a>
 									</div></li>
+								</c:forEach>
 								<!-- END timeline item -->
 								<!-- timeline time label -->
 								<li class="time-label"><span class="bg-green"> 3
