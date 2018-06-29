@@ -15,14 +15,14 @@ public class Post {
 	private String file_thumbnail; //저장한파일 썸네일파일 명
 	private String file_original; //저장한 파일 오리지널 파일명
 	private int post_status; //게시물 상태 Default = 1 : 1값인 데이터만 조회 , 삭제하기능할 경우 : 0으로 업데이트
-	private Channel channel; //저장소의 어디 채널에 해당하는 것인지.
+	private int channel_id; //저장소의 어디 채널에 해당하는 것인지.
 	private MultipartFile file;
 	public Post() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public Post(int post_id, int repost_id, String nickname, String content, int user_id, Date logdate, Date update,
-			String file_thumbnail, String file_original, int post_status, Channel channel, MultipartFile file) {
+			String file_thumbnail, String file_original, int post_status, int channel_id, MultipartFile file) {
 		super();
 		this.post_id = post_id;
 		this.repost_id = repost_id;
@@ -34,7 +34,7 @@ public class Post {
 		this.file_thumbnail = file_thumbnail;
 		this.file_original = file_original;
 		this.post_status = post_status;
-		this.channel = channel;
+		this.channel_id = channel_id;
 		this.file = file;
 	}
 	public int getPost_id() {
@@ -97,11 +97,11 @@ public class Post {
 	public void setPost_status(int post_status) {
 		this.post_status = post_status;
 	}
-	public Channel getChannel() {
-		return channel;
+	public int getChannel() {
+		return channel_id;
 	}
-	public void setChannel(Channel channel) {
-		this.channel = channel;
+	public void setChannel(int channel_id) {
+		this.channel_id = channel_id;
 	}
 	public MultipartFile getFile() {
 		return file;
@@ -114,7 +114,7 @@ public class Post {
 		return "Post [post_id=" + post_id + ", repost_id=" + repost_id + ", nickname=" + nickname + ", content="
 				+ content + ", user_id=" + user_id + ", logdate=" + logdate + ", update=" + update + ", file_thumbnail="
 				+ file_thumbnail + ", file_original=" + file_original + ", post_status=" + post_status + ", channel="
-				+ channel + ", file=" + file + "]";
+				+ channel_id + ", file=" + file + "]";
 	}
 	
 }
