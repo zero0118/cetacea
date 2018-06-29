@@ -10,7 +10,7 @@
 			$('ul#input').append("<li><input type='email' name='address' placeholder='name@example.com' class='form-control' required='required'></li>");
 		});		
 		$("#deleteemail").click(function() {
-			 $('ul#input').children("li").remove();	 		    
+			 $('ul#input').children("li").remove();	 		 
 		});
 	});
 </script>

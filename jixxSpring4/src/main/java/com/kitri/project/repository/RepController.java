@@ -2,6 +2,7 @@ package com.kitri.project.repository;
 
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
@@ -52,10 +53,10 @@ public class RepController {
 
 	@RequestMapping(value = "createrep.do")
 	public ModelAndView createRep(HttpServletRequest req, @RequestParam(value = "nickname") String nickname,
-			Repository r)throws Exception {
+			Repository r) throws Exception {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
-		ModelAndView mav = new ModelAndView("workspace/teaminvite");		
+		ModelAndView mav = new ModelAndView("workspace/teaminvite");
 		service.addRep(r);
 		Repository rep_id = service.getRepId(r);
 		service.createCh(rep_id);
@@ -76,35 +77,37 @@ public class RepController {
 		ModelAndView mav = new ModelAndView("template/main");
 		mav.addObject("id", id);
 		return mav;
-	}	
+	}
 
 	@RequestMapping(value = "sendinvite.do")
 	public ModelAndView emailAuth(HttpServletRequest req, String[] address, HttpServletResponse res,
-			@RequestParam(value="rep_name") String rep_name,Repository r)
-			throws MessagingException, UnsupportedEncodingException,Exception {
+			@RequestParam(value = "rep_name") String rep_name)
+			throws MessagingException, UnsupportedEncodingException, Exception {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
 		ModelAndView mav = new ModelAndView("template/main");
 		Member user = service.getMember(id);
 		String user_name = user.getName();
-		
+		int rep_id = service.getRepIdByRepNameUserMeta(rep_name);
+
 		MailHandler sendMail = new MailHandler(mailSender);
 		for (String str : address) {
-			sendMail.setSubject(user_name+"님의 JIXX저장소 초대");
-			sendMail.setText(
-					new StringBuffer().append("<h1>"+user_name+"님의 jixx저장소 초대</h1>").append("<a href='localhost:8080/project/member/signup.do")
-							.append("'target='_blenk'>초대 수락</a>").toString());
+			sendMail.setSubject(user_name + "님의 JIXX저장소 초대");
+			sendMail.setText(new StringBuffer().append("<h1>" + user_name + "님의 jixx저장소 초대</h1>").append(
+					"<a href='localhost:8080/project/invitesignup.do?rep_name=" + rep_name + "&rep_id=" + rep_id)
+					.append("'target='_blenk'>초대 수락</a>").toString());
 			sendMail.setFrom("gusdn4973@gmail.com", "jixx");
 			sendMail.setTo(str);
 			sendMail.send();
 		}
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
-        out.println("<script>alert('친구초대완료'); </script>");
-        out.flush();
+		out.println("<script>alert('친구초대완료'); </script>");
+		out.flush();
 		mav.addObject("id", id);
 		return mav;
 	}
+
 	@RequestMapping(value = "moreteam.do")
 	public ModelAndView moreTeam(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
@@ -115,6 +118,55 @@ public class RepController {
 		mav.addObject("id", id);
 		mav.addObject("user_name", user_name);
 		return mav;
+	}
+
+	@RequestMapping(value = "invitesignup.do")
+	public ModelAndView inviteSignup(HttpServletRequest req, @RequestParam(value = "rep_name") String rep_name,
+			@RequestParam(value = "rep_id") int rep_id) {
+		ModelAndView mav = new ModelAndView("member/invitesignup");
+		mav.addObject("rep_name", rep_name);
+		mav.addObject("rep_id", rep_id);
+		return mav;
+	}
+
+	@RequestMapping(value = "inviteinsert.do")
+	public String add(HttpServletResponse res, @RequestParam(value = "rep_name") String rep_name,
+			@RequestParam(value = "rep_id") int rep_id, @RequestParam(value = "email") String email,
+			@RequestParam(value = "pwd") String pwd, @RequestParam(value = "name") String name, HttpServletRequest req,
+			@RequestParam(value = "nickname") String nickname, Member m) throws Exception {
+		HttpSession session = req.getSession(false);	
+		service.addMember(email, pwd, name);
+		Member m2 = service.getMember(email);		
+			
+		session.invalidate();
+		session = req.getSession();
+		session.setAttribute("id", m2.getId());		
+		session.setAttribute("email", m2.getEmail());
+		int id = (int) session.getAttribute("id");
+		
+		ArrayList<Integer> chlist = service.getChList(rep_id);		
+		
+		for (int i = 0; i < chlist.size(); i++) {
+			int ch_id = chlist.get(i);
+			System.out.println(ch_id);
+			service.createUserMeta(id, rep_id, ch_id);
+			service.addBoard(nickname, id, ch_id);
+		}
+		
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		out.println("<script>alert('회원가입을 축하합니다'); </script>");
+		out.flush();
+		
+		
+		
+		
+		
+		
+		
+		
+		return "template/main";
+
 	}
 
 	@RequestMapping(value = "joinws.do")

@@ -9,13 +9,12 @@
 		<header class="main-header">
 
 			<!-- Logo -->
-			<a href="${pageContext.request.contextPath }/index.do" class="logo"><img src="images/logo.png"
+			<a href="${pageContext.request.contextPath }/index.do" class="logo"><img src="resources/images/logo.png"
 				alt="Logo"> </a>
 
 			<!-- Header Navbar -->
 			<nav class="navbar navbar-static-top" role="navigation">
-				<!-- Sidebar toggle button-->
-				<!-- Navbar Right Menu -->
+				<li class="cname">#채널이름</li>
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
 						<!-- Messages: style can be found in dropdown.less-->
@@ -112,7 +111,7 @@
 							data-toggle="dropdown"> <!-- The user image in the navbar-->
 								<img src="dist/img/user2-160x160.jpg" class="user-image"
 								alt="User Image"> <!-- hidden-xs hides the username on small devices so only the image appears. -->
-								<span class="hidden-xs">Alexander Pierce</span>
+								<span class="hidden-xs">닉네임</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- The user image in the menu -->
@@ -121,7 +120,7 @@
 									alt="User Image">
 
 									<p>
-										Alexander Pierce - Web Developer <small>Member since
+										닉네임 - Web Developer <small>Member since
 											Nov. 2012</small>
 									</p></li>
 								<!-- Menu Body -->
@@ -169,7 +168,7 @@
 							alt="User Image">
 					</div>
 					<div class="pull-left info">
-						<p>Alexander Pierce</p>
+						<p>닉네임</p>
 						<!-- Status -->
 						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 					</div>
@@ -208,8 +207,8 @@
 					<li class="header"><a href="index.html"> Direct Messages
 							&nbsp; <i class="fa fa-plus-circle"></i>
 					</a>
-					<li><a href="#"><i class="fa fa fa-user"></i>ì¬ë 1</a></li>
-					<li><a href="#"><i class="fa fa-users"></i>ì¬ë 2</a></li>
+					<li><a href="#"><i class="fa fa fa-user"></i>사람1</a></li>
+					<li><a href="#"><i class="fa fa-users"></i>사람1,사람2</a></li>
 					</li>
 					<li class="header"><a href="${pageContext.request.contextPath }/moreteam.do"> Invate People
 							&nbsp; <i class="fa fa-plus-circle"></i>
@@ -224,19 +223,7 @@
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-			<!-- Content Header (Page header) -->
-			<section class="content-header">
-				<h1>#Channels1</h1>
-				<ol class="breadcrumb">
-					<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-					<li class="active">Here</li>
-				</ol>
-			</section>
-
-			<!-- Main content -->
-			<section class="content container-fluid">
-
-				<section class="content">
+				<section class="content ">
 
 					<!-- row -->
 					<div class="row">
@@ -343,6 +330,27 @@
 											<img src="http://placehold.it/150x100" alt="..."
 												class="margin">
 										</div>
+									</div></li>								<li><i class="fa fa-camera bg-purple"></i>
+
+									<div class="timeline-item">
+										<span class="time"><i class="fa fa-clock-o"></i> 2 days
+											ago</span>
+
+										<h3 class="timeline-header">
+											<a href="#">Mina Lee</a> uploaded new photos
+											<div class="timelinebtn">
+												<a class="btn btn-danger btn-xs">Delete</a>
+											</div>
+										</h3>
+
+										<div class="timeline-body">
+											<img src="http://placehold.it/150x100" alt="..."
+												class="margin"> <img src="http://placehold.it/150x100"
+												alt="..." class="margin"> <img
+												src="http://placehold.it/150x100" alt="..." class="margin">
+											<img src="http://placehold.it/150x100" alt="..."
+												class="margin">
+										</div>
 									</div></li>
 								<!-- timeline item -->
 
@@ -355,90 +363,13 @@
 					<!-- /.row -->
 
 				</section>
-
-			</section>
 			<!-- /.content -->
 
 		</div>
 		<!-- /.content-wrapper -->
 		
 	<%@include file="mainFooter.jsp"%>
-
-		<!-- Control Sidebar -->
-		<aside class="control-sidebar control-sidebar-dark">
-			<!-- Create the tabs -->
-			<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
-				<li class="active"><a href="#control-sidebar-home-tab"
-					data-toggle="tab"><i class="fa fa-home"></i></a></li>
-				<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i
-						class="fa fa-gears"></i></a></li>
-			</ul>
-			<!-- Tab panes -->
-			<div class="tab-content">
-				<!-- Home tab content -->
-				<div class="tab-pane active" id="control-sidebar-home-tab">
-					<h3 class="control-sidebar-heading">Recent Activity</h3>
-					<ul class="control-sidebar-menu">
-						<li><a href="javascript:;"> <i
-								class="menu-icon fa fa-birthday-cake bg-red"></i>
-
-								<div class="menu-info">
-									<h4 class="control-sidebar-subheading">Langdon's Birthday</h4>
-
-									<p>Will be 23 on April 24th</p>
-								</div>
-						</a></li>
-					</ul>
-					<!-- /.control-sidebar-menu -->
-
-					<h3 class="control-sidebar-heading">Tasks Progress</h3>
-					<ul class="control-sidebar-menu">
-						<li><a href="javascript:;">
-								<h4 class="control-sidebar-subheading">
-									Custom Template Design <span class="pull-right-container">
-										<span class="label label-danger pull-right">70%</span>
-									</span>
-								</h4>
-
-								<div class="progress progress-xxs">
-									<div class="progress-bar progress-bar-danger"
-										style="width: 70%"></div>
-								</div>
-						</a></li>
-					</ul>
-					<!-- /.control-sidebar-menu -->
-
-				</div>
-				<!-- /.tab-pane -->
-				<!-- Stats tab content -->
-				<div class="tab-pane" id="control-sidebar-stats-tab">Stats Tab
-					Content</div>
-				<!-- /.tab-pane -->
-				<!-- Settings tab content -->
-				<div class="tab-pane" id="control-sidebar-settings-tab">
-					<form method="post">
-						<h3 class="control-sidebar-heading">General Settings</h3>
-
-						<div class="form-group">
-							<label class="control-sidebar-subheading"> Report panel
-								usage <input type="checkbox" class="pull-right" checked>
-							</label>
-
-							<p>Some information about this general settings option</p>
-						</div>
-						<!-- /.form-group -->
-					</form>
-				</div>
-				<!-- /.tab-pane -->
-			</div>
-		</aside>
-		<!-- /.control-sidebar -->
-		<!-- Add the sidebar's background. This div must be placed
-    immediately after the control sidebar -->
-		<div class="control-sidebar-bg"></div>
-	</div>
-	<!-- ./wrapper -->
-
+</div>
 
 </body>
 </html>
