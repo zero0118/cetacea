@@ -1,6 +1,8 @@
 package com.kitri.project.post;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -25,8 +27,23 @@ public class ServiceImpl implements Service {
 	}
 
 	@Override
-	public ArrayList<Post> show(int page) {
-		return null;
+	public ArrayList<Post> show(int page, int cn) {
+		cn = 1;
+		int endpage = 0;
+		if (page == 0) {
+			page = 1;
+		} else {
+			page += 5;
+			endpage = page + 5; 
+		}
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startpage", page);
+		map.put("endPage", endpage);
+		map.put("cn", cn);
+		mapper = sqlSession.getMapper(Mapper.class);
+		ArrayList<Post> list = mapper.selectAll(map);
+		System.out.println(list);
+		return list;
 	}
 
 	@Override
@@ -38,5 +55,5 @@ public class ServiceImpl implements Service {
 	public void delete(int Post_id) {
 		
 	}
-
+	
 }

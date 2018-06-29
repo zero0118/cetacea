@@ -19,7 +19,16 @@
 
 	<insert id="insert" parameterType="vo.Post">
 		Insert into post
-		values ((select max(post_id) from post)+1,#{repost_id}, '요를레이호', #{content},#{user_id}, sysdate,null,#{file_thumbnail},#{file_original},1,1)
+		values
+		((select max(post_id) from post)+1,#{repost_id}, '요를레이호',
+		#{content},#{user_id},
+		sysdate,null,#{file_thumbnail},#{file_original},1,1)
 	</insert>
-
+	<select id="selectAll" parameterType="map" resultMap="PostResultMap">
+		select * from (select rownum a, a.*
+		from (select * from post where channel_id = ${cn} order by post_logdate desc) a
+		where channel_id = 1
+		and rownum <![CDATA[<=]]> ${endPage})b
+		where b.a <![CDATA[>=]]> ${startpage}
+	</select>
 </mapper>

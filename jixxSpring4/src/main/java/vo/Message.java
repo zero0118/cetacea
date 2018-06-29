@@ -11,12 +11,12 @@ public class Message {
 	private String file_thumbnail;
 	private String file_original;
 	private int message_status; //메세지 상태 Default = 1 : 1값인 데이터만 조회 , 삭제하기능할 경우 : 0으로 업데이트
-	private Channel channel;
+	private int channel_id;
 
 	public Message() {}
 
 	public Message(int message_id, String nickname, String content, int user_id, Date logdate, String file_thumbnail,
-			String file_original, int message_status, Channel channel) {
+			String file_original, int message_status, int channel_id) {
 		super();
 		this.message_id = message_id;
 		this.nickname = nickname;
@@ -26,7 +26,7 @@ public class Message {
 		this.file_thumbnail = file_thumbnail;
 		this.file_original = file_original;
 		this.message_status = message_status;
-		this.channel = channel;
+		this.channel_id = channel_id;
 	}
 
 	public int getMessage_id() {
@@ -93,18 +93,18 @@ public class Message {
 		this.message_status = message_status;
 	}
 
-	public Channel getChannel() {
-		return channel;
+	public int getChannel() {
+		return channel_id;
 	}
 
-	public void setChannel(Channel channel) {
-		this.channel = channel;
+	public void setChannel(int channel_id) {
+		this.channel_id = channel_id;
 	}
 
 	@Override
 	public String toString() {
 		return "Message [message_id=" + message_id + ", nickname=" + nickname + ", content=" + content + ", user_id="
 				+ user_id + ", logdate=" + logdate + ", file_thumbnail=" + file_thumbnail + ", file_original="
-				+ file_original + ", message_status=" + message_status + ", channel_id=" + channel + "]";
+				+ file_original + ", message_status=" + message_status + ", channel_id=" + channel_id + "]";
 	}
 }
