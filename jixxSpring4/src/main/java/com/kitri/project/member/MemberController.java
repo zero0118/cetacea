@@ -36,6 +36,7 @@ public class MemberController {
 			Double.parseDouble(str);
 			result = true;
 		} catch (Exception e) {
+			result= false;
 		}
 
 		return result;
@@ -204,4 +205,7 @@ public class MemberController {
 		}
 		return "member/verify";
 	}
+	
+	
+	
 }
