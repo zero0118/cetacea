@@ -102,17 +102,16 @@
 					<div class="col-lg-16">
 						<div class="card">
 							<div class="card-body card-block">
-								<c:set var="r" value="${r }" />
-								<h4>${r.rep_name}저장소생성완료</h4>
+								<c:set var="r" value="${user_name }" />								
 								<h3>Send Invitations</h3>
 								<br> <label class="form-text text-muted">All set!
 									You'Anybody else you'd like to invate?</label> <label
 									class="control-label mb-1">Email address</label>
 								<form action="${pageContext.request.contextPath}/sendinvite.do" id="emailinput" method="post" class="form-horizontal">
 									<div class="row form-group">
-									<input type="hidden" name="rep_name" value="${r.rep_name}">
-										<button type="button" id="addemail" class="btn btn-primary btn-sm">more invitation</button>
-										<button type="button" id="deleteemail" class="btn btn-primary btn-sm">cancel invitation</button>
+									<input  type="hidden" name="rep_name" value="${r}">
+										<button type="button" id="addemail">more invitation</button>
+										<button type="button" id="deleteemail">cancel invitation</button>
 										<div id="emailinput" class="col-5">
 											<ul id="input">
 												<li><input type="email" name="address"

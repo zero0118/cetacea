@@ -7,33 +7,58 @@
 	<resultMap type="vo.Repository" id="RepResultMap">
 		<result property="rep_id" column="rep_id" />
 		<result property="rep_name" column="rep_name" />
-		<result property="rep_url" column="rep_url" />				
+		<result property="rep_url" column="rep_url" />
 	</resultMap>
-	<select id="getRepositoryByUrl" parameterType="vo.Repository" resultMap="RepResultMap">
-	select * from repository where rep_url=#{rep_url}
+	<resultMap type="vo.Channel" id="ChResultMap">
+		<result property="ch_id" column="ch_id" />
+		<result property="ch_name" column="ch_name" />
+		<result property="ch_type" column="ch_type" />
+		<result property="ch_status" column="ch_status" />
+	</resultMap>
+	<resultMap type="vo.Member" id="MemberResultMap">
+		<result property="id" column="user_id" />
+		<result property="email" column="user_email" />
+		<result property="pwd" column="user_pass" />
+		<result property="name" column="user_name" />
+		<result property="tempkey" column="user_tempkey" />
+		<result property="auth" column="user_auth" />
+	</resultMap>	
+
+	<select id="getRepositoryByUrl" parameterType="vo.Repository"
+		resultMap="RepResultMap">
+		select * from repository where rep_url=#{rep_url}
 	</select>
 	<insert id="insertRep" parameterType="vo.Repository">
-	insert into repository values((select max(rep_id)+1 from repository), #{rep_name}, #{rep_url})
+		insert into repository
+		values((select max(rep_id)+1 from repository),
+		#{rep_name}, #{rep_url})
 	</insert>
-	<select id="getRepositoryByName" parameterType="vo.Repository" resultMap="RepResultMap">
-	select * from repository where rep_name=#{rep_name}
+	<select id="getRepositoryByName" parameterType="vo.Repository"
+		resultMap="RepResultMap">
+		select * from repository where rep_name=#{rep_name}
+	</select>
+	<select id="getRepIdByRepName" parameterType="vo.Repository"
+		resultMap="RepResultMap">
+		select rep_id from repository where rep_url=#{rep_url}
+	</select>
+	<insert id="insertCh" parameterType="vo.Repository">
+		insert into channel
+		values((select max(channel_id)+1 from
+		channel),'general',1,1,#{rep_id})
+	</insert>
+	<select id="getChByRepId" parameterType="vo.Repository" resultMap="ChResultMap">
+		select channel_id ch_id from channel where rep_id=#{rep_id}
+	</select>
+	<insert id="insertUserMeta" parameterType="map">
+	insert into user_meta values(#{user_id},#{rep_id},3,#{ch_id},1)
+	</insert>
+	<insert id="insertBoard" parameterType="map">
+	insert into post values((select max(post_id)+1 from post),null,#{nickname}, 
+	'jixx 저장소에 오신것을 환영합니다', #{user_id}, sysdate,null,null,null,1,#{ch_id})
+	</insert>
+	<select id="getNameById" parameterType="Integer" resultMap="MemberResultMap">
+	select user_name from member where user_id=#{id}
 	</select>
 	
 
-	<insert id="insert"
-		parameterType="vo.Repository">		
-		 insert into member values((select max(user_id)+1 from member),#{email},#{pwd},#{name})
-	</insert>
-
-	<update id="update"
-		parameterType="vo.Repository">
-		update member
-		set
-		pwd=#{pwd}, name=#{name}, email=#{email} where id=#{id}
-	</update>
-
-	<delete id="delete" parameterType="String">
-		delete member where
-		id=#{id}
-	</delete>
 </mapper>

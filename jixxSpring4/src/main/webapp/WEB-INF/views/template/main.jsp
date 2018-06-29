@@ -8,7 +8,7 @@
 		<header class="main-header">
 
 			<!-- Logo -->
-			<a href="index2.html" class="logo"><img src="images/logo.png"
+			<a href="${pageContext.request.contextPath }/index.do" class="logo"><img src="images/logo.png"
 				alt="Logo"> </a>
 
 			<!-- Header Navbar -->
@@ -210,7 +210,7 @@
 					<li><a href="#"><i class="fa fa fa-user"></i>ì¬ë 1</a></li>
 					<li><a href="#"><i class="fa fa-users"></i>ì¬ë 2</a></li>
 					</li>
-					<li class="header"><a href="index.html"> Invate People
+					<li class="header"><a href="${pageContext.request.contextPath }/moreteam.do"> Invate People
 							&nbsp; <i class="fa fa-plus-circle"></i>
 					</a></li>
 

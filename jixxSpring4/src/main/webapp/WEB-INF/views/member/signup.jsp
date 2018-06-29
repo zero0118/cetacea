@@ -40,7 +40,17 @@
 	}
 
 	function check() {
-		sendRequest("<%=request.getContextPath()%>/idCheck.do?email="+ f.email.value, null, check_res, "GET");
+		var email = $('input#emailinput').val();	
+		if (email == "") {
+			alert("아이디를입력하세요");
+		} else {
+			if(email.length<=10){
+				alert("전체아이디를입력하세요")
+			}else{
+			sendRequest("<%=request.getContextPath()%>/idCheck.do?email=" + f.email.value, null, check_res, "GET");
+			}
+			
+		}
 	}
 
 	function check_res() {
@@ -55,7 +65,7 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<a href="../../index2.html">Spring<b>JIXX</b></a>
+			<a href="${pageContext.request.contextPath}">Spring<b>JIXX</b></a>
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
@@ -65,11 +75,12 @@
 				method="post" name="f">
 				<div class="form-group has-feedback">
 					<input type="email" class="form-control" placeholder="Email"
-						name="email" required="required"> <span
+						name="email" required="required" id="emailinput"> <span
 						class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				</div>
 				<div>
-					<input type="button" value="중복체크" onclick="check()">
+					<input type="button" value="중복체크" onclick="check()"
+						class="btn btn-primary btn-block btn-flat">
 				</div>
 				<div id="check_div"></div>
 				<div class="form-group has-feedback">
@@ -89,8 +100,11 @@
 					</div>
 					<!-- /.col -->
 					<div class="col-xs-4">
-						<button type="submit" class="btn btn-primary btn-block btn-flat">JOIN</button>
-						<input type="button" id="cancel" value="취소" />
+						<button style="display: inline;" type="submit"
+							class="btn btn-primary btn-block btn-flat">JOIN</button>
+						<input type="button" id="cancel" value="취소"
+							class="btn btn-primary btn-block btn-flat"
+							onclick="location.href='${pageContext.request.contextPath }/member/loginForm.do'" />
 					</div>
 					<!-- /.col -->
 				</div>

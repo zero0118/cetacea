@@ -15,6 +15,7 @@
 			}else{
 				alert("url 중복체크 먼저 하세요");
 			}
+			return;
 		});
 	});
 </script>
@@ -146,10 +147,10 @@
 											</div>
 											<label class="control-label mb-1">.jixx.com</label>
 										</div>
-										<input type="button"	id="urlCheck" value="url 중복체크"> 
+										<input type="button"	id="urlCheck" value="url 중복체크"class="btn btn-primary btn-sm"> 
 										<span id="urlResult"></span>
-									</div>
-									<button type="submit" class="btn btn-primary btn-sm" id="createws">Create Workspace â</button>
+										<button type="button" class="btn btn-primary btn-sm" id="createws">Create Workspace</button>
+									</div>
 								</form>
 							</div>
 				</section>
