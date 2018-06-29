@@ -10,11 +10,12 @@
 		<result property="nickname" column="nickname" />
 		<result property="content" column="content" />
 		<result property="user_id" column="user_id" />
-		<result property="logdate" column="logdate" />
+		<result property="logdate" column="post_logdate" />
 		<result property="update" column="update" />
 		<result property="file_thumbnail" column="file_thumbnail" />
-		<result property="file_original" column="file_original" />
+		<result property="file_original" column="fil_original" />
 		<result property="post_status" column="post_status" />
+		<result property="channel_id" column="channel_id"/>
 	</resultMap>
 
 	<insert id="insert" parameterType="vo.Post">
@@ -27,8 +28,8 @@
 	<select id="selectAll" parameterType="map" resultMap="PostResultMap">
 		select * from (select rownum a, a.*
 		from (select * from post where channel_id = ${cn} order by post_logdate desc) a
-		where channel_id = 1
-		and rownum <![CDATA[<=]]> ${endPage})b
+		where rownum <![CDATA[<=]]> ${endPage})b
 		where b.a <![CDATA[>=]]> ${startpage}
+		order by post_logdate
 	</select>
 </mapper>
