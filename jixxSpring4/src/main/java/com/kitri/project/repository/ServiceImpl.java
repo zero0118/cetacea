@@ -72,7 +72,7 @@ public class ServiceImpl implements Service {
 		map.put("ch_id", chid1);
 		repMapper.insertUserMeta(map);
 
-	}	
+	}
 
 	@Override
 	public void addBoard(String nickname, int id, int chid1) {
@@ -112,10 +112,10 @@ public class ServiceImpl implements Service {
 	@Override
 	public ArrayList<Integer> getChList(int rep_id) {
 		repMapper = sqlSession.getMapper(Mapper.class);
-		ArrayList<Integer> list = repMapper.selectChList(rep_id);	
+		ArrayList<Integer> list = repMapper.selectChList(rep_id);
 		return list;
 	}
-	
+
 	@Override
 	public Member getMember(String email) {
 		repMapper = sqlSession.getMapper(Mapper.class);
@@ -134,7 +134,4 @@ public class ServiceImpl implements Service {
 		repMapper = sqlSession.getMapper(Mapper.class);
 		repMapper.delete(rep_id);
 	}
-
-	
-
 }

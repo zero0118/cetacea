@@ -35,19 +35,21 @@
 		pwd=#{pwd},
 		name=#{name}, email=#{email} where id=#{id}
 	</update>
-
 	<delete id="delete" parameterType="String">
 		delete member where
 		id=#{id}
 	</delete>
 	<update id="verify" parameterType="vo.Member">
-		update member set user_auth = 1 where user_email = #{email}
+		update member set user_auth =
+		1 where user_email = #{email}
 	</update>
-	<select id="selectTempKey" parameterType="String" resultType="int">
+	<select id="selectTempKey" parameterType="String"
+		resultType="int">
 		select user_tempkey from member where user_email = #{email}
 	</select>
 	<update id="setTempkey" parameterType="map">
-		update member set user_tempkey=#{tempkey}  where user_id = #{id}
+		update member set
+		user_tempkey=#{tempkey} where user_id = #{id}
 	</update>
-	
+
 </mapper>
