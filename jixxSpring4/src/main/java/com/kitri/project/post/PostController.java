@@ -33,6 +33,7 @@ public class PostController implements ApplicationContextAware{
 	public String write(Post post, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		MultipartFile file = post.getFile();
+		System.out.println(file.getOriginalFilename());
 		if (file.getOriginalFilename() != "") {
 			int pos = file.getOriginalFilename().lastIndexOf( "." );
 			String ext = file.getOriginalFilename().substring( pos );
@@ -47,6 +48,8 @@ public class PostController implements ApplicationContextAware{
 				e.printStackTrace();
 			}
 			post.setFile_original(path);
+		} else {
+			post.setFile_original("x");
 		}
 		post.setUser_id(Integer.parseInt(session.getAttribute("id").toString()));
 		service.write(post);

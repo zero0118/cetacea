@@ -22,7 +22,6 @@ public class ServiceImpl implements Service {
 		mapper = sqlSession.getMapper(Mapper.class);
 		if (post.getFile_thumbnail() == null) {
 			post.setFile_thumbnail("x");
-			post.setFile_original("x");
 		}
 		mapper.insert(post);
 	}
