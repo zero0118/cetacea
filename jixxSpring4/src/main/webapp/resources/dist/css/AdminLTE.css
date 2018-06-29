@@ -108,7 +108,9 @@ body {
   background: #fff;
   padding: 15px;
   color: #444;
-  border-top: 1px solid #d2d6de;
+  border-top: 4px solid #d2d6de;
+  position: fixed;
+  bottom: -12px;
 }
 /* Fixed layout */
 .fixed .main-header,
@@ -434,6 +436,7 @@ a:focus {
   -moz-transition: -moz-transform 0.3s ease-in-out, width 0.3s ease-in-out;
   -o-transition: -o-transform 0.3s ease-in-out, width 0.3s ease-in-out;
   transition: transform 0.3s ease-in-out, width 0.3s ease-in-out;
+  position: fixed;
 }
 @media (max-width: 767px) {
   .main-sidebar {
@@ -475,6 +478,7 @@ a:focus {
   width: 100%;
   padding: 10px;
   overflow: hidden;
+  height: 60px;
 }
 .user-panel:before,
 .user-panel:after {

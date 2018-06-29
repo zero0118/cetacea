@@ -74,7 +74,12 @@
 	.skin-blue .content-header {
 	    background: #ffffff;
 	  }
-	
+	.cname{
+	padding: 15px 15px;
+    float: left;
+    color: #fff;
+    font-size: 17px;
+    list-style: none;}
 	</style>
 </head>
 

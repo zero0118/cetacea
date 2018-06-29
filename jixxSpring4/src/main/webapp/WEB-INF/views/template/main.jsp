@@ -8,13 +8,12 @@
 		<header class="main-header">
 
 			<!-- Logo -->
-			<a href="${pageContext.request.contextPath }/index.do" class="logo"><img src="images/logo.png"
+			<a href="${pageContext.request.contextPath }/index.do" class="logo"><img src="resources/images/logo.png"
 				alt="Logo"> </a>
 
 			<!-- Header Navbar -->
 			<nav class="navbar navbar-static-top" role="navigation">
-				<!-- Sidebar toggle button-->
-				<!-- Navbar Right Menu -->
+				<li class="cname">#채널이름</li>
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
 						<!-- Messages: style can be found in dropdown.less-->
@@ -111,7 +110,7 @@
 							data-toggle="dropdown"> <!-- The user image in the navbar-->
 								<img src="dist/img/user2-160x160.jpg" class="user-image"
 								alt="User Image"> <!-- hidden-xs hides the username on small devices so only the image appears. -->
-								<span class="hidden-xs">Alexander Pierce</span>
+								<span class="hidden-xs">닉네임</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- The user image in the menu -->
@@ -120,7 +119,7 @@
 									alt="User Image">
 
 									<p>
-										Alexander Pierce - Web Developer <small>Member since
+										닉네임 - Web Developer <small>Member since
 											Nov. 2012</small>
 									</p></li>
 								<!-- Menu Body -->
@@ -168,7 +167,7 @@
 							alt="User Image">
 					</div>
 					<div class="pull-left info">
-						<p>Alexander Pierce</p>
+						<p>닉네임</p>
 						<!-- Status -->
 						<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
 					</div>
@@ -207,8 +206,8 @@
 					<li class="header"><a href="index.html"> Direct Messages
 							&nbsp; <i class="fa fa-plus-circle"></i>
 					</a>
-					<li><a href="#"><i class="fa fa fa-user"></i>ì¬ë 1</a></li>
-					<li><a href="#"><i class="fa fa-users"></i>ì¬ë 2</a></li>
+					<li><a href="#"><i class="fa fa fa-user"></i>사람1</a></li>
+					<li><a href="#"><i class="fa fa-users"></i>사람1,사람2</a></li>
 					</li>
 					<li class="header"><a href="${pageContext.request.contextPath }/moreteam.do"> Invate People
 							&nbsp; <i class="fa fa-plus-circle"></i>
@@ -224,13 +223,13 @@
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
 			<!-- Content Header (Page header) -->
-			<section class="content-header">
+<!-- 			<section class="content-header">
 				<h1>#Channels1</h1>
 				<ol class="breadcrumb">
 					<li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
 					<li class="active">Here</li>
 				</ol>
-			</section>
+			</section> -->
 
 			<!-- Main content -->
 			<section class="content container-fluid">

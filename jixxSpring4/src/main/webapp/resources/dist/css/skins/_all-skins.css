@@ -188,6 +188,7 @@
   background-color: #3c8dbc;
   color: #ffffff;
   border-bottom: 0 solid transparent;
+  position: fixed;
 }
 .skin-blue-light .main-header .logo:hover {
   background-color: #3b8ab8;
