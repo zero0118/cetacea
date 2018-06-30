@@ -102,6 +102,7 @@
                     <c:set var="m" value="${m}"/>
                       <input type="text" name="email" placeholder="" class="form-control"
                       value="${m.email}">
+                          <input type="hidden" name="requestfrom" value="createws">
                     </div>
                   </div>
                     <button type="submit" class="btn btn-block btn-primary btn-lg">인증번호전송</button>

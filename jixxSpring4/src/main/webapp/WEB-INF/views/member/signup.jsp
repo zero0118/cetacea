@@ -40,16 +40,16 @@
 	}
 
 	function check() {
-		var email = $('input#emailinput').val();	
+		var email = $('input#emailinput').val();
 		if (email == "") {
 			alert("아이디를입력하세요");
 		} else {
-			if(email.length<=10){
+			if (email.length <= 10) {
 				alert("전체아이디를입력하세요")
-			}else{
-			sendRequest("<%=request.getContextPath()%>/idCheck.do?email=" + f.email.value, null, check_res, "GET");
+			} else {
+				sendRequest("<%=request.getContextPath()%>/idCheck.do?email=" + f.email.value+"&checkfrom=signup", null, check_res, "GET");
 			}
-			
+
 		}
 	}
 
@@ -61,6 +61,28 @@
 			}
 		}
 	}
+	$(function() {
+		$('#join').click(function() {
+			var idCheckResult = $('#check_div').text().trim();
+			if (idCheckResult == "") {
+				alert("id중복확인 해주세요")
+			} else {
+				if (idCheckResult == "사용불가능한 아이디") {
+					alert("다른 id를 입력하세요");
+				} else {
+					var email =$('#emailinput').val();
+					var pwd =$('#pwd').val();
+					var name =$('#name').val();					
+					if (email !="" && pwd!= "" && name != "") {
+						$('#insertform').submit();
+					} else {
+						alert("칸을 모두채우세요")						
+					}
+					return;
+				}
+			}			
+		});
+	});
 </script>
 <body class="hold-transition login-page">
 	<div class="login-box">
@@ -72,7 +94,7 @@
 			<p class="login-box-msg">Sign in to start your session</p>
 
 			<form action="<%=request.getContextPath()%>/member/insert.do"
-				method="post" name="f">
+				method="post" name="f" id="insertform">
 				<div class="form-group has-feedback">
 					<input type="email" class="form-control" placeholder="Email"
 						name="email" required="required" id="emailinput"> <span
@@ -85,12 +107,12 @@
 				<div id="check_div"></div>
 				<div class="form-group has-feedback">
 					<input type="password" class="form-control" placeholder="Password"
-						name="pwd" required="required"> <span
+						name="pwd" required="required" id="pwd"> <span
 						class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
 					<input type="text" class="form-control" placeholder="name"
-						name="name" required="required"> <span
+						name="name" required="required" id="name"> <span
 						style="width: 34px;"
 						class=" glyphicon-envelope form-control-feedback fa fa-fw fa-user"></span>
 				</div>
@@ -100,7 +122,7 @@
 					</div>
 					<!-- /.col -->
 					<div class="col-xs-4">
-						<button style="display: inline;" type="submit"
+						<button style="display: inline;" type="button" id="join"
 							class="btn btn-primary btn-block btn-flat">JOIN</button>
 						<input type="button" id="cancel" value="취소"
 							class="btn btn-primary btn-block btn-flat"

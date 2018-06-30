@@ -52,6 +52,9 @@
 	<insert id="insertUserMeta" parameterType="map">
 	insert into user_meta values(#{user_id},#{rep_id},3,#{ch_id},1)
 	</insert>
+	<insert id="insertUserMetaInvite" parameterType="map">
+	insert into user_meta values(#{user_id},#{rep_id},1,#{ch_id},1)
+	</insert>
 	<insert id="insertBoard" parameterType="map">
 	insert into post values((select max(post_id)+1 from post),null,#{nickname}, 
 	'jixx 저장소에 오신것을 환영합니다', #{user_id}, sysdate,null,null,null,1,#{ch_id})

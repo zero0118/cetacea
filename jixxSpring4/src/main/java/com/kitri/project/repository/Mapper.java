@@ -16,6 +16,7 @@ public interface Mapper {
 	Repository getRepositoryByName(Repository r);	
 	Channel getChByRepId(Repository rep_id);
 	void insertUserMeta(Map<String, Object> map);
+	void insertUserMetaInvite(Map<String, Object> map);
 	void insertBoard(Map<String, Object> map);
 	Member getNameById(int id);
 	void insertMember(Map<String, Object> map);
@@ -25,6 +26,7 @@ public interface Mapper {
 	
 	void update(Repository r);
 	void delete(int rep_id);
+	
 	
 		
 	

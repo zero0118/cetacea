@@ -20,6 +20,7 @@ public interface Service {
 	Channel getChId(Repository rep_id);
 
 	void createUserMeta(int id, int rep_id1, int chid1);
+	void createUserMetaInvite(int id, int rep_id, int ch_id);
 
 	void addBoard(String nickname, int id, int chid1);
 
@@ -33,11 +34,14 @@ public interface Service {
 
 	Member getMember(String email);
 	
-	String getRepNameById(int id);
+	/*String getRepNameById(int id);*/
 
 	void editRep(Repository r);
 
 	void delRep(int rep_id);
+
+
+	
 
 	
 

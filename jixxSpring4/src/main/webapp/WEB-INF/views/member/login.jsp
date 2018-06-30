@@ -31,7 +31,7 @@
           <!-- /.col -->
         </div>
       </form>
-      <a href="#">I forgot my password</a><p>&nbsp;&nbsp;</p>
+      <a href="${pageContext.request.contextPath }/member/forgotpass.do" class="text-center">I forgot my password</a><p>&nbsp;&nbsp;</p>
       <a href="${pageContext.request.contextPath }/member/signup.do" class="text-center">Register a new membership</a>
 
     </div>
