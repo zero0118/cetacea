@@ -71,7 +71,15 @@ public class ServiceImpl implements Service {
 		map.put("rep_id", rep_id1);
 		map.put("ch_id", chid1);
 		repMapper.insertUserMeta(map);
-
+	}
+	@Override
+	public void createUserMetaInvite(int id, int rep_id, int ch_id) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", id);
+		map.put("rep_id", rep_id);
+		map.put("ch_id", ch_id);
+		repMapper.insertUserMetaInvite(map);
 	}
 
 	@Override
@@ -134,4 +142,6 @@ public class ServiceImpl implements Service {
 		repMapper = sqlSession.getMapper(Mapper.class);
 		repMapper.delete(rep_id);
 	}
+
+	
 }

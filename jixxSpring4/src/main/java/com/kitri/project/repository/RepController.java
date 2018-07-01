@@ -114,7 +114,7 @@ public class RepController {
 		int id = (int) session.getAttribute("id");
 		Member user = service.getMember(id);
 		String user_name = user.getName();
-		String rep_name = service.getRepNameById(id);
+	/*	String rep_name = service.getRepNameById(id);*/
 		ModelAndView mav = new ModelAndView("workspace/moreteammate");
 		mav.addObject("id", id);
 		mav.addObject("user_name", user_name);
@@ -147,7 +147,7 @@ public class RepController {
 		for (int i = 0; i < chlist.size(); i++) {
 			int ch_id = chlist.get(i);
 			System.out.println(ch_id);
-			service.createUserMeta(id, rep_id, ch_id);
+			service.createUserMetaInvite(id, rep_id, ch_id);
 			service.addBoard(nickname, id, ch_id);
 		}
 		res.setContentType("text/html; charset=UTF-8");

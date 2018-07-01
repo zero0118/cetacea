@@ -1,5 +1,6 @@
 package com.kitri.project.member;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,16 +9,13 @@ import javax.annotation.Resource;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
-import com.kitri.project.repository.MailHandler;
-
 import vo.Member;
 
 @Component("memService")
 public class ServiceImpl implements Service{
 	@Resource(name="sqlSession")
 	private SqlSession sqlSession;
-	private Mapper memberMapper;
-	private MailHandler mailHandler;
+	private Mapper memberMapper;	
 	
 	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
@@ -53,8 +51,12 @@ public class ServiceImpl implements Service{
 	@Override
 	public void verifyMember(Member m) {
 		memberMapper = sqlSession.getMapper(Mapper.class);
-		memberMapper.verify(m);		
-		
+		memberMapper.verify(m);				
+	}
+	@Override
+	public void verifyMemberByEmail(String email) {
+		memberMapper = sqlSession.getMapper(Mapper.class);
+		memberMapper.verifyByEmail(email);			
 	}
 	@Override
 	public void setTempkey(int ran2,int id) {
@@ -66,6 +68,16 @@ public class ServiceImpl implements Service{
 		memberMapper.setTempkey(map);		
 		
 	}
+	
+	@Override
+	public void setTempkey(int ran2, String email) {
+		memberMapper = sqlSession.getMapper(Mapper.class);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("tempkey", ran2);
+		map.put("email", email);
+		System.out.println("tempkey:"+ran2+"email:"+email);
+		memberMapper.setTempkeyByEmail(map);		
+	}
 	@Override
 	public int selectTempKey(String email) {
 		memberMapper = sqlSession.getMapper(Mapper.class);
@@ -73,6 +85,20 @@ public class ServiceImpl implements Service{
 		return t;
 		
 	}
+	@Override
+	public void setNewPass(Member m) {
+		memberMapper = sqlSession.getMapper(Mapper.class);
+		memberMapper.setNewPass(m);		
+	}
+	@Override
+	public ArrayList<String> getRepNameListById(int id) {
+		memberMapper = sqlSession.getMapper(Mapper.class);
+		ArrayList<String> t = memberMapper.selectRepList(id);
+		return t;
+	}
+
+	
+
 	
 
 

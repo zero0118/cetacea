@@ -2,6 +2,7 @@ package com.kitri.project.member;
 
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,8 +56,17 @@ public class MemberController {
 
 	// index page이동
 	@RequestMapping(value = "index.do")
-	public String index() {
-		return "template/index";
+	public ModelAndView index(HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		int id = (int) session.getAttribute("id");
+		String email = (String) session.getAttribute("email");
+		ModelAndView mav = new ModelAndView("template/index");
+		ArrayList<String> repnamelist = service.getRepNameListById(id);	
+		
+		mav.addObject("id",id);
+		mav.addObject("email",email);
+		mav.addObject("rep_list", repnamelist);
+		return mav;
 	}
 
 	// loginForm으로 이동
@@ -68,6 +79,11 @@ public class MemberController {
 	@RequestMapping(value = "member/signup.do")
 	public String signupForm() {
 		return "member/signup";
+	}
+
+	@RequestMapping(value = "mmm.do")
+	public String aaa() {
+		return "member/setpassword";
 	}
 
 	// 회원가입
@@ -83,14 +99,23 @@ public class MemberController {
 
 	// id중복검사
 	@RequestMapping(value = "/idCheck.do")
-	public ModelAndView idCheck(@RequestParam(value = "email") String email) {
+	public ModelAndView idCheck(@RequestParam(value = "email") String email,
+			@RequestParam(value = "checkfrom") String checkfrom) {
 		ModelAndView mav = new ModelAndView("member/idCheck");
 		String str = "";
 		Member m = service.getMemberEmail(email);
 		if (m == null) {
-			str = "사용가능한아이디";
+			if (checkfrom.equals("signup")) {
+				str = "사용가능한아이디";
+			} else {
+				str = "존재하지 않는 아이디입니다 회원가입하세요";
+			}
 		} else {
-			str = "사용불가능한 아이디";
+			if (checkfrom.equals("signup")) {
+				str = "사용불가능한 아이디";
+			} else {
+				str = "존재하는 아이디입니다 . 인증번호전송 버튼을 눌러주세요";
+			}
 		}
 		mav.addObject("str", str);
 		return mav;
@@ -98,21 +123,32 @@ public class MemberController {
 
 	// 로그인기능
 	@RequestMapping(value = "/login.do")
-	public String login(HttpServletRequest req, Member m, HttpServletResponse res) throws Exception {
-		Member m2 = service.getMemberEmail(m.getEmail());
+	public ModelAndView login(HttpServletRequest req, Member m, HttpServletResponse res) throws Exception {
+		ModelAndView mav =new ModelAndView();
+		Member m2 = service.getMemberEmail(m.getEmail());		
 		if (m2 == null || !m2.getPwd().equals(m.getPwd())) {
 			System.out.println("로그인 실패");
 			res.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = res.getWriter();
 			out.println("<script>alert('로그인 실패'); </script>");
 			out.flush();
-			return "member/login";
+			mav = new ModelAndView("member/login");
 		} else {
 			HttpSession session = req.getSession();
 			session.setAttribute("id", m2.getId());
 			session.setAttribute("email", m.getEmail());
-			return "template/index";
+			String email = m2.getEmail();
+			int id = m2.getId();
+			ArrayList<String> repnamelist = service.getRepNameListById(id);
+		/*	for (int i = 0; i < repnamelist.size(); i++) {
+				System.out.println(repnamelist);
+			}*/
+			mav.addObject("id",id);
+			mav.addObject("email",email);
+			mav.addObject("rep_list", repnamelist);
+			mav = new ModelAndView("template/index");
 		}
+		return mav;
 	}
 
 	// 회원정보수정Form으로 이동
@@ -141,7 +177,8 @@ public class MemberController {
 		session.invalidate();
 		return "member/login";
 	}
-	//탈퇴기능
+
+	// 탈퇴기능
 	@RequestMapping(value = "/member/out.do")
 	public String out(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
@@ -151,7 +188,8 @@ public class MemberController {
 		session.invalidate();
 		return "member/login";
 	}
-	//create workspace누르면 인증번호 메일전송하는 페이지로이동
+
+	// create workspace누르면 인증번호 메일전송하는 페이지로이동
 	@RequestMapping(value = "crw1.do")
 	public ModelAndView crw1(HttpServletRequest req) {
 		ModelAndView mav = new ModelAndView("workspace/createworkspace1");
@@ -161,29 +199,45 @@ public class MemberController {
 		mav.addObject("m", m);
 		return mav;
 	}
-	//인증번호 메일로 보내는기능
+
+	// createworkspace할때 인증번호 메일로 보내는기능
 	@RequestMapping(value = "emailauth.do")
-	public String emailAuth(HttpServletRequest req) throws MessagingException, UnsupportedEncodingException {
+	public String emailAuth(HttpServletRequest req, @RequestParam(value = "email") String email,
+			@RequestParam(value = "requestfrom") String requestfrom)
+			throws MessagingException, UnsupportedEncodingException {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
-		String email = (String) session.getAttribute("email");
 		MailHandler sendMail = new MailHandler(mailSender);
 		Random ran = new Random();
 		int ran2 = 0;
 		while (ran2 <= 100000) {
 			ran2 = ran.nextInt(1000000);
 		}
-		sendMail.setSubject("JIXX 이메일인증");
-		sendMail.setText(
-				new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verifyForm.do")
-						.append("'target='_blenk'>이메일 인증 확인</a>").append(ran2).toString());
-		sendMail.setFrom("gusdn4973@gmail.com", "jixx");
-		sendMail.setTo(email);
-		sendMail.send();
-		service.setTempkey(ran2, id);
-		return "member/verify";
+		if (requestfrom.equals("createws")) {
+			sendMail.setSubject("JIXX 이메일인증");
+			sendMail.setText(
+					new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verifyForm.do")
+							.append("'target='_blenk'>이메일 인증 확인</a>").append(ran2).toString());
+			sendMail.setFrom("gusdn4973@gmail.com", "jixx");
+			sendMail.setTo(email);
+			sendMail.send();
+			service.setTempkey(ran2, id);
+			return "member/verify";
+		} else if (requestfrom.equals("findpass")) {
+			sendMail.setSubject("JIXX 비밀번호 찾기 이메일인증");
+			sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>")
+					.append("<a href='localhost:8080/project/verifypass.do?email=" + email + "&tempkey=" + ran2)
+					.append("'target='_blenk'>새 비밀번호 설정</a>").toString());
+			sendMail.setFrom("gusdn4973@gmail.com", "jixx");
+			sendMail.setTo(email);
+			sendMail.send();
+			service.setTempkey(ran2, email);
+			return "member/verifypass";
+		}
+		return null;
 	}
-	//메일로보낸 인증키와 입력받은값 비교하여 메일인증
+
+	// 메일로보낸 인증키와 입력받은값 비교하여 메일인증
 	@RequestMapping(value = "verify.do")
 	public String verify(HttpServletRequest req, @RequestParam(value = "verify") int tempKey, HttpServletResponse res)
 			throws Exception {
@@ -209,4 +263,40 @@ public class MemberController {
 		}
 		return "member/verify";
 	}
+
+	// 비번찾기누르면 인증번호 메일전송하는 페이지로이동
+	@RequestMapping(value = "member/forgotpass.do")
+	public String findPass() {
+		return "member/forgotpassword";
+	}
+
+	@RequestMapping(value = "verifypass.do")
+	public ModelAndView setNewPass(HttpServletResponse res, @RequestParam(value = "email") String email,
+			@RequestParam(value = "tempkey") int tempkey) throws Exception {
+		ModelAndView mav;
+		int tempkeydb = service.selectTempKey(email);
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		if (tempkey == tempkeydb) {
+			service.verifyMemberByEmail(email);
+			mav = new ModelAndView("member/setpassword");
+			mav.addObject("email", email);
+		} else {
+			out.println("<script>alert('인증번호가 일치하지 않거나 시스템 오류입니다'); </script>");
+			out.flush();
+			mav = new ModelAndView("member/login");
+		}
+		return mav;
+	}
+
+	@RequestMapping(value = "setnewpass.do")
+	public String setPassLogin(HttpServletResponse res,Member m)throws Exception {
+		service.setNewPass(m);
+		res.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = res.getWriter();
+		out.println("<script>alert('비밀번호 변경이 완료되었습니다.'); </script>");
+		out.flush();
+		return "member/login";
+	}
+
 }
