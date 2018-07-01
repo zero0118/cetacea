@@ -1,16 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="mainHeader.jsp" flush="false" />
 <body class="hold-transition skin-blue sidebar-mini">
+	<c:set var="user_id" value="${id}" />
+	<c:set var="rep_id" value="${rep_id}" />
+	<c:set var="ch_list" value="${ch_list}" />
+	<c:set var="user_list" value="${user_list}" />
+	<c:set var="user_id" value="${id }" />
+	<c:set var="email" value="${email}" />
+	<c:set var="replist" value="${rep_list}" />
 	<div class="wrapper">
 
 		<!-- Main Header -->
 		<header class="main-header">
 
 			<!-- Logo -->
-			<a href="${pageContext.request.contextPath }/index.do" class="logo"><img src="resources/images/logo.png"
-				alt="Logo"> </a>
+			<a href="${pageContext.request.contextPath }/index.do" class="logo"><img
+				src="resources/images/logo.png" alt="Logo"> </a>
 
 			<!-- Header Navbar -->
 			<nav class="navbar navbar-static-top" role="navigation">
@@ -106,7 +113,101 @@
 							</ul>
 						</li>
 						<!-- User Account Menu -->
-						<li class="dropdown user user-menu">
+						<c:choose>
+							<c:when test="${user_id eq null}">
+								<li>
+									<!-- Menu Toggle Button --> <a class="dropdown-toggle"
+									href="${pageContext.request.contextPath}/member/loginForm.do"
+									aria-expanded="true" style="display: inline;"> SIGN IN </a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li><a class="dropdown-toggle" aria-expanded="true"
+									style="display: inline;"> ${email}님 환영합니다 </a></li>
+								<c:choose>
+									<c:when test="${replist eq null}">
+										<li class="dropdown user user-menu">
+											<!-- Menu Toggle Button --> <a class="dropdown-toggle"
+											data-toggle="dropdown" aria-expanded="false"> <span
+												class="hidden-xs">Create Workspace</span>
+										</a>
+											<ul class="dropdown-menu">
+												<li class="user-header">
+													<div class="pull-left" style="border: 1px;">
+														<a href="${pageContext.request.contextPath}/crw1.do"
+															class="btn btn-default btn-flat" aria-expanded="false">
+															<span class="hidden-xs">Create New Workspace</span>
+														</a>
+													</div>
+
+												</li>
+												<!-- Menu Body -->
+												<li class="user-body">
+													<div class="pull-left" style="border: 1px;">
+														<a href="${pageContext.request.contextPath}/crw1.do"
+															class="btn btn-default btn-flat" aria-expanded="false">
+															<span class="hidden-xs">Find Workspace</span>
+														</a>
+													</div>
+												</li>
+												<!-- Menu Footer-->
+												<li class="user-footer">
+													<div class="pull-left">
+														<a href="#" class="btn btn-default btn-flat">Profile</a>
+													</div>
+													<div class="pull-right">
+														<a
+															href="${pageContext.request.contextPath}/member/logout.do"
+															class="btn btn-default btn-flat">Sign out</a>
+													</div>
+												</li>
+											</ul>
+										</li>
+
+									</c:when>
+									<c:otherwise>
+										<li class="dropdown user user-menu">
+											<!-- Menu Toggle Button --> <a
+											href="${pageContext.request.contextPath}/gomain.do"
+											class="dropdown-toggle" data-toggle="dropdown"
+											aria-expanded="false"> <span class="hidden-xs">My
+													Workspace</span>
+										</a>
+											<ul class="dropdown-menu">
+												<li class="user-header">
+													<p>WorkSpace List</p> <c:forEach var="aa"
+														items="${rep_list}">
+														<p>
+														<li><a
+															href="${pageContext.request.contextPath}/gomain.do?rep_id=${aa.rep_id}"
+															style="display: inline;">${aa.rep_name}</a></li>
+														</p>
+													</c:forEach> <!-- Menu Body -->
+												<li class="user-body"><div class="pull-left"
+														style="border: 1px;">
+														<a href="${pageContext.request.contextPath}/crw1.do"
+															class="btn btn-default btn-flat" aria-expanded="false">
+															<span class="hidden-xs">Create new Workspace</span>
+														</a>
+													</div></li>
+												<!-- Menu Footer-->
+												<li class="user-footer">
+													<div class="pull-left">
+														<a href="#" class="btn btn-default btn-flat">Profile</a>
+													</div>
+													<div class="pull-right">
+														<a
+															href="${pageContext.request.contextPath}/member/logout.do"
+															class="btn btn-default btn-flat">Sign out</a>
+													</div>
+												</li>
+											</ul>
+										</li>
+									</c:otherwise>
+								</c:choose>
+							</c:otherwise>
+						</c:choose>
+						<%-- <li class="dropdown user user-menu">
 							<!-- Menu Toggle Button --> <a href="#" class="dropdown-toggle"
 							data-toggle="dropdown"> <!-- The user image in the navbar-->
 								<img src="dist/img/user2-160x160.jpg" class="user-image"
@@ -120,8 +221,7 @@
 									alt="User Image">
 
 									<p>
-										닉네임 - Web Developer <small>Member since
-											Nov. 2012</small>
+										닉네임 - Web Developer <small>Member since Nov. 2012</small>
 									</p></li>
 								<!-- Menu Body -->
 								<li class="user-body">
@@ -143,11 +243,12 @@
 										<a href="#" class="btn btn-default btn-flat">Profile</a>
 									</div>
 									<div class="pull-right">
-										<a href="#" class="btn btn-default btn-flat">Sign out</a>
+										<a href="${pageContext.request.contextPath}/member/logout.do"
+											class="btn btn-default btn-flat">Sign out</a>
 									</div>
 								</li>
 							</ul>
-						</li>
+						</li> --%>
 						<!-- Control Sidebar Toggle Button -->
 						<li><a href="#" data-toggle="control-sidebar"><i
 								class="fa fa-gears"></i></a></li>
@@ -196,22 +297,32 @@
 
 				<!-- Sidebar Menu -->
 				<ul class="sidebar-menu" data-widget="tree">
-					<li class="header"><a href="index.html"> Channels &nbsp;
-							&nbsp;<i class="fa fa-plus-circle"></i>
-					</a>
-					<li><a href="<%= request.getContextPath() %>/post/list.do?page=1&cn=2"> <i class="fa fa-asterisk"></i>Channel 1
-					</a></li>
-					<li><a href="#"><i id="icon2" class="fa fa-lock"></i>Channel
-							2</a></li>
-					</li>
+					<li class="header"><a
+						href="${pageContext.request.contextPath}/addchannel.do">
+							Channels &nbsp; &nbsp;<i class="fa fa-plus-circle"></i>
+					</a> <c:forEach var="aa" items="${ch_list}" varStatus="status">
+							<li><a
+href="<%=request.getContextPath()%>/post/list.do?page=1&cn=${status.count}&ch_list=${ch_list}&user_list=${user_list}">
+									<i class="fa fa-asterisk"></i>${aa}
+							</a></li>
+						</c:forEach>
+					<!-- <li><a href="#"><i id="icon2" class="fa fa-lock"></i>Channel
+							2</a></li> -->
+
 					<li class="header"><a href="index.html"> Direct Messages
 							&nbsp; <i class="fa fa-plus-circle"></i>
-					</a>
-					<li><a href="#"><i class="fa fa fa-user"></i>사람1</a></li>
-					<li><a href="#"><i class="fa fa-users"></i>사람1,사람2</a></li>
-					</li>
-					<li class="header"><a href="${pageContext.request.contextPath }/moreteam.do"> Invate People
-							&nbsp; <i class="fa fa-plus-circle"></i>
+					</a><c:forEach var="aa" items="${user_list}" varStatus="status">
+							<li><a
+href="<%=request.getContextPath()%>/post/list.do?page=1&cn=${status.count}&ch_list=${ch_list}&user_list=${user_list}">
+									<i class="fa fa-asterisk"></i>${aa}
+							</a></li>
+						</c:forEach>
+				<!-- 	<li><a href="#"><i class="fa fa fa-user"></i>사람1</a></li>
+					<li><a href="#"><i class="fa fa-users"></i>사람1,사람2</a></li> -->
+
+					<li class="header"><a
+						href="${pageContext.request.contextPath }/moreteam.do?"> Invate
+							People &nbsp; <i class="fa fa-plus-circle"></i>
 					</a></li>
 
 
@@ -223,70 +334,70 @@
 
 		<!-- Content Wrapper. Contains page content -->
 		<div class="content-wrapper">
-				<section class="content ">
+			<section class="content ">
 
-					<!-- row -->
-					<div class="row">
-						<div class="col-md-12">
-							<!-- The time line -->
-							<ul class="timeline">
-								<!-- timeline time label -->
-								<li class="time-label"><span class="bg-red"> 10 Feb.
-										2014 </span></li>
-								<!-- /.timeline-label -->
-								<!-- timeline item -->
-								<li><i class="fa fa-envelope bg-blue"></i>
+				<!-- row -->
+				<div class="row">
+					<div class="col-md-12">
+						<!-- The time line -->
+						<ul class="timeline">
+							<!-- timeline time label -->
+							<li class="time-label"><span class="bg-red"> 10 Feb.
+									2014 </span></li>
+							<!-- /.timeline-label -->
+							<!-- timeline item -->
+							<li><i class="fa fa-envelope bg-blue"></i>
 
-									<div class="timeline-item">
-										<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+								<div class="timeline-item">
+									<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
 
-										<h3 class="timeline-header">
-											<a href="#">Support Team</a>
-											<div class="timelinebtn">
-												<a class="btn btn-danger btn-xs">Delete</a>
-											</div>
-										</h3>
+									<h3 class="timeline-header">
+										<a href="#">Support Team</a>
+										<div class="timelinebtn">
+											<a class="btn btn-danger btn-xs">Delete</a>
+										</div>
+									</h3>
 
-										<div class="timeline-body">Etsy doostang zoodles disqus
-											groupon greplin oooj voxy zoodles, weebly ning heekya
-											handango imeem plugg dopplr jibjab, movity jajah plickers
-											sifteo edmodo ifttt zimbra. Babblely odeo kaboodle quora
-											plaxo ideeli hulu weebly balihoo...</div>
-									</div></li>
-								<li><i class="fa fa-envelope bg-blue"></i>
+									<div class="timeline-body">Etsy doostang zoodles disqus
+										groupon greplin oooj voxy zoodles, weebly ning heekya handango
+										imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo
+										ifttt zimbra. Babblely odeo kaboodle quora plaxo ideeli hulu
+										weebly balihoo...</div>
+								</div></li>
+							<li><i class="fa fa-envelope bg-blue"></i>
 
-									<div class="timeline-item">
-										<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
+								<div class="timeline-item">
+									<span class="time"><i class="fa fa-clock-o"></i> 12:05</span>
 
-										<h3 class="timeline-header">
-											<a href="#">Support Team</a>
-											<div class="timelinebtn">
-												<a class="btn btn-danger btn-xs">Delete</a>
-											</div>
-										</h3>
+									<h3 class="timeline-header">
+										<a href="#">Support Team</a>
+										<div class="timelinebtn">
+											<a class="btn btn-danger btn-xs">Delete</a>
+										</div>
+									</h3>
 
-										<div class="timeline-body">Etsy doostang zoodles disqus
-											groupon greplin oooj voxy zoodles, weebly ning heekya
-											handango imeem plugg dopplr jibjab, movity jajah plickers
-											sifteo edmodo ifttt zimbra. Babblely odeo kaboodle quora
-											plaxo ideeli hulu weebly balihoo...</div>
-									</div></li>
+									<div class="timeline-body">Etsy doostang zoodles disqus
+										groupon greplin oooj voxy zoodles, weebly ning heekya handango
+										imeem plugg dopplr jibjab, movity jajah plickers sifteo edmodo
+										ifttt zimbra. Babblely odeo kaboodle quora plaxo ideeli hulu
+										weebly balihoo...</div>
+								</div></li>
 
-								<!-- END timeline item -->
-								<!-- timeline item -->
-								<li><i class="fa fa-user bg-aqua"></i>
+							<!-- END timeline item -->
+							<!-- timeline item -->
+							<li><i class="fa fa-user bg-aqua"></i>
 
-									<div class="timeline-item">
-										<span class="time"><i class="fa fa-clock-o"></i> 5 mins
-											ago</span>
+								<div class="timeline-item">
+									<span class="time"><i class="fa fa-clock-o"></i> 5 mins
+										ago</span>
 
-										<h3 class="timeline-header no-border">
-											<a href="#">Sarah Young</a> accepted your friend request
-										</h3>
-									</div></li>
-								<!-- END timeline item -->
-								<!-- timeline item -->
-								<c:forEach items="${list}" var="post">
+									<h3 class="timeline-header no-border">
+										<a href="#">Sarah Young</a> accepted your friend request
+									</h3>
+								</div></li>
+							<!-- END timeline item -->
+							<!-- timeline item -->
+							<c:forEach items="${list}" var="post">
 								<li><i class="fa fa-comments bg-yellow"></i>
 
 									<div class="timeline-item">
@@ -300,76 +411,78 @@
 										</h3>
 
 										<div class="timeline-body">${post.content}</div>
-										<a href="<%= request.getContextPath() %>/psot/download.do?filename=${ post.file_original}">${ post.fileName}</a>
+										<a
+											href="<%= request.getContextPath() %>/psot/download.do?filename=${ post.file_original}">${ post.fileName}</a>
 									</div></li>
-								</c:forEach>
-								<!-- END timeline item -->
-								<!-- timeline time label -->
-								<li class="time-label"><span class="bg-green"> 3
-										Jan. 2014 </span></li>
-								<!-- /.timeline-label -->
-								<!-- timeline item -->
-								<li><i class="fa fa-camera bg-purple"></i>
+							</c:forEach>
+							<!-- END timeline item -->
+							<!-- timeline time label -->
+							<li class="time-label"><span class="bg-green"> 3 Jan.
+									2014 </span></li>
+							<!-- /.timeline-label -->
+							<!-- timeline item -->
+							<li><i class="fa fa-camera bg-purple"></i>
 
-									<div class="timeline-item">
-										<span class="time"><i class="fa fa-clock-o"></i> 2 days
-											ago</span>
+								<div class="timeline-item">
+									<span class="time"><i class="fa fa-clock-o"></i> 2 days
+										ago</span>
 
-										<h3 class="timeline-header">
-											<a href="#">Mina Lee</a> uploaded new photos
-											<div class="timelinebtn">
-												<a class="btn btn-danger btn-xs">Delete</a>
-											</div>
-										</h3>
-
-										<div class="timeline-body">
-											<img src="http://placehold.it/150x100" alt="..."
-												class="margin"> <img src="http://placehold.it/150x100"
-												alt="..." class="margin"> <img
-												src="http://placehold.it/150x100" alt="..." class="margin">
-											<img src="http://placehold.it/150x100" alt="..."
-												class="margin">
+									<h3 class="timeline-header">
+										<a href="#">Mina Lee</a> uploaded new photos
+										<div class="timelinebtn">
+											<a class="btn btn-danger btn-xs">Delete</a>
 										</div>
-									</div></li>								<li><i class="fa fa-camera bg-purple"></i>
+									</h3>
 
-									<div class="timeline-item">
-										<span class="time"><i class="fa fa-clock-o"></i> 2 days
-											ago</span>
+									<div class="timeline-body">
+										<img src="http://placehold.it/150x100" alt="..."
+											class="margin"> <img src="http://placehold.it/150x100"
+											alt="..." class="margin"> <img
+											src="http://placehold.it/150x100" alt="..." class="margin">
+										<img src="http://placehold.it/150x100" alt="..."
+											class="margin">
+									</div>
+								</div></li>
+							<li><i class="fa fa-camera bg-purple"></i>
 
-										<h3 class="timeline-header">
-											<a href="#">Mina Lee</a> uploaded new photos
-											<div class="timelinebtn">
-												<a class="btn btn-danger btn-xs">Delete</a>
-											</div>
-										</h3>
+								<div class="timeline-item">
+									<span class="time"><i class="fa fa-clock-o"></i> 2 days
+										ago</span>
 
-										<div class="timeline-body">
-											<img src="http://placehold.it/150x100" alt="..."
-												class="margin"> <img src="http://placehold.it/150x100"
-												alt="..." class="margin"> <img
-												src="http://placehold.it/150x100" alt="..." class="margin">
-											<img src="http://placehold.it/150x100" alt="..."
-												class="margin">
+									<h3 class="timeline-header">
+										<a href="#">Mina Lee</a> uploaded new photos
+										<div class="timelinebtn">
+											<a class="btn btn-danger btn-xs">Delete</a>
 										</div>
-									</div></li>
-								<!-- timeline item -->
+									</h3>
 
-								<!-- END timeline item -->
-								<li><i class="fa fa-clock-o bg-gray"></i></li>
-							</ul>
-						</div>
-						<!-- /.col -->
+									<div class="timeline-body">
+										<img src="http://placehold.it/150x100" alt="..."
+											class="margin"> <img src="http://placehold.it/150x100"
+											alt="..." class="margin"> <img
+											src="http://placehold.it/150x100" alt="..." class="margin">
+										<img src="http://placehold.it/150x100" alt="..."
+											class="margin">
+									</div>
+								</div></li>
+							<!-- timeline item -->
+
+							<!-- END timeline item -->
+							<li><i class="fa fa-clock-o bg-gray"></i></li>
+						</ul>
 					</div>
-					<!-- /.row -->
+					<!-- /.col -->
+				</div>
+				<!-- /.row -->
 
-				</section>
+			</section>
 			<!-- /.content -->
 
 		</div>
 		<!-- /.content-wrapper -->
-		
-	<%@include file="mainFooter.jsp"%>
-</div>
+
+		<%@include file="mainFooter.jsp"%>
+	</div>
 
 </body>
 </html>

@@ -123,7 +123,12 @@ public class ServiceImpl implements Service {
 		ArrayList<Integer> list = repMapper.selectChList(rep_id);
 		return list;
 	}
-
+	@Override
+	public ArrayList<String> getChNameList(int rep_id) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		ArrayList<String> list = repMapper.selectChNameList(rep_id);
+		return list;
+	}
 	@Override
 	public Member getMember(String email) {
 		repMapper = sqlSession.getMapper(Mapper.class);
@@ -134,6 +139,17 @@ public class ServiceImpl implements Service {
 	public ArrayList<Integer> getUserList(int rep_id) {
 		repMapper = sqlSession.getMapper(Mapper.class);
 		ArrayList<Integer> list = repMapper.selectUserList(rep_id);
+		return list;
+	}
+	@Override
+	public ArrayList<String> getUserNameList(ArrayList<Integer> userlist) {
+		repMapper = sqlSession.getMapper(Mapper.class);			
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", userlist);		
+		ArrayList<String> list = repMapper.selectUserNameList(map);	
+
+
+	
 		return list;
 	}
 
@@ -149,6 +165,24 @@ public class ServiceImpl implements Service {
 		repMapper = sqlSession.getMapper(Mapper.class);
 		repMapper.delete(rep_id);
 	}
+
+	@Override
+	public Repository selectRepByName(int rep_id) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		Repository r = repMapper.selectRepName(rep_id);
+		return r;
+	}
+
+	@Override
+	public ArrayList<String> getRepNameListById(int id) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		ArrayList<String> t = repMapper.selectRepList(id);
+		return t;
+	}
+
+	
+
+	
 
 	
 	

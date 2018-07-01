@@ -142,16 +142,16 @@ public class MemberController {
 			HttpSession session = req.getSession();
 			session.setAttribute("id", m2.getId());
 			session.setAttribute("email", m.getEmail());
-			String email = m2.getEmail();
-			int id = m2.getId();
+			int id = (int) session.getAttribute("id");
+			String email = (String) session.getAttribute("email");
+			
 			ArrayList<String> repnamelist = service.getRepNameListById(id);
 			/*for (int i = 0; i < repnamelist.size(); i++) {
 				System.out.println(repnamelist);
 			}*/
 			mav.addObject("id",id);
-			mav.addObject("email",email);
-			mav.addObject("rep_list", repnamelist);
-		
+			mav.addObject("email",email);	
+			mav.addObject("rep_list", repnamelist);		
 		}
 		return mav;	
 	}

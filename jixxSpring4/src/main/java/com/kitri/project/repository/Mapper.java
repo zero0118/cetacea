@@ -22,12 +22,16 @@ public interface Mapper {
 	void insertMember(Map<String, Object> map);
 	int selectRepIdByRepNameUserMeta(String rep_name);
 	ArrayList<Integer> selectChList(int rep_id);
+	ArrayList<String> selectChNameList(int rep_id);
 	Member selectUserIdByEmail(String email);
 	ArrayList<Integer> selectUserList(int rep_id);
+	ArrayList<String> selectUserNameList(Map<String, Object> map);
+	Repository selectRepName(int rep_id);
+	ArrayList<String> selectRepList(int id);
+	
 	
 	void update(Repository r);
 	void delete(int rep_id);
-
 	
 	
 		

@@ -31,7 +31,8 @@ public class RepController {
 	public void setService(Service service) {
 		this.service = service;
 	}
-	//create workspace할때 url중복검사
+
+	// create workspace할때 url중복검사
 	@RequestMapping(value = "repository/urlCheck.do")
 	public ModelAndView urlCheck(HttpServletRequest req, @RequestParam(value = "url") String url) {
 		System.out.println(url);
@@ -50,14 +51,15 @@ public class RepController {
 		mav.addObject("result", result);
 		return mav;
 	}
-	//저장소테이블에 행추가, 채널행추가, userMeta테이블 행추가, 기본게시글작성-->저장소만드는기능
+
+	// 저장소테이블에 행추가, 채널행추가, userMeta테이블 행추가, 기본게시글작성-->저장소만드는기능
 	@RequestMapping(value = "createrep.do")
 	public ModelAndView createRep(HttpServletRequest req, @RequestParam(value = "nickname") String nickname,
 			Repository r) throws Exception {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
 		ModelAndView mav = new ModelAndView("workspace/teaminvite");
-		service.addRep(r);		
+		service.addRep(r);
 		Repository rep_id = service.getRepId(r);
 		service.createCh(rep_id);
 		int rep_id1 = rep_id.getRep_id();
@@ -66,43 +68,55 @@ public class RepController {
 		service.createUserMeta(id, rep_id1, chid1);
 		service.addBoard(nickname, id, chid1);
 		Repository r2 = service.selectRepByName(r);
-		System.out.println(r2.getRep_name()+"asdf"+r2.getRep_id());
-		
+		System.out.println(r2.getRep_name() + "asdf" + r2.getRep_id());
+
 		mav.addObject("r", r2.getRep_name());
-		mav.addObject("rep_id",rep_id);
+		mav.addObject("rep_id", rep_id);
 		return mav;
 	}
-	//로그인 이후에 자신의 workspace로 이동
+
+	// 로그인 이후에 자신의 workspace로 이동
 	@RequestMapping(value = "gomain.do")
-	public ModelAndView goMain(HttpServletRequest req,@RequestParam(value="rep_id")	int rep_id) {
+	public ModelAndView goMain(HttpServletRequest req, @RequestParam(value = "rep_id") int rep_id) {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
 		session.setAttribute("rep_id", rep_id);
 		ModelAndView mav = new ModelAndView("template/main");
-		//채널리스트
-		ArrayList<Integer> chlist = service.getChList(rep_id);
-		//저장소에참여한사람리스트
+		// 채널리스트
+		ArrayList<String> chlist = service.getChNameList(rep_id);
+		// 저장소에참여한사람리스트
 		ArrayList<Integer> userlist = service.getUserList(rep_id);
-		System.out.println("chlist:"+chlist+";;userlist:"+userlist);
+		ArrayList<String> usernamelist = service.getUserNameList(userlist);
+		System.out.println("chlist:" + chlist + ";;userlist:" + userlist + ";;usernamelist:" + usernamelist);
+		String email=(String) session.getAttribute("email");
+		ArrayList<String> repnamelist = service.getRepNameListById(id);
 		
 		
+		mav.addObject("email",email);	
+		mav.addObject("rep_list", repnamelist);		
 		mav.addObject("id", id);
-		mav.addObject("rep_id",rep_id);
-		mav.addObject("chlist",chlist);
-		mav.addObject("userlist",userlist);
+		mav.addObject("rep_id", rep_id);
+		mav.addObject("ch_list", chlist);
+		mav.addObject("user_list", usernamelist);
 		return mav;
 	}
-	//저장소에 회원초대하는기능
+
+	// 저장소에 회원초대하는기능
 	@RequestMapping(value = "sendinvite.do")
 	public ModelAndView emailAuth(HttpServletRequest req, String[] address, HttpServletResponse res,
-			@RequestParam(value = "rep_name") String rep_name)
+			@RequestParam(value = "rep_name") String rep_name, @RequestParam(value = "invitest") String invitest)
 			throws MessagingException, UnsupportedEncodingException, Exception {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
 		ModelAndView mav = new ModelAndView("template/main");
 		Member user = service.getMember(id);
 		String user_name = user.getName();
-		int rep_id = service.getRepIdByRepNameUserMeta(rep_name);
+		int rep_id = 0;
+		if (invitest.equals("0")) {
+			rep_id = service.getRepIdByRepNameUserMeta(rep_name);
+		} else {
+			rep_id = (int) session.getAttribute("rep_id");
+		}
 		MailHandler sendMail = new MailHandler(mailSender);
 		for (String str : address) {
 			sendMail.setSubject(user_name + "님의 JIXX저장소 초대");
@@ -117,23 +131,38 @@ public class RepController {
 		PrintWriter out = res.getWriter();
 		out.println("<script>alert('친구초대완료'); </script>");
 		out.flush();
+		// 채널리스트
+		ArrayList<String> chlist = service.getChNameList(rep_id);
+		// 저장소에참여한사람리스트
+		ArrayList<Integer> userlist = service.getUserList(rep_id);
+		ArrayList<String> usernamelist = service.getUserNameList(userlist);
 		mav.addObject("id", id);
+		mav.addObject("rep_id", rep_id);
+		mav.addObject("ch_list", chlist);
+		mav.addObject("user_list", usernamelist);
 		return mav;
 	}
-	//저장소생성상황이아닌상황에서 회원초대기능
+
+	// 저장소생성상황이아닌상황에서 회원초대기능
 	@RequestMapping(value = "moreteam.do")
 	public ModelAndView moreTeam(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
+		int rep_id = (int) session.getAttribute("rep_id");
 		Member user = service.getMember(id);
 		String user_name = user.getName();
-	/*	String rep_name = service.getRepNameById(id);*/
+		/* String rep_name = service.getRepNameById(id); */
 		ModelAndView mav = new ModelAndView("workspace/moreteammate");
 		mav.addObject("id", id);
 		mav.addObject("user_name", user_name);
+
+		Repository r2 = service.selectRepByName(rep_id);
+		mav.addObject("r", r2);
+		mav.addObject("rep_id", rep_id);
 		return mav;
 	}
-	//초대한메일의 링크를 클릭하면 회원가입 화면으로 이동
+
+	// 초대한메일의 링크를 클릭하면 회원가입 화면으로 이동
 	@RequestMapping(value = "invitesignup.do")
 	public ModelAndView inviteSignup(HttpServletRequest req, @RequestParam(value = "rep_name") String rep_name,
 			@RequestParam(value = "rep_id") int rep_id) {
@@ -142,12 +171,14 @@ public class RepController {
 		mav.addObject("rep_id", rep_id);
 		return mav;
 	}
-	//초대받은 사람이 회원가입하고, 기존의 session지우고 바로 로그인하고 저장소로이동
+
+	// 초대받은 사람이 회원가입하고, 기존의 session지우고 바로 로그인하고 저장소로이동
 	@RequestMapping(value = "inviteinsert.do")
-	public String add(HttpServletResponse res, @RequestParam(value = "rep_name") String rep_name,
+	public ModelAndView add(HttpServletResponse res, @RequestParam(value = "rep_name") String rep_name,
 			@RequestParam(value = "rep_id") int rep_id, @RequestParam(value = "email") String email,
 			@RequestParam(value = "pwd") String pwd, @RequestParam(value = "name") String name, HttpServletRequest req,
 			@RequestParam(value = "nickname") String nickname, Member m) throws Exception {
+		ModelAndView mav = new ModelAndView("template/main");
 		HttpSession session = req.getSession(false);
 		service.addMember(email, pwd, name);
 		Member m2 = service.getMember(email);
@@ -163,12 +194,23 @@ public class RepController {
 			service.createUserMetaInvite(id, rep_id, ch_id);
 			service.addBoard(nickname, id, ch_id);
 		}
+		session.setAttribute("rep_id", rep_id);
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		out.println("<script>alert('회원가입을 축하합니다'); </script>");
 		out.flush();
-		return "template/main";
+		int rep_id2 = (int) session.getAttribute("rep_id");
 
+		// 채널리스트
+		ArrayList<String> chlist1 = service.getChNameList(rep_id2);
+		// 저장소에참여한사람리스트
+		ArrayList<Integer> userlist = service.getUserList(rep_id);
+		ArrayList<String> usernamelist = service.getUserNameList(userlist);
+		mav.addObject("id", id);
+		mav.addObject("rep_id", rep_id);
+		mav.addObject("ch_list", chlist1);
+		mav.addObject("user_list", usernamelist);
+		return mav;
 	}
 
 	@RequestMapping(value = "joinws.do")

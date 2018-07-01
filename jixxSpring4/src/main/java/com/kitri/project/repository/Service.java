@@ -31,6 +31,8 @@ public interface Service {
 	int getRepIdByRepNameUserMeta(String rep_name);
 
 	ArrayList<Integer> getChList(int rep_id);
+	
+	ArrayList<String> getChNameList(int rep_id);
 
 	Member getMember(String email);
 	
@@ -41,6 +43,14 @@ public interface Service {
 	void editRep(Repository r);
 
 	void delRep(int rep_id);
+
+	ArrayList<String> getUserNameList(ArrayList<Integer> userlist);
+
+	Repository selectRepByName(int rep_id);
+
+	ArrayList<String> getRepNameListById(int id);
+
+	
 
 	
 

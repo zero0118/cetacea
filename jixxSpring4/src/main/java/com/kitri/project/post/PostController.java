@@ -3,6 +3,7 @@ package com.kitri.project.post;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import vo.Post;
@@ -55,9 +55,13 @@ public class PostController implements ApplicationContextAware{
 		service.write(post);
 		return "redirect:/post/list.do?page=1&cn=1";
 	}
-	
+
 	@RequestMapping(value = "/post/list.do", method=RequestMethod.GET)
-	public ModelAndView list(@RequestParam(value = "page") int page, @RequestParam(value = "cn") int cn) {
+	public ModelAndView list(HttpServletRequest req,@RequestParam(value = "page") int page, @RequestParam(value = "cn") int cn,			
+			@RequestParam(value="ch_list") String ch_list,@RequestParam(value="user_list") String user_list) {
+		HttpSession session = req.getSession(false);
+		int id=(int) session.getAttribute("id");
+		int rep_id=(int) session.getAttribute("rep_id");
 		ArrayList<Post> list = service.show(page, cn);
 		System.out.println(list);
 		for (int i = 0; i < list.size(); i++) {			
@@ -71,6 +75,10 @@ public class PostController implements ApplicationContextAware{
 		}
 		System.out.println(list);
 		ModelAndView mav = new ModelAndView("/template/main");
+		mav.addObject("id",id);
+		mav.addObject("rep_id",rep_id);
+		mav.addObject("ch_list",ch_list);
+		mav.addObject("user_list",user_list);
 		mav.addObject("list", list);
 		return mav;
 	}
