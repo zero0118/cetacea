@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="header.jsp" flush="false" />
 <script type="text/javascript">
-
 </script>
 <body class="skin-blue layout-top-nav" style="height: auto; min-height: 100%;">
 	<c:set var="email" value="${email}" />
@@ -21,8 +20,6 @@
 					</div>
 				</div>
 			</div>
-
-
 		</header>
 	</div>
 </body>

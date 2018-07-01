@@ -76,7 +76,4 @@
 	<select id="selectUserIdByEmail" parameterType="String" resultMap="MemberResultMap">
 	select * from member where user_email=#{email}
 	</select>
-	
-	
-
 </mapper>

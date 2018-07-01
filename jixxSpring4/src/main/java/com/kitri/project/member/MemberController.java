@@ -3,7 +3,6 @@ package com.kitri.project.member;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Resource;
@@ -13,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.cglib.core.GeneratorStrategy;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kitri.project.repository.MailHandler;
 
 import vo.Member;
-import vo.Repository;
 
 @Controller
 public class MemberController {
@@ -58,29 +56,16 @@ public class MemberController {
 
 	// index page이동
 	@RequestMapping(value = "index.do")
-	public ModelAndView index(HttpServletRequest req) throws NullPointerException {
+	public ModelAndView index(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
+		int id = (int) session.getAttribute("id");
+		String email = (String) session.getAttribute("email");
 		ModelAndView mav = new ModelAndView("template/index");
-		try {
-			int id = (int) session.getAttribute("id");
-			String email = (String) session.getAttribute("email");
-
-			if (id == 0) {
-				System.out.println("세션없을때id값:" + id);
-				mav.addObject("id", null);
-				mav.addObject("email", null);
-				mav.addObject("rep_list", null);
-			} else {
-				System.out.println("세션있을때id값:" + id);
-				List<Repository> repnamelist = new ArrayList<Repository>(service.getRepNameListById(id));
-				System.out.println("repnamelist:" + repnamelist);
-				mav.addObject("id", id);
-				mav.addObject("email", email);
-				mav.addObject("rep_list", repnamelist);
-			}
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}
+		ArrayList<String> repnamelist = service.getRepNameListById(id);	
+		
+		mav.addObject("id",id);
+		mav.addObject("email",email);
+		mav.addObject("rep_list", repnamelist);
 		return mav;
 	}
 
@@ -139,27 +124,29 @@ public class MemberController {
 	// 로그인기능
 	@RequestMapping(value = "/login.do")
 	public ModelAndView login(HttpServletRequest req, Member m, HttpServletResponse res) throws Exception {
-		ModelAndView mav = new ModelAndView();
-		Member m2 = service.getMemberEmail(m.getEmail());
+		ModelAndView mav =new ModelAndView();
+		Member m2 = service.getMemberEmail(m.getEmail());		
 		if (m2 == null || !m2.getPwd().equals(m.getPwd())) {
-			mav = new ModelAndView("member/login");
 			System.out.println("로그인 실패");
 			res.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = res.getWriter();
 			out.println("<script>alert('로그인 실패'); </script>");
 			out.flush();
+			mav = new ModelAndView("member/login");
 		} else {
-			mav = new ModelAndView("template/index");
 			HttpSession session = req.getSession();
 			session.setAttribute("id", m2.getId());
 			session.setAttribute("email", m.getEmail());
 			String email = m2.getEmail();
 			int id = m2.getId();
-			List<Repository> repnamelist = new ArrayList<Repository>(service.getRepNameListById(id));
-			System.out.println("repnamelist:" + repnamelist);
-			mav.addObject("id", id);
-			mav.addObject("email", email);
+			ArrayList<String> repnamelist = service.getRepNameListById(id);
+		/*	for (int i = 0; i < repnamelist.size(); i++) {
+				System.out.println(repnamelist);
+			}*/
+			mav.addObject("id",id);
+			mav.addObject("email",email);
 			mav.addObject("rep_list", repnamelist);
+			mav = new ModelAndView("template/index");
 		}
 		return mav;
 	}
@@ -184,18 +171,11 @@ public class MemberController {
 
 	// 로그아웃기능
 	@RequestMapping(value = "/member/logout.do")
-	public ModelAndView logout(HttpServletRequest req) throws NullPointerException {
+	public String logout(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		session.removeAttribute("id");
-		session.removeAttribute("email");
 		session.invalidate();
-		session = req.getSession();
-		session.setAttribute("id", null);
-		session.setAttribute("email", null);
-		ModelAndView mav = new ModelAndView("template/index");
-		mav.addObject("id", null);
-		mav.addObject("rep_list", null);
-		return mav;
+		return "member/login";
 	}
 
 	// 탈퇴기능
@@ -310,7 +290,7 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "setnewpass.do")
-	public String setPassLogin(HttpServletResponse res, Member m) throws Exception {
+	public String setPassLogin(HttpServletResponse res,Member m)throws Exception {
 		service.setNewPass(m);
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
