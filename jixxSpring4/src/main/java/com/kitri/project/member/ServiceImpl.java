@@ -1,7 +1,7 @@
 package com.kitri.project.member;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Component;
 
 import vo.Member;
+import vo.Repository;
 
 @Component("memService")
 public class ServiceImpl implements Service{
@@ -91,9 +92,9 @@ public class ServiceImpl implements Service{
 		memberMapper.setNewPass(m);		
 	}
 	@Override
-	public ArrayList<String> getRepNameListById(int id) {
+	public List<Repository> getRepNameListById(int id) {
 		memberMapper = sqlSession.getMapper(Mapper.class);
-		ArrayList<String> t = memberMapper.selectRepList(id);
+		List<Repository> t = memberMapper.selectRepList(id);
 		return t;
 	}
 

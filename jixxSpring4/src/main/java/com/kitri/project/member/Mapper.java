@@ -1,9 +1,10 @@
 package com.kitri.project.member;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import vo.Member;
+import vo.Repository;
 
 public interface Mapper {
 	void insert(Member m);
@@ -28,7 +29,7 @@ public interface Mapper {
 
 	void setNewPass(Member m);
 
-	ArrayList<String> selectRepList(int id);
+	List<Repository> selectRepList(int id);
 
 	
 

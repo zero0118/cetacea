@@ -1,8 +1,9 @@
 package com.kitri.project.member;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import vo.Member;
+import vo.Repository;
 
 public interface Service {
 	void addMember(Member m);
@@ -27,7 +28,7 @@ public interface Service {
 
 	void setNewPass(Member m);
 
-	ArrayList<String> getRepNameListById(int id);
+	List<Repository> getRepNameListById(int id);
 
 	
 

@@ -12,6 +12,11 @@
 		<result property="tempkey" column="user_tempkey" />
 		<result property="auth" column="user_auth" />
 	</resultMap>
+	<resultMap type="vo.Repository" id="RepResultMap">
+		<result property="rep_id" column="rep_id" />
+		<result property="rep_name" column="rep_name" />
+		<result property="rep_url" column="rep_url" />
+	</resultMap>
 
 	<select id="select" resultMap="MemberResultMap"
 		parameterType="int">
@@ -61,8 +66,8 @@
 	<update id="setNewPass" parameterType="vo.Member">
 	update member set user_pass=#{pwd} where user_email=#{email}
 	</update>
-	<select id="selectRepList" parameterType="Integer" resultType="java.lang.String">
-	select rep_name from repository r,member m,user_meta um 
+	<select id="selectRepList" parameterType="Integer" resultMap="RepResultMap">
+	select r.* from repository r,member m,user_meta um 
 	where r.rep_id=um.rep_id and um.user_id=m.user_id and m.user_id=#{id}
 	</select>
 
