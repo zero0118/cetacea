@@ -219,7 +219,7 @@ public class MemberController {
 		}
 		if (requestfrom.equals("createws")) {
 			int id = (int) session.getAttribute("id");
-			sendMail.setSubject("JIXX 이메일인증");
+			sendMail.setSubject("FILE CETACEA 이메일인증");
 			sendMail.setText(
 					new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verifyForm.do")
 							.append("'target='_blenk'>이메일 인증 확인</a>").append(ran2).toString());
@@ -229,7 +229,7 @@ public class MemberController {
 			service.setTempkey(ran2, id);
 			return "member/verify";
 		} else if (requestfrom.equals("findpass")) {
-			sendMail.setSubject("JIXX 비밀번호 찾기 이메일인증");
+			sendMail.setSubject("FILE CETACEA 비밀번호 찾기 이메일인증");
 			sendMail.setText(new StringBuffer().append("<h1>이메일인증</h1>")
 					.append("<a href='localhost:8080/project/verifypass.do?email=" + email + "&tempkey=" + ran2)
 					.append("'target='_blenk'>새 비밀번호 설정</a>").toString());

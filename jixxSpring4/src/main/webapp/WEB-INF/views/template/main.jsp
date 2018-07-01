@@ -122,8 +122,9 @@
 								</li>
 							</c:when>
 							<c:otherwise>
-								<li><a class="dropdown-toggle" aria-expanded="true"
-									style="display: inline;"> ${email}님 환영합니다 </a></li>
+							<li class="dropdown user user-menu">
+								<a class="dropdown-toggle"> ${email}님 환영합니다 </a>
+							</li>
 								<c:choose>
 									<c:when test="${replist eq null}">
 										<li class="dropdown user user-menu">

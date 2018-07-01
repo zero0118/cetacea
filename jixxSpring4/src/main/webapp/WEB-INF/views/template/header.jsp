@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="text/html; charset=UTF-8">
-<title>JIXX</title>
+<title>FILE CETACEA</title>
 <!-- Bootstrap 3.3.7 -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -54,68 +54,16 @@
 	src="<%=request.getContextPath()%>/resources/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<%=request.getContextPath()%>/resources/dist/js/demo.js"></script>
-
-
-<style type="text/css">
+<style>
 .card-block {
 	background: #ffff;
 	padding: 50px;
 	margin-left: 20%;
 	margin-right: 20%;
-	margin-top: 8%;
-}
-
-.carousel-item {
-	height: 100vh;
-	min-height: 300px;
-	background: no-repeat center center scroll;
-	-webkit-background-size: cover;
-	-moz-background-size: cover;
-	-o-background-size: cover;
-	background-size: cover;
-}
-
-.carousel-caption {
-	position: absolute;
-	right: 15%;
-	bottom: 765px;
-	left: 15%;
-	z-index: 10;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	color: #222d32;
-	text-align: center;
-}
-
-.carousel-caption2 {
-	position: absolute;
-	right: 15%;
-	bottom: 30px;
-	left: 15%;
-	z-index: 10;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	color: #222d32;
-	text-align: center;
-}
-
-h3 {
-	display: block;
-	font-size: 2em;
-	-webkit-margin-before: 1em;
-	-webkit-margin-after: 1em;
-	-webkit-margin-start: 0px;
-	-webkit-margin-end: 0px;
-	font-weight: bold;
-}
-
-p {
-	-webkit-margin-before: 0.8em;
-	-webkit-margin-after: 0.8em;
-	-webkit-margin-start: 0px;
-	-webkit-margin-end: 0px;
+	margin-top: 5%;
 }
 </style>
+
 </head>
 <body class="skin-blue layout-top-nav"
 	style="height: auto; min-height: 100%;">
@@ -126,55 +74,44 @@ p {
 		<nav class="navbar navbar-static-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a href="${pageContext.request.contextPath }/index.do"
-						class="navbar-brand">Spring<b>JIXX</b></a>
-					<button type="button" class="navbar-toggle collapsed"
-						data-toggle="collapse" data-target="#navbar-collapse">
-						<i class="fa fa-bars"></i>
-					</button>
+						<a href="${pageContext.request.contextPath }/index.do" class="logo"><img src="resources/images/logo.png" alt="Logo"> </a>
 				</div>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse pull-left" id="navbar-collapse"></div>
-				<!-- /.navbar-collapse -->
-				<!-- Navbar Right Menu -->
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
 						<c:choose>
 							<c:when test="${user_id eq null}">
-								<li>
-									<!-- Menu Toggle Button --> <a class="dropdown-toggle"
-									href="${pageContext.request.contextPath}/member/loginForm.do"
-									aria-expanded="true" style="display: inline;"> SIGN IN </a>
+								<li class="dropdown user user-menu">
+									<a class="dropdown-toggle" href="${pageContext.request.contextPath}/member/loginForm.do"> SIGN IN </a>
 								</li>
 							</c:when>
+							
 							<c:otherwise>
-								<li><a class="dropdown-toggle" aria-expanded="true"
-									style="display: inline;"> ${email}님 환영합니다 </a></li>
+								<li class="dropdown user user-menu">
+								<a class="dropdown-toggle" > ${email}님 환영합니다 </a>
+								</li>
+								
 								<c:choose>
 									<c:when test="${empty replist}">
 										<li class="dropdown user user-menu">
-											<!-- Menu Toggle Button --> <a class="dropdown-toggle"
-											data-toggle="dropdown" aria-expanded="false"> <span
-												class="hidden-xs">Create Workspace</span>
+										<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> 
+										<span class="hidden-xs">Create Workspace</span>
 										</a>
 											<ul class="dropdown-menu">
 												<li class="user-header">
-													<div class="pull-left" style="border: 1px;">
-														<a href="${pageContext.request.contextPath}/crw1.do"
-															class="btn btn-default btn-flat" aria-expanded="false">
-															<span class="hidden-xs">Create New Workspace</span>
+												    <p ><a href="${pageContext.request.contextPath}/crw1.do">
+															<span class="hidden-xs" style="color:#fff;">Create New Workspace</span>
 														</a>
-													</div>
-
+													</p>
 												</li>
-												<!-- Menu Body -->
+												
 												<li class="user-body">
-													<div class="pull-left" style="border: 1px;">
-														<a href="${pageContext.request.contextPath}/crw1.do"
-															class="btn btn-default btn-flat" aria-expanded="false">
-															<span class="hidden-xs">Find Workspace</span>
-														</a>
+											        <div class="row">
+												        <div class="col-xs11 text-center">
+															<a href="${pageContext.request.contextPath}/crw1.do" >
+																<span class="hidden-xs">Find Workspace</span>
+															</a>
+														</div>
 													</div>
 												</li>
 												<!-- Menu Footer-->
@@ -190,57 +127,55 @@ p {
 												</li>
 											</ul>
 										</li>
-
 									</c:when>
+									
 									<c:otherwise>
 										<li class="dropdown user user-menu">
-											<!-- Menu Toggle Button --> <a
-											href="${pageContext.request.contextPath}/gomain.do"
+											<a href="${pageContext.request.contextPath}/gomain.do"
 											class="dropdown-toggle" data-toggle="dropdown"
-											aria-expanded="false"> <span class="hidden-xs">My
-													Workspace</span>
-										</a>
-											<ul class="dropdown-menu">
+											aria-expanded="false"> <span class="hidden-xs">My Workspace</span>
+											</a>
+											<ul class="dropdown-menu">									
 												<li class="user-header">
-													<p>WorkSpace List</p> <c:forEach var="aa"
-														items="${rep_list}">
-														<p>
-														<li><a
-															href="${pageContext.request.contextPath}/gomain.do?rep_id=${aa.rep_id}"
-															style="display: inline;">${aa.rep_name}</a></li>
-														</p>
+													<p>WorkSpace List</p> 
+													<c:forEach var="aa" items="${rep_list}">
+														<li><a href="${pageContext.request.contextPath}/gomain.do?rep_id=${aa.rep_id}"
+															style="display: inline;">${aa.rep_name}</a>
+														</li>
 													</c:forEach> <!-- Menu Body -->
-												<li class="user-body"><div class="pull-left"
-														style="border: 1px;">
-														<a href="${pageContext.request.contextPath}/crw1.do"
-															class="btn btn-default btn-flat" aria-expanded="false">
-															<span class="hidden-xs">Create new Workspace</span>
-														</a>
-													</div></li>
+												</li>
+												<li class="user-body">
+											        <div class="row">
+												        <div class="col-xs11 text-center">
+															<a href="${pageContext.request.contextPath}/crw1.do" aria-expanded="false">
+																<span class="hidden-xs">Create new Workspace</span>
+															</a>
+														</div>
+													</div>
+												</li>
+												
 												<!-- Menu Footer-->
 												<li class="user-footer">
 													<div class="pull-left">
 														<a href="#" class="btn btn-default btn-flat">Profile</a>
 													</div>
 													<div class="pull-right">
-														<a
-															href="${pageContext.request.contextPath}/member/logout.do"
+														<a href="${pageContext.request.contextPath}/member/logout.do"
 															class="btn btn-default btn-flat">Sign out</a>
 													</div>
 												</li>
 											</ul>
 										</li>
 									</c:otherwise>
+									
 								</c:choose>
 							</c:otherwise>
 						</c:choose>
 					</ul>
+					
+					
 				</div>
-				<!-- /.navbar-custom-menu -->
 			</div>
-			<!-- /.container-fluid -->
 		</nav>
 	</header>
-</body>
-</html>
 
