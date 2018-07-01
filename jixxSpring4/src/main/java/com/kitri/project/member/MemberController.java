@@ -58,14 +58,18 @@ public class MemberController {
 	@RequestMapping(value = "index.do")
 	public ModelAndView index(HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
+		ModelAndView mav = new ModelAndView("template/index");
+		try {
 		int id = (int) session.getAttribute("id");
 		String email = (String) session.getAttribute("email");
-		ModelAndView mav = new ModelAndView("template/index");
-		ArrayList<String> repnamelist = service.getRepNameListById(id);	
-		
 		mav.addObject("id",id);
 		mav.addObject("email",email);
+		ArrayList<String> repnamelist = service.getRepNameListById(id);	
 		mav.addObject("rep_list", repnamelist);
+		System.out.println(repnamelist);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}		
 		return mav;
 	}
 
@@ -134,21 +138,22 @@ public class MemberController {
 			out.flush();
 			mav = new ModelAndView("member/login");
 		} else {
+			mav = new ModelAndView("template/index");
 			HttpSession session = req.getSession();
 			session.setAttribute("id", m2.getId());
 			session.setAttribute("email", m.getEmail());
 			String email = m2.getEmail();
 			int id = m2.getId();
 			ArrayList<String> repnamelist = service.getRepNameListById(id);
-		/*	for (int i = 0; i < repnamelist.size(); i++) {
+			/*for (int i = 0; i < repnamelist.size(); i++) {
 				System.out.println(repnamelist);
 			}*/
 			mav.addObject("id",id);
 			mav.addObject("email",email);
 			mav.addObject("rep_list", repnamelist);
-			mav = new ModelAndView("template/index");
+		
 		}
-		return mav;
+		return mav;	
 	}
 
 	// 회원정보수정Form으로 이동
@@ -205,8 +210,7 @@ public class MemberController {
 	public String emailAuth(HttpServletRequest req, @RequestParam(value = "email") String email,
 			@RequestParam(value = "requestfrom") String requestfrom)
 			throws MessagingException, UnsupportedEncodingException {
-		HttpSession session = req.getSession(false);
-		int id = (int) session.getAttribute("id");
+		HttpSession session = req.getSession(false);		
 		MailHandler sendMail = new MailHandler(mailSender);
 		Random ran = new Random();
 		int ran2 = 0;
@@ -214,6 +218,7 @@ public class MemberController {
 			ran2 = ran.nextInt(1000000);
 		}
 		if (requestfrom.equals("createws")) {
+			int id = (int) session.getAttribute("id");
 			sendMail.setSubject("JIXX 이메일인증");
 			sendMail.setText(
 					new StringBuffer().append("<h1>이메일인증</h1>").append("<a href='localhost:8080/project/verifyForm.do")

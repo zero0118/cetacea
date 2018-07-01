@@ -66,17 +66,30 @@ public class RepController {
 		service.createUserMeta(id, rep_id1, chid1);
 		service.addBoard(nickname, id, chid1);
 		Repository r2 = service.selectRepByName(r);
-		mav.addObject("r", r2);
+		System.out.println(r2.getRep_name()+"asdf"+r2.getRep_id());
+		
+		mav.addObject("r", r2.getRep_name());
 		mav.addObject("rep_id",rep_id);
 		return mav;
 	}
 	//로그인 이후에 자신의 workspace로 이동
 	@RequestMapping(value = "gomain.do")
-	public ModelAndView goMain(HttpServletRequest req) {
+	public ModelAndView goMain(HttpServletRequest req,@RequestParam(value="rep_id")	int rep_id) {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
+		session.setAttribute("rep_id", rep_id);
 		ModelAndView mav = new ModelAndView("template/main");
+		//채널리스트
+		ArrayList<Integer> chlist = service.getChList(rep_id);
+		//저장소에참여한사람리스트
+		ArrayList<Integer> userlist = service.getUserList(rep_id);
+		System.out.println("chlist:"+chlist+";;userlist:"+userlist);
+		
+		
 		mav.addObject("id", id);
+		mav.addObject("rep_id",rep_id);
+		mav.addObject("chlist",chlist);
+		mav.addObject("userlist",userlist);
 		return mav;
 	}
 	//저장소에 회원초대하는기능

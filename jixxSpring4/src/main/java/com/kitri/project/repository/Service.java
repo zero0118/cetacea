@@ -34,11 +34,15 @@ public interface Service {
 
 	Member getMember(String email);
 	
+	ArrayList<Integer> getUserList(int rep_id);
+	
 	/*String getRepNameById(int id);*/
 
 	void editRep(Repository r);
 
 	void delRep(int rep_id);
+
+	
 
 
 	

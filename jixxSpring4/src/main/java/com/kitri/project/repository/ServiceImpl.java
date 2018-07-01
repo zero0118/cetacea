@@ -130,6 +130,13 @@ public class ServiceImpl implements Service {
 		Member t = repMapper.selectUserIdByEmail(email);
 		return t;
 	}
+	@Override
+	public ArrayList<Integer> getUserList(int rep_id) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		ArrayList<Integer> list = repMapper.selectUserList(rep_id);
+		return list;
+	}
+
 
 	@Override
 	public void editRep(Repository r) {
@@ -143,5 +150,6 @@ public class ServiceImpl implements Service {
 		repMapper.delete(rep_id);
 	}
 
+	
 	
 }

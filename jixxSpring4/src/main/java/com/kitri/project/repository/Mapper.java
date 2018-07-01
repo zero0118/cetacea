@@ -23,9 +23,11 @@ public interface Mapper {
 	int selectRepIdByRepNameUserMeta(String rep_name);
 	ArrayList<Integer> selectChList(int rep_id);
 	Member selectUserIdByEmail(String email);
+	ArrayList<Integer> selectUserList(int rep_id);
 	
 	void update(Repository r);
 	void delete(int rep_id);
+
 	
 	
 		
