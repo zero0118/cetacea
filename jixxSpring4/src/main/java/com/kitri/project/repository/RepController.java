@@ -68,7 +68,7 @@ public class RepController {
 		service.createUserMeta(id, rep_id1, chid1);
 		service.addBoard(nickname, id, chid1);
 		Repository r2 = service.selectRepByName(r);
-		System.out.println(r2.getRep_name() + "asdf" + r2.getRep_id());
+/*		System.out.println(r2.getRep_name() + "asdf" + r2.getRep_id());*/
 
 		mav.addObject("r", r2.getRep_name());
 		mav.addObject("rep_id", rep_id);

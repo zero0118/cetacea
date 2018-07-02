@@ -23,7 +23,7 @@
 										class="form-control"><br> <label
 										class="form-text text-muted">This could be your first
 										name, or a nickname - however you'd like people to refer to
-										you in JIXX</label>
+										you in FILE CETACEA</label>
 								</div>
 							</div>
 						</form>

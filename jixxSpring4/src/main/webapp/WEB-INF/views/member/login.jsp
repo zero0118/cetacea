@@ -4,11 +4,11 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="<%=request.getContextPath()%>/index.do">Spring<b>JIXX</b></a>
+      <a href="<%=request.getContextPath()%>/index.do">FILE CETACEA</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
-      <p class="login-box-msg">JOIN JIXX</p>
+      <p class="login-box-msg">JOIN FILE CETACEA</p>
 
       <form action="<%=request.getContextPath()%>/login.do" method="post">
         <div class="form-group has-feedback">

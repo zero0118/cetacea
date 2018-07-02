@@ -10,7 +10,7 @@
 
 						<h3>Set your password</h3>
 						<br> <label class="control-label mb-1">Choose a
-							password for signing in to Jixx</label>
+							password for signing in to FILE CETACEA</label>
 						<form action="" method="post" class="">
 							<div class="form-group">
 								<div class="input-group">

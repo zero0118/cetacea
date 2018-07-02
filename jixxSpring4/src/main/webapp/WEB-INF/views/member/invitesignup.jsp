@@ -91,7 +91,7 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<a href="${pageContext.request.contextPath}">Spring<b>JIXX</b></a>
+			<a href="${pageContext.request.contextPath}">FILE CETACEA</a>
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
