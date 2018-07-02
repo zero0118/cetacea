@@ -163,7 +163,7 @@
 										</a>
 											<ul class="dropdown-menu">
 												<li class="user-header">
-													<p>WorkSpace List</p> <c:forEach var="aa" items="${rep_list}">
+													<p>WorkSpace List</p> <c:forEach var="aa" items="${rep_list}" varStatus="status">
 														<p>
 														<li><a href="${pageContext.request.contextPath}/gomain.do?rep_id=${aa.rep_id}"
 															style="display: inline;">${aa.rep_name}</a></li>

@@ -206,9 +206,13 @@ public class RepController {
 		for (int i = 0; i < chlist.size(); i++) {
 			int ch_id = chlist.get(i);
 			System.out.println(ch_id);
+			try {
 			service.createUserMetaInvite(id, rep_id, ch_id);
 			service.addBoard(nickname, id, ch_id);
 			service.setUserMeta2(id, rep_id, nickname);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		session.setAttribute("rep_id", rep_id);
 		res.setContentType("text/html; charset=UTF-8");
@@ -248,8 +252,7 @@ public class RepController {
 	public ModelAndView createChannel(HttpServletRequest req, Repository r,
 			@RequestParam(value = "chtitle") String chtitle) {
 		ModelAndView mav = new ModelAndView("template/main");
-		HttpSession session = req.getSession(false);
-		String nickname = (String) session.getAttribute("nickname");
+		HttpSession session = req.getSession(false);		
 		int id = (int) session.getAttribute("id");
 		int rep_id = (int) session.getAttribute("rep_id");
 		String email = (String) session.getAttribute("email");
@@ -258,7 +261,7 @@ public class RepController {
 		ArrayList<String> chlist1 = service.getChNameList(rep_id);
 		Member m2 = service.getMember(email);
 		String user_name = m2.getName();
-		ArrayList<Integer> chlist = service.getChList(rep_id);
+		ArrayList<Integer> chlist = service.getChList(rep_id);		
 		service.createCh(chtitle, rep_id);
 		Channel ch = service.getChId(rep_id);
 		int chid = ch.getCh_id();
