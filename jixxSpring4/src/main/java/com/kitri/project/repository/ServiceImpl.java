@@ -55,6 +55,15 @@ public class ServiceImpl implements Service {
 		repMapper = sqlSession.getMapper(Mapper.class);
 		repMapper.insertCh(r);
 	}
+	@Override
+	public void createCh(String chtitle,int rep_id) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		Map<String,Object> map= new HashMap<String,Object>();
+		map.put("chtitle", chtitle);
+		map.put("rep_id", rep_id);
+		repMapper.insertCh2(map);
+	}
+	
 
 	@Override
 	public Channel getChId(Repository rep_id) {
@@ -78,6 +87,30 @@ public class ServiceImpl implements Service {
 		map.put("ch_id", chid1);
 		repMapper.insertUserMeta(map);
 	}
+
+	@Override
+	public void createUserMetaCreateChannel(ArrayList<Integer> useridlist, int rep_id, int chid) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", useridlist);
+		map.put("rep_id", rep_id);
+		map.put("ch_id", chid);
+		System.out.println("useridlist:"+useridlist+";;rep_id="+rep_id+";;chid="+chid);
+		repMapper.insertUserMetaCreateChannel(map);
+	}
+	@Override
+	public void createUserMetaCreateChannel1(int user_id, int rep_id, int chid) {
+		repMapper = sqlSession.getMapper(Mapper.class);		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", user_id);
+		map.put("rep_id", rep_id);
+		map.put("ch_id", chid);
+		repMapper.insertUserMetaCreateChannel1(map);
+		
+	}
+
+
+	
 	@Override
 	public void createUserMetaInvite(int id, int rep_id, int ch_id) {
 		repMapper = sqlSession.getMapper(Mapper.class);
@@ -182,6 +215,32 @@ public class ServiceImpl implements Service {
 		ArrayList<String> t = repMapper.selectRepList(id);
 		return t;
 	}
+
+	@Override
+	public void setUserMeta2(int id, int rep_id, String nickname) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("user_id", id);	
+		map.put("rep_id", rep_id);
+		map.put("nickname", nickname);
+		repMapper.insertUserMeta2(map);
+		
+	}
+
+	@Override
+	public String getNickname(int id, int rep_id) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("id", id);
+		map.put("rep_id", rep_id);
+		String t = repMapper.selectNickname(map);
+		return t;
+	}
+
+	
+
+
+	
 
 	
 	

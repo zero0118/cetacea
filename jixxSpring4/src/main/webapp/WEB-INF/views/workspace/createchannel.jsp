@@ -90,7 +90,7 @@
 								<label class="form-text text-muted">Channels are where your members communicate.
 									They're best when organized around a topic-#leads,for example</label>
 								<form action="${pageContext.request.contextPath}/addchannel.do" method="post"
-									class="form-horizontal">
+									class="form-horizontal" id="form">
 									<label class="switch switch-3d switch-warning mr-3"><input type="checkbox"
 										class="switch-input" checked="checked" name="chtype"> <span class="switch-label"></span><span
 										class="switch-handle"></span></label> <label class="text-muted">private</label>
@@ -112,7 +112,7 @@
 								<br>
 
 								<button type="reset" class="btn btn-primary btn-sm">Cancle</button>
-								<button type="button" id="submit" class="btn btn-primary btn-sm">Create Channel</button>
+								<button type="submit" form="form" class="btn btn-primary btn-sm">Create Channel</button>
 							</div>
 						</div>
 					</div>

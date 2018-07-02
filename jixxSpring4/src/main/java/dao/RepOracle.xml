@@ -22,7 +22,7 @@
 		<result property="name" column="user_name" />
 		<result property="tempkey" column="user_tempkey" />
 		<result property="auth" column="user_auth" />
-	</resultMap>	
+	</resultMap>
 
 	<select id="getRepositoryByUrl" parameterType="vo.Repository"
 		resultMap="RepResultMap">
@@ -46,63 +46,109 @@
 		values((select max(channel_id)+1 from
 		channel),'general',1,1,#{rep_id})
 	</insert>
-	<select id="getChByRepId" parameterType="vo.Repository" resultMap="ChResultMap">
+	<insert id="insertCh2" parameterType="map">
+		insert into channel
+		values((select max(channel_id)+1 from
+		channel),#{chtitle},1,1,#{rep_id})
+	</insert>
+	<select id="getChByRepId" parameterType="vo.Repository"
+		resultMap="ChResultMap">
 		select channel_id ch_id from channel where rep_id=#{rep_id}
 	</select>
-	<select id="getChByRepId2" parameterType="Integer" resultType="Integer">
-		select max(channel_id) ch_id from channel where rep_id=#{rep_id}
+	<select id="getChByRepId2" parameterType="Integer"
+		resultMap="ChResultMap">
+		select max(channel_id) ch_id from channel where
+		rep_id=#{rep_id}
 	</select>
 	<insert id="insertUserMeta" parameterType="map">
-	insert into user_meta values(#{user_id},#{rep_id},3,#{ch_id},1)
+		insert into user_meta
+		values(#{user_id},#{rep_id},3,#{ch_id},1)
 	</insert>
+	<insert id="insertUserMetaCreateChannel" parameterType="map">
+		<foreach collection="user_id" item="type">
+			insert into user_meta
+			values(#{type.value},#{rep_id},3,#{ch_id},1)
+		</foreach>
+	</insert>
+	<insert id="insertUserMetaCreateChannel1"
+		parameterType="map">
+		insert into user_meta values(#{user_id},#{rep_id},3,#{ch_id},1)
+	</insert>
+
 	<insert id="insertUserMetaInvite" parameterType="map">
-	insert into user_meta values(#{user_id},#{rep_id},1,#{ch_id},1)
+		insert into
+		user_meta values(#{user_id},#{rep_id},1,#{ch_id},1)
 	</insert>
 	<insert id="insertBoard" parameterType="map">
-	insert into post values((select max(post_id)+1 from post),null,#{nickname}, 
-	'jixx 저장소에 오신것을 환영합니다', #{user_id}, sysdate,null,null,null,1,#{ch_id})
+		insert into post
+		values((select max(post_id)+1 from post),null,#{nickname},
+		'jixx 저장소에
+		오신것을 환영합니다', #{user_id}, sysdate,null,null,null,1,#{ch_id})
 	</insert>
-	<select id="getNameById" parameterType="Integer" resultMap="MemberResultMap">
-	select user_name from member where user_id=#{id}
+	<select id="getNameById" parameterType="Integer"
+		resultMap="MemberResultMap">
+		select user_name from member where user_id=#{id}
 	</select>
-	<insert id="insertMember" parameterType="map">	
-	insert into member
+	<insert id="insertMember" parameterType="map">
+		insert into member
 		values((select max(user_id)+1 from
 		member),#{email},#{pwd},#{name},'',default)
 	</insert>
-	<select id="selectRepIdByRepNameUserMeta" parameterType="String" resultType="Integer">
-	select um.rep_id from user_meta um,repository r where um.rep_id=r.rep_id and r.rep_name=#{rep_name}
+	<select id="selectRepIdByRepNameUserMeta" parameterType="String"
+		resultType="Integer">
+		select um.rep_id from user_meta um,repository r where
+		um.rep_id=r.rep_id and
+		r.rep_name=#{rep_name}
 	</select>
-	<select id="selectChList" parameterType="Integer" resultType="java.lang.Integer">
-	select channel_id from channel where rep_id=#{rep_id}
+	<select id="selectChList" parameterType="Integer"
+		resultType="java.lang.Integer">
+		select channel_id from channel where rep_id=#{rep_id}
 	</select>
-	<select id="selectChNameList" parameterType="Integer" resultType="java.lang.String">
-	select channel_name from channel where rep_id=#{rep_id}
+	<select id="selectChNameList" parameterType="Integer"
+		resultType="java.lang.String">
+		select channel_name from channel where rep_id=#{rep_id}
 	</select>
-	<select id="selectUserIdByEmail" parameterType="String" resultMap="MemberResultMap">
-	select * from member where user_email=#{email}
+	<select id="selectUserIdByEmail" parameterType="String"
+		resultMap="MemberResultMap">
+		select * from member where user_email=#{email}
 	</select>
-	<select id="selectUserList" parameterType="Integer" resultType="java.lang.Integer">
-	select user_id from user_meta where rep_id=#{rep_id}
+	<select id="selectUserList" parameterType="Integer"
+		resultType="java.lang.Integer">
+		select distinct(user_id) from user_meta where
+		rep_id=#{rep_id}
 	</select>
-	<select id="selectUserNameList" parameterType="map" resultType="java.lang.String">
-	select
-        user_name
-    from
-        member
-   where user_id in
-        <foreach collection="user_id" item="type"  open="(" close=")" separator=",">
-            #{type.value}
-        </foreach>
+	<select id="selectUserNameList" parameterType="map"
+		resultType="java.lang.String">
+		select
+		user_name
+		from
+		member
+		where user_id in
+		<foreach collection="user_id" item="type" open="(" close=")"
+			separator=",">
+			#{type.value}
+		</foreach>
 	</select>
-	<select id="selectRepName" parameterType="Integer" resultMap="RepResultMap">
-	select rep_name from repository where rep_id=#{rep_id}
+	<select id="selectRepName" parameterType="Integer"
+		resultMap="RepResultMap">
+		select rep_name from repository where rep_id=#{rep_id}
 	</select>
-	<select id="selectRepList" parameterType="Integer" resultMap="RepResultMap">
-	select r.* from repository r,member m,user_meta um 
-	where r.rep_id=um.rep_id and um.user_id=m.user_id and m.user_id=#{id}
+	<select id="selectRepList" parameterType="Integer"
+		resultMap="RepResultMap">
+		select r.* from repository r,member m,user_meta um
+		where
+		r.rep_id=um.rep_id and um.user_id=m.user_id and m.user_id=#{id}
 	</select>
-	 
+	<insert id="insertUserMeta2" parameterType="map">
+		insert into
+		user_meta2 values(#{user_id},#{rep_id},#{nickname})
+	</insert>
+	<select id="selectNickname" parameterType="map"
+		resultType="String">
+		select nickname from user_meta2 where user_id=#{id} and
+		rep_id=#{rep_id}
+	</select>
+
 
 
 
