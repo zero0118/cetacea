@@ -8,7 +8,7 @@
 				<div class="card">
 					<div class="card-body card-block">
 
-						<h3>Join the Jixx workspace jas</h3>
+						<h3>Join the FILE CETACEA workspace jas</h3>
 						<br>
 						<form action="" method="post" class="">
 							<div class="form-group">
@@ -27,7 +27,7 @@
 								</div>
 							</div>
 
-							<label class="form-text text-muted">By default, JiXX use
+							<label class="form-text text-muted">By default, FILE CETACEA use
 								your full name -but ou can choose sometiong shorter if your'd
 								like.</label>
 

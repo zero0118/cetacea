@@ -69,7 +69,9 @@ public class RepController {
 		int chid1 = chid.getCh_id();
 		service.createUserMeta(id, rep_id1, chid1);
 		service.addBoard(nickname, id, chid1);
+
 		Repository r2 = service.selectRepByName(rep_id);
+
 
 		mav.addObject("r", r2);
 		mav.addObject("rep_id", rep_id);

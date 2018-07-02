@@ -89,7 +89,8 @@
 								<br>
 								<label class="form-text text-muted">Channels are where your members communicate.
 									They're best when organized around a topic-#leads,for example</label>
-								<form action="${pageContext.request.contextPath}/addchannel.do" method="post" class="form-horizontal">
+								<form action="${pageContext.request.contextPath}/addchannel.do" method="post"
+									class="form-horizontal">
 									<label class="switch switch-3d switch-warning mr-3"><input type="checkbox"
 										class="switch-input" checked="checked" name="chtype"> <span class="switch-label"></span><span
 										class="switch-handle"></span></label> <label class="text-muted">private</label>
@@ -100,7 +101,7 @@
 										<div class="col-5">
 											<label class="control-label mb-1">name</label> <input type="text" name="chtitle"
 												placeholder="e.g.leads" class="form-control">
-											<br>											
+											<br>
 											<label class="control-label mb-1">Send invates to:(optional)</label>
 											<br>
 											<input type="text" name="invate" placeholder="Search by name" class="form-control">
@@ -133,7 +134,6 @@
 		</footer>
 	</div>
 	<!-- ./wrapper -->
-
 
 </body>
 </html>
