@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -58,6 +59,7 @@ public class RepController {
 			Repository r) throws Exception {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
+		session.setAttribute("nickname", nickname);
 		ModelAndView mav = new ModelAndView("workspace/teaminvite");
 		service.addRep(r);
 		Repository rep_id = service.getRepId(r);
@@ -67,17 +69,16 @@ public class RepController {
 		int chid1 = chid.getCh_id();
 		service.createUserMeta(id, rep_id1, chid1);
 		service.addBoard(nickname, id, chid1);
-		Repository r2 = service.selectRepByName(r);
-		System.out.println(r2.getRep_name() + "asdf" + r2.getRep_id());
+		Repository r2 = service.selectRepByName(rep_id);
 
-		mav.addObject("r", r2.getRep_name());
+		mav.addObject("r", r2);
 		mav.addObject("rep_id", rep_id);
 		return mav;
 	}
 
 	// 로그인 이후에 자신의 workspace로 이동
 	@RequestMapping(value = "gomain.do")
-	public ModelAndView goMain(HttpServletRequest req, @RequestParam(value = "rep_id") int rep_id) {
+	public ModelAndView goMain(HttpServletRequest req, @RequestParam(value = "rep_id") int rep_id,Member m) {
 		HttpSession session = req.getSession(false);
 		int id = (int) session.getAttribute("id");
 		session.setAttribute("rep_id", rep_id);
@@ -90,8 +91,11 @@ public class RepController {
 		System.out.println("chlist:" + chlist + ";;userlist:" + userlist + ";;usernamelist:" + usernamelist);
 		String email=(String) session.getAttribute("email");
 		ArrayList<String> repnamelist = service.getRepNameListById(id);
-		
-		
+		Member m2 = service.getMember(id);
+		String user_name=m2.getName();		
+		Repository r= service.selectRepByName(rep_id);
+		mav.addObject("rep_name",r.getRep_name());
+		mav.addObject("user_name",user_name);
 		mav.addObject("email",email);	
 		mav.addObject("rep_list", repnamelist);		
 		mav.addObject("id", id);
@@ -135,7 +139,10 @@ public class RepController {
 		ArrayList<String> chlist = service.getChNameList(rep_id);
 		// 저장소에참여한사람리스트
 		ArrayList<Integer> userlist = service.getUserList(rep_id);
-		ArrayList<String> usernamelist = service.getUserNameList(userlist);
+		ArrayList<String> usernamelist = service.getUserNameList(userlist);	
+		Repository r= service.selectRepByName(rep_id);
+		mav.addObject("rep_name",r.getRep_name());
+		mav.addObject("user_name",user_name);
 		mav.addObject("id", id);
 		mav.addObject("rep_id", rep_id);
 		mav.addObject("ch_list", chlist);
@@ -180,6 +187,7 @@ public class RepController {
 			@RequestParam(value = "nickname") String nickname, Member m) throws Exception {
 		ModelAndView mav = new ModelAndView("template/main");
 		HttpSession session = req.getSession(false);
+		session.setAttribute("nickname", nickname);
 		service.addMember(email, pwd, name);
 		Member m2 = service.getMember(email);
 		session.invalidate();
@@ -205,11 +213,65 @@ public class RepController {
 		ArrayList<String> chlist1 = service.getChNameList(rep_id2);
 		// 저장소에참여한사람리스트
 		ArrayList<Integer> userlist = service.getUserList(rep_id);
-		ArrayList<String> usernamelist = service.getUserNameList(userlist);
+		ArrayList<String> usernamelist = service.getUserNameList(userlist);		
+		String user_name=m2.getName();		
+		Repository r= service.selectRepByName(rep_id);
+		mav.addObject("rep_name",r.getRep_name());
+		mav.addObject("user_name",user_name);
 		mav.addObject("id", id);
 		mav.addObject("rep_id", rep_id);
 		mav.addObject("ch_list", chlist1);
 		mav.addObject("user_list", usernamelist);
+		return mav;
+	}
+	@RequestMapping(value="addchannelform.do")
+	public ModelAndView createChannelForm(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView("workspace/createchannel");
+		HttpSession session = req.getSession(false);
+		int rep_id = (int) session.getAttribute("rep_id");
+		ArrayList<Integer> userlist = service.getUserList(rep_id);
+		ArrayList<String> usernamelist = service.getUserNameList(userlist);	
+		mav.addObject("usernamelist",usernamelist);			
+		return mav;
+	}
+	@RequestMapping(value="addchannel.do")
+	public ModelAndView createChannel(HttpServletRequest req,Repository r) {
+		ModelAndView mav = new ModelAndView("template/main");
+		HttpSession session  = req.getSession(false);
+		String nickname = (String)session.getAttribute("nickname");
+		int id=(int) session.getAttribute("id");
+		int rep_id = (int) session.getAttribute("rep_id");
+		String email =(String) session.getAttribute("email");
+		ArrayList<Integer> userlist = service.getUserList(rep_id);
+		ArrayList<String> usernamelist = service.getUserNameList(userlist);		
+		ArrayList<String> chlist1 = service.getChNameList(rep_id);
+		Member m2 = service.getMember(email);
+		String user_name=m2.getName();
+		ArrayList<Integer> chlist = service.getChList(rep_id);
+		service.createCh(r);
+		Channel ch = service.getChId(rep_id);
+		int chid= ch.getCh_id();
+		ArrayList<Integer> userlist2= service.getUserList(rep_id);
+		
+		for (int i = 0; i < userlist2.size(); i++) {
+			
+			System.out.println(chid);
+			service.createUserMetaInvite(id, rep_id, chid);
+			service.addBoard(nickname, id, chid);
+		}
+		
+		
+		
+		
+		
+		
+		mav.addObject("rep_name",r.getRep_name());
+		mav.addObject("user_name",user_name);
+		mav.addObject("id", id);
+		mav.addObject("rep_id", rep_id);
+		mav.addObject("ch_list", chlist1);
+		mav.addObject("user_list", usernamelist);
+		
 		return mav;
 	}
 
@@ -218,10 +280,6 @@ public class RepController {
 		return "workspace/joinworkspace";
 	}
 
-	@RequestMapping(value = "crch.do")
-	public String crch() {
-		return "workspace/createchannel";
-	}
 
 	@RequestMapping(value = "teaminvite.do")
 	public String teamInvite() {
@@ -231,6 +289,18 @@ public class RepController {
 	@RequestMapping(value = "wrokspaceurl.do")
 	public String workspaceUrl() {
 		return "workspace/workspaceurl";
+	}
+	@RequestMapping(value="editprofile.do")
+	public String editProfile() {
+		return "member/EditFrofile";		
+	}
+	@RequestMapping(value="profile.do")
+	public String profile() {
+		return "member/frofile";		
+	}
+	@RequestMapping(value="profileform.do")
+	public String profileForm() {
+		return "member/frofileForm";		
 	}
 
 }

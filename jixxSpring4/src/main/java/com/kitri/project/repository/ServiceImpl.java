@@ -62,6 +62,12 @@ public class ServiceImpl implements Service {
 		Channel ch = repMapper.getChByRepId(rep_id);
 		return ch;
 	}
+	@Override
+	public Channel getChId(int rep_id) {
+		repMapper = sqlSession.getMapper(Mapper.class);
+		Channel ch = repMapper.getChByRepId2(rep_id);
+		return ch;
+	}
 
 	@Override
 	public void createUserMeta(int id, int rep_id1, int chid1) {
@@ -146,10 +152,7 @@ public class ServiceImpl implements Service {
 		repMapper = sqlSession.getMapper(Mapper.class);			
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("user_id", userlist);		
-		ArrayList<String> list = repMapper.selectUserNameList(map);	
-
-
-	
+		ArrayList<String> list = repMapper.selectUserNameList(map);		
 		return list;
 	}
 
@@ -179,6 +182,9 @@ public class ServiceImpl implements Service {
 		ArrayList<String> t = repMapper.selectRepList(id);
 		return t;
 	}
+
+	
+	
 
 	
 

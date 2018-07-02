@@ -70,6 +70,7 @@
 	<c:set var="user_id" value="${id }" />
 	<c:set var="email" value="${email}" />
 	<c:set var="replist" value="${rep_list}" />
+	<c:set var="user_name" value="${user_name}" />
 	<header class="main-header">
 		<nav class="navbar navbar-static-top">
 			<div class="container">
@@ -88,7 +89,7 @@
 							
 							<c:otherwise>
 								<li class="dropdown user user-menu">
-								<a class="dropdown-toggle" > ${email}님 환영합니다 </a>
+								<a class="dropdown-toggle" > ${user_name}님 환영합니다 </a>
 								</li>
 								
 								<c:choose>
@@ -157,7 +158,7 @@
 												<!-- Menu Footer-->
 												<li class="user-footer">
 													<div class="pull-left">
-														<a href="#" class="btn btn-default btn-flat">Profile</a>
+														<a href="${pageContext.request.contextPath}/profileform.do" class="btn btn-default btn-flat">Profile</a>
 													</div>
 													<div class="pull-right">
 														<a href="${pageContext.request.contextPath}/member/logout.do"
@@ -171,9 +172,7 @@
 								</c:choose>
 							</c:otherwise>
 						</c:choose>
-					</ul>
-					
-					
+					</ul>					
 				</div>
 			</div>
 		</nav>

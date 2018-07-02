@@ -18,6 +18,7 @@ public interface Service {
 	Repository selectRepByName(Repository r);
 
 	Channel getChId(Repository rep_id);
+	Channel getChId(int rep_id);
 
 	void createUserMeta(int id, int rep_id1, int chid1);
 	void createUserMetaInvite(int id, int rep_id, int ch_id);
@@ -49,6 +50,9 @@ public interface Service {
 	Repository selectRepByName(int rep_id);
 
 	ArrayList<String> getRepNameListById(int id);
+
+	
+
 
 	
 
