@@ -7,7 +7,7 @@
 			<div class="col-lg-16">
 				<div class="card">
 					<div class="card-body card-block">
-						<h3>What's URL do you want for your Slack workspace?</h3>
+						<h3>What's URL do you want for your FILE CETACEA workspace?</h3>
 						<br> <label class="form-text text-muted">Choose the
 							address you'll use to sign in to Slack</label> <label
 							class="control-label mb-1">Your workspace URL</label>
@@ -17,7 +17,7 @@
 									<input type="text" name="Gropname" placeholder=""
 										class="form-control">
 								</div>
-								<label class="control-label mb-1">.jixx.com</label>
+								<label class="control-label mb-1">.FILE CETACEA.com</label>
 							</div>
 						</form>
 						<button type="submit" class="btn btn-primary btn-sm">Create

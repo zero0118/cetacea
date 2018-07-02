@@ -140,9 +140,11 @@
 												<li class="user-header">
 													<p>WorkSpace List</p> 
 													<c:forEach var="aa" items="${rep_list}">
-														<li><a href="${pageContext.request.contextPath}/gomain.do?rep_id=${aa.rep_id}"
-															style="display: inline;">${aa.rep_name}</a>
+													
+														<li class="user-body"><a href="${pageContext.request.contextPath}/gomain.do?rep_id=${aa.rep_id}"
+															class="hidden-xs text-center" >${aa.rep_name}</a>
 														</li>
+													
 													</c:forEach> <!-- Menu Body -->
 												</li>
 												<li class="user-body">
