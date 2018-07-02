@@ -14,9 +14,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -60,16 +60,18 @@ public class MemberController {
 		HttpSession session = req.getSession(false);
 		ModelAndView mav = new ModelAndView("template/index");
 		try {
-		int id = (int) session.getAttribute("id");
-		String email = (String) session.getAttribute("email");
-		mav.addObject("id",id);
-		mav.addObject("email",email);
-		ArrayList<String> repnamelist = service.getRepNameListById(id);	
-		mav.addObject("rep_list", repnamelist);
-		System.out.println(repnamelist);
+			int id = (int) session.getAttribute("id");
+			String email = (String) session.getAttribute("email");
+			Member m2 = service.getMemberEmail(email);
+			mav.addObject("user_name", m2.getName());
+			mav.addObject("id", id);
+			mav.addObject("email", email);
+			ArrayList<String> repnamelist = service.getRepNameListById(id);
+			mav.addObject("rep_list", repnamelist);
+			System.out.println(repnamelist);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-		}		
+		}
 		return mav;
 	}
 
@@ -128,8 +130,8 @@ public class MemberController {
 	// 로그인기능
 	@RequestMapping(value = "/login.do")
 	public ModelAndView login(HttpServletRequest req, Member m, HttpServletResponse res) throws Exception {
-		ModelAndView mav =new ModelAndView();
-		Member m2 = service.getMemberEmail(m.getEmail());		
+		ModelAndView mav = new ModelAndView();
+		Member m2 = service.getMemberEmail(m.getEmail());
 		if (m2 == null || !m2.getPwd().equals(m.getPwd())) {
 			System.out.println("로그인 실패");
 			res.setContentType("text/html; charset=UTF-8");
@@ -144,34 +146,19 @@ public class MemberController {
 			session.setAttribute("email", m.getEmail());
 			int id = (int) session.getAttribute("id");
 			String email = (String) session.getAttribute("email");
-			
+			String user_name = m2.getName();
+
 			ArrayList<String> repnamelist = service.getRepNameListById(id);
-			/*for (int i = 0; i < repnamelist.size(); i++) {
-				System.out.println(repnamelist);
-			}*/
-			mav.addObject("id",id);
-			mav.addObject("email",email);	
-			mav.addObject("rep_list", repnamelist);		
+			/*
+			 * for (int i = 0; i < repnamelist.size(); i++) {
+			 * System.out.println(repnamelist); }
+			 */
+			mav.addObject("user_name", user_name);
+			mav.addObject("id", id);
+			mav.addObject("email", email);
+			mav.addObject("rep_list", repnamelist);
 		}
-		return mav;	
-	}
-
-	// 회원정보수정Form으로 이동
-	@RequestMapping(value = "/member/editForm.do")
-	public ModelAndView editForm(HttpServletRequest req) {
-		ModelAndView mav = new ModelAndView("member/editForm");
-		HttpSession session = req.getSession(false);
-		String id = (String) session.getAttribute("id");
-		Member m = service.getMemberId(Integer.parseInt(id));
-		mav.addObject("m", m);
 		return mav;
-	}
-
-	// 회원정보수정기능
-	@RequestMapping(value = "/member/edit.do")
-	public String edit(Member m) {
-		service.editMember(m);
-		return "member/main";
 	}
 
 	// 로그아웃기능
@@ -210,7 +197,7 @@ public class MemberController {
 	public String emailAuth(HttpServletRequest req, @RequestParam(value = "email") String email,
 			@RequestParam(value = "requestfrom") String requestfrom)
 			throws MessagingException, UnsupportedEncodingException {
-		HttpSession session = req.getSession(false);		
+		HttpSession session = req.getSession(false);
 		MailHandler sendMail = new MailHandler(mailSender);
 		Random ran = new Random();
 		int ran2 = 0;
@@ -295,13 +282,39 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "setnewpass.do")
-	public String setPassLogin(HttpServletResponse res,Member m)throws Exception {
+	public String setPassLogin(HttpServletResponse res, Member m) throws Exception {
 		service.setNewPass(m);
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
 		out.println("<script>alert('비밀번호 변경이 완료되었습니다.'); </script>");
 		out.flush();
 		return "member/login";
+	}
+
+	@RequestMapping(value = "editprofileform.do")
+	public ModelAndView profileForm(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView("member/profileform");
+		HttpSession session = req.getSession(false);
+		/*String */
+		return mav;
+	}
+
+	// 회원정보수정Form으로 이동
+	@RequestMapping(value = "/member/editForm.do")
+	public ModelAndView editForm(HttpServletRequest req) {
+		ModelAndView mav = new ModelAndView("member/editForm");
+		HttpSession session = req.getSession(false);
+		String id = (String) session.getAttribute("id");
+		Member m = service.getMemberId(Integer.parseInt(id));
+		mav.addObject("m", m);
+		return mav;
+	}
+
+	// 회원정보수정기능
+	@RequestMapping(value = "/member/edit.do")
+	public String edit(Member m) {
+		service.editMember(m);
+		return "member/main";
 	}
 
 }
