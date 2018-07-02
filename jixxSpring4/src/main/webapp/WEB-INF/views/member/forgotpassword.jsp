@@ -86,18 +86,17 @@
 								<h3>Find forgotten password</h3>
 								<br> <label class="control-label mb-1">Your email
 									address</label>
+										<input type="button" value="아이디체크" onclick="check()" class="btn bg-navy btn-flat margin" style="flat:left;">
 								<form action="${pageContext.request.contextPath }/emailauth.do"
 									method="post" class="form-horizontal" id="insertform">
 									<div class="row form-group">
-										<div class="col-6">
+										<div class="col-5">
 											<input type="email" name="email" class="form-control"
 												id="emailinput"> <input type="hidden"
 												name="requestfrom" value="findpass">
 										</div>
 									</div>
 									<div>
-										<input type="button" value="아이디체크" onclick="check()"
-											class="btn btn-primary btn-block btn-flat">
 									</div>
 									<div id="check_div"></div>
 									<button type="button" class="btn btn-block btn-primary btn-lg"

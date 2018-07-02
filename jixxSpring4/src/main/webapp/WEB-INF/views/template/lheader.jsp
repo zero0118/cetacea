@@ -40,4 +40,5 @@
 <script src="<%= request.getContextPath() %>/resources/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<%= request.getContextPath() %>/resources/dist/js/demo.js"></script>
+
 </head>
