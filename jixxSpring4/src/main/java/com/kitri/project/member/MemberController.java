@@ -1,4 +1,4 @@
-package com.kitri.project.member;
+﻿package com.kitri.project.member;
 
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -26,6 +26,7 @@ import vo.Member;
 
 @Controller
 public class MemberController {
+
 	@Resource(name = "memService")
 	private Service service;
 	@Inject // spring에서 메일보내주는기능
